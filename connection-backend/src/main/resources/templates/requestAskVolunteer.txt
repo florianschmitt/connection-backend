@@ -1,0 +1,10 @@
+Hallo <to.firstname> <to.lastname>,
+
+willst du am <request.dateString> einen Termin für eine Sprachbegleitung in <request.languageString> übernehmen?
+
+Bitte klicke auf folgenden Link, um die Anfrage anzunehmen: <linkAnswerRequest>
+
+Wenn du die Anfrage ablehnen willst, klicke bitte auf folgenden Link: <linkAnswerRequestDecline>
+
+Viele Grüße,
+<sender>

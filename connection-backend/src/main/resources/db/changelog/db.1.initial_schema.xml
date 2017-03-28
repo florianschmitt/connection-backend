@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="fschmitt (generated)" id="1503313393935-1">
+        <createSequence sequenceName="hibernate_sequence"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-2">
+        <createTable tableName="efeedback">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="VARCHAR(1024)"/>
+            <column name="positive" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="request_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="volunteer_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-3">
+        <createTable tableName="elanguage">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="identifier" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="view_order" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-4">
+        <createTable tableName="elocalized">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="locale_language" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-5">
+        <createTable tableName="epayment">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="VARCHAR(1024)"/>
+            <column name="payment_booked_at" type="TIMESTAMP(6) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_received" type="numeric(10, 2)"/>
+            <column name="payment_booked_by_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="request_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-6">
+        <createTable tableName="erequest">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(6) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="datetime" type="TIMESTAMP(6) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ocation" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="postal_code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="request_identifier" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accepted_by_volunteer_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-7">
+        <createTable tableName="erequest_languages">
+            <column name="erequest_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="languages_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-8">
+        <createTable tableName="esystem_user">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firstname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_admin_right" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_finance_right" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hashed_password" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-9">
+        <createTable tableName="etemplate">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="identifier" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="template" type="VARCHAR(10000)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-10">
+        <createTable tableName="evolunteer">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firstname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-11">
+        <createTable tableName="evolunteer_languages">
+            <column name="evolunteer_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="languages_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-12">
+        <createTable tableName="evoucher">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="answer" type="BOOL"/>
+            <column name="identifier" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="request_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="volunteer_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-13">
+        <addPrimaryKey columnNames="id" constraintName="efeedback_pkey" tableName="efeedback"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-14">
+        <addPrimaryKey columnNames="id" constraintName="elanguage_pkey" tableName="elanguage"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-15">
+        <addPrimaryKey columnNames="id" constraintName="elocalized_pkey" tableName="elocalized"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-16">
+        <addPrimaryKey columnNames="id" constraintName="epayment_pkey" tableName="epayment"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-17">
+        <addPrimaryKey columnNames="erequest_id, languages_id" constraintName="erequest_languages_pkey" tableName="erequest_languages"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-18">
+        <addPrimaryKey columnNames="id" constraintName="erequest_pkey" tableName="erequest"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-19">
+        <addPrimaryKey columnNames="id" constraintName="esystem_user_pkey" tableName="esystem_user"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-20">
+        <addPrimaryKey columnNames="id" constraintName="etemplate_pkey" tableName="etemplate"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-21">
+        <addPrimaryKey columnNames="evolunteer_id, languages_id" constraintName="evolunteer_languages_pkey" tableName="evolunteer_languages"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-22">
+        <addPrimaryKey columnNames="id" constraintName="evolunteer_pkey" tableName="evolunteer"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-23">
+        <addPrimaryKey columnNames="id" constraintName="evoucher_pkey" tableName="evoucher"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-24">
+        <addUniqueConstraint columnNames="volunteer_id, request_id" constraintName="uk8cxr3wm069j01tbr9peleqdnb" tableName="efeedback"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-25">
+        <addUniqueConstraint columnNames="email" constraintName="uk_1nsshiwuj5o3n7bqa9j1fot6l" tableName="evolunteer"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-26">
+        <addUniqueConstraint columnNames="identifier" constraintName="uk_dwpy3ro3rd1jspsj2d68514is" tableName="etemplate"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-27">
+        <addUniqueConstraint columnNames="email" constraintName="uk_kx5h6oftx7uwvaqma1isn854b" tableName="esystem_user"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-28">
+        <addUniqueConstraint columnNames="identifier" constraintName="uk_npsdr1yqq5apvecprfvxky8es" tableName="elanguage"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-29">
+        <addUniqueConstraint columnNames="identifier" constraintName="uk_od1teeo27udhv29r72v2gu8tx" tableName="evoucher"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-30">
+        <addUniqueConstraint columnNames="request_identifier" constraintName="uk_rbmhpxoquj5ev5hjqm1gb1am" tableName="erequest"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-31">
+        <addForeignKeyConstraint baseColumnNames="volunteer_id" baseTableName="evoucher" constraintName="fk357ufsxg4w7cenk46l9bj19jn" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="evolunteer"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-32">
+        <addForeignKeyConstraint baseColumnNames="languages_id" baseTableName="evolunteer_languages" constraintName="fk4242i94kh7ida6h2dklcairii" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="elanguage"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-33">
+        <addForeignKeyConstraint baseColumnNames="volunteer_id" baseTableName="efeedback" constraintName="fk5m8dftcj31666hattjbxxl00" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="evolunteer"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-34">
+        <addForeignKeyConstraint baseColumnNames="language_id" baseTableName="elocalized" constraintName="fk7vejb6aaft9hll1mirarnsaxa" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="elanguage"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-35">
+        <addForeignKeyConstraint baseColumnNames="request_id" baseTableName="efeedback" constraintName="fk8b1tgjhi57aip7o9rkvrw6qle" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="erequest"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-36">
+        <addForeignKeyConstraint baseColumnNames="request_id" baseTableName="epayment" constraintName="fkdvpib121q2hch53i1sf06wkah" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="erequest"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-37">
+        <addForeignKeyConstraint baseColumnNames="erequest_id" baseTableName="erequest_languages" constraintName="fkema33n2pe494p15gx45nhheh1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="erequest"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-38">
+        <addForeignKeyConstraint baseColumnNames="evolunteer_id" baseTableName="evolunteer_languages" constraintName="fkhnbqw1ixjdkpml2gwfhl2pypc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="evolunteer"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-39">
+        <addForeignKeyConstraint baseColumnNames="accepted_by_volunteer_id" baseTableName="erequest" constraintName="fkib584dqb57x3i7sjrmnc9369v" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="evolunteer"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-40">
+        <addForeignKeyConstraint baseColumnNames="languages_id" baseTableName="erequest_languages" constraintName="fkilbfhpy11xeqkuha6hs53n7ae" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="elanguage"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-41">
+        <addForeignKeyConstraint baseColumnNames="request_id" baseTableName="evoucher" constraintName="fkpfkpx9jrdgdxo176udohf2u6q" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="erequest"/>
+    </changeSet>
+    <changeSet author="fschmitt (generated)" id="1503313393935-42">
+        <addForeignKeyConstraint baseColumnNames="payment_booked_by_id" baseTableName="epayment" constraintName="fkteckl4k7g1pt3s6cdc2gwqrxa" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="esystem_user"/>
+    </changeSet>
+</databaseChangeLog>

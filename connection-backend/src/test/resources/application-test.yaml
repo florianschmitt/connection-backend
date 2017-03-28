@@ -1,0 +1,11 @@
+spring.jmx.enabled: false
+security.basic.enabled: false
+spring.datasource.data:
+server.port: 8543
+server.publicPort: 81
+
+server.ssl.key-store: keystore.p12
+server.ssl.key-store-password: keystore
+server.ssl.keyStoreType: PKCS12
+server.ssl.keyAlias: tomcat
+server.ssl.protocol: TLSv1.2

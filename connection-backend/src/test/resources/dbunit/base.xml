@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <ELanguage id="1" identifier="ARABIC" view_order="0"/>
+    <ELanguage id="2" identifier="TURKISH" view_order="1"/>
+    <ELanguage id="3" identifier="SERBOCROATIAN" view_order="2"/>
+
+    <ELocalized id="1" LANGUAGE_ID="1" locale_language="de" value="Arabisch"/>
+    <ELocalized id="2" LANGUAGE_ID="2" locale_language="de" value="Türkisch"/>
+    <ELocalized id="3" LANGUAGE_ID="3" locale_language="de" value="Serbo-Kroatisch"/>
+
+    <ELocalized id="4" LANGUAGE_ID="1" locale_language="ar" value="العربية"/>
+    <ELocalized id="5" LANGUAGE_ID="2" locale_language="ar" value="اللغة التركية"/>
+    <ELocalized id="6" LANGUAGE_ID="3" locale_language="ar" value="اللغة التركية"/>
+
+    <ELocalized id="7" LANGUAGE_ID="1" locale_language="en" value="Arabic"/>
+    <ELocalized id="8" LANGUAGE_ID="2" locale_language="en" value="Turkish"/>
+    <ELocalized id="9" LANGUAGE_ID="3" locale_language="en" value="Serbo-Croatian"/>
+
+    <EVolunteer id="1" firstname="firstname" lastname="lastname" email="e@mail.de" is_active="true"/>
+    <EVOLUNTEER_LANGUAGES EVOLUNTEER_ID="1" LANGUAGES_ID="1"/>
+    <EVOLUNTEER_LANGUAGES EVOLUNTEER_ID="1" LANGUAGES_ID="2"/>
+
+    <EVolunteer id="2" firstname="firstname" lastname="lastname 2" email="e2@mail.de" is_active="true"/>
+    <EVOLUNTEER_LANGUAGES EVOLUNTEER_ID="2" LANGUAGES_ID="2"/>
+    <EVOLUNTEER_LANGUAGES EVOLUNTEER_ID="2" LANGUAGES_ID="3"/>
+
+    <ERequest/>
+    <EFeedback/>
+    <ESystem_User/>
+</dataset>
+

@@ -1,0 +1,76 @@
+spring:
+  jmx.enabled: false
+  datasource.driverClassName: org.h2.Driver
+
+security.basic.enabled: true
+
+server:
+  port: 8443
+  compression.enabled: true
+
+application:
+  applicationUrl: http://localhost:3000
+  allowedOrigins: http://localhost:3000, https://localhost:3000, http://localhost:4200
+
+liquibase.changeLog: 'classpath:/db/changelog/db.changelog-master.xml'
+
+---
+spring.profiles: dev
+
+spring:
+  h2.console.enabled: true
+  jpa.showSql: true
+  mail.host: localhost
+
+security.basic.enabled: false
+
+server.ssl:
+  keyStore: keystore.p12
+  keyStorePassword: keystore
+  keyStoreType: PKCS12
+  keyAlias: tomcat
+  protocol: TLSv1.2
+
+---
+spring.profiles: dev-postgres
+
+spring.datasource:
+  url: jdbc:postgresql://[::1]:5432/connection
+  driverClassName: org.postgresql.Driver
+  username: connection
+  password: connection
+  jpa:
+    showSql: true
+    hibernate.ddlAuto: validate
+  mail.host: localhost
+
+security.basic.enabled: false
+
+server.ssl:
+  keyStore: keystore.p12
+  keyStorePassword: keystore
+  keyStoreType: PKCS12
+  keyAlias: tomcat
+  protocol: TLSv1.2
+
+---
+spring.profiles: current-schema
+
+spring:
+    datasource:
+        url: jdbc:postgresql://[::1]:5432/connection_current
+        driverClassName: org.postgresql.Driver
+        username: connection
+        password: connection
+
+    jpa:
+      hibernate.ddl-auto: create
+      hibernate.show_sql: false
+
+    autoconfigure.exclude:
+      - org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration
+      - org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration
+    main.web-environment: false
+
+liquibase.enabled: false
+logging.level.org.hibernate.SQL: DEBUG

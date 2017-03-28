@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <ESystem_User id="1" firstname="admin" lastname="user" email="admin@connection.de" is_active="true"
+                  hashed_password="$2a$10$GA4lOCK5sY5mXTi3xGkOx.yPBSL4luG2bZh1Avt67rrBSh.dCB1Nu" has_admin_right="true"
+                  has_finance_right="true"/>
+</dataset>
+

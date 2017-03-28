@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <ERequest id="1" REQUEST_IDENTIFIER="ident3" state="FINISHED" datetime="2017-05-01 14:00:00.0" ocation="ocation"
+              street="street" POSTAL_CODE="12345" city="Cologne" email="request1@mail.de" phone="12345"
+              CREATED_AT="2017-04-01 14:00:00.0" ACCEPTED_BY_VOLUNTEER_ID="1"/>
+    <EREQUEST_LANGUAGES EREQUEST_ID="1" LANGUAGES_ID="1"/>
+    <EVoucher id="1" identifier="voucherId1" VOLUNTEER_ID="1" REQUEST_ID="1" answer="[null]"/>
+</dataset>
+
