@@ -1,4 +1,4 @@
 rootProject.name = 'connection-backend'
 
-includeBuild '../../frontend-requestform'
-includeBuild '../../frontend-admin'
+includeBuild '../frontend-requestform'
+includeBuild '../frontend-admin'
