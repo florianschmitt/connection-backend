@@ -1,4 +1,7 @@
 rootProject.name = 'connection-backend'
 
-includeBuild '../connection-frontend-requestform'
-includeBuild '../connection-frontend-admin'
+//TODO: does not work
+if (rootProject.hasProperty('includeFrontend')){
+	includeBuild '../connection-frontend-requestform'
+	includeBuild '../connection-frontend-admin'
+}

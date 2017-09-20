@@ -1,0 +1,4 @@
+dependencies {
+    compile('de.florianschmitt:frontend-request:1.0')
+    compile('de.florianschmitt:frontend-admin:1.0')
+}
