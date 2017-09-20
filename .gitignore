@@ -15,4 +15,4 @@
 /.settings/
 
 dockerUpgradeScript.txt
-keystore.p12
+#keystore.p12
