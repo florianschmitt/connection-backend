@@ -1,6 +1,7 @@
 spring:
   jmx.enabled: false
   datasource.driverClassName: org.h2.Driver
+  liquibase.changeLog: 'classpath:/db/changelog/db.changelog-master.xml'
 
 security.basic.enabled: true
 
@@ -12,7 +13,7 @@ application:
   applicationUrl: http://localhost:3000
   allowedOrigins: http://localhost:3000, https://localhost:3000, http://localhost:4200
 
-liquibase.changeLog: 'classpath:/db/changelog/db.changelog-master.xml'
+
 
 ---
 
@@ -73,5 +74,5 @@ spring:
     - org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration
   main.web-environment: false
 
-liquibase.enabled: false
+  liquibase.enabled: false
 logging.level.org.hibernate.SQL: DEBUG

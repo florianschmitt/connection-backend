@@ -6,8 +6,8 @@ import io.undertow.servlet.api.SecurityInfo.EmptyRoleSemantic;
 import io.undertow.servlet.api.TransportGuaranteeType;
 import io.undertow.servlet.api.WebResourceCollection;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.web.ErrorViewResolver;
-import org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServletContainerFactory;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
+import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -86,8 +86,8 @@ class WebConfiguration {
     }
 
     @Bean
-    UndertowEmbeddedServletContainerFactory embeddedServletContainerFactory() {
-        UndertowEmbeddedServletContainerFactory factory = new UndertowEmbeddedServletContainerFactory();
+    UndertowServletWebServerFactory embeddedServletContainerFactory() {
+        UndertowServletWebServerFactory factory = new UndertowServletWebServerFactory();
 
         factory.addDeploymentInfoCustomizers(servletBuilder -> {
             servletBuilder

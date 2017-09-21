@@ -9,32 +9,24 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @Entity
-class EPayment : BaseEntity {
-
-    constructor(request: ERequest, paymentReceived: BigDecimal, paymentBookedBy: ESystemUser, comment: String?) {
-        this.request = request
-        this.paymentReceived = paymentReceived
-        this.paymentBookedBy = paymentBookedBy
-        this.comment = comment
-        this.paymentBookedAt = LocalDateTime.now()
-    }
+class EPayment(request: ERequest, paymentReceived: BigDecimal, paymentBookedBy: ESystemUser, comment: String?) : BaseEntity() {
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
-    var request: ERequest
+    var request: ERequest = request
 
     @Column(nullable = true, precision = 10, scale = 2)
-    var paymentReceived: BigDecimal? = null
+    var paymentReceived: BigDecimal?  = paymentReceived
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
-    var paymentBookedBy: ESystemUser
+    var paymentBookedBy: ESystemUser = paymentBookedBy
 
     @Column(nullable = false)
     @NotNull
-    var paymentBookedAt: LocalDateTime
+    var paymentBookedAt: LocalDateTime = LocalDateTime.now()
         private set
 
     @Column(nullable = true, length = 1024)
-    var comment: String?
+    var comment: String? = comment
 }

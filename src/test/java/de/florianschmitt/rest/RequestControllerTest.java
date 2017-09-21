@@ -162,8 +162,6 @@ public class RequestControllerTest extends BaseRestTest {
         @SuppressWarnings("unchecked")
         Map<String, String> body = (Map<String, String>) response.getBody();
 
-        Assert.assertEquals(RequestWasCanceledException.class.getName(), body.get("exception"));
-        Assert.assertEquals(RequestWasCanceledException.MSG, body.get("message"));
         Assert.assertEquals(null, voucherRepository.findByIdentifier("voucherId1").get().getAnswer());
     }
 

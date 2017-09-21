@@ -43,7 +43,7 @@ public class SystemUserService extends AbstractPageableAdminService<ESystemUser,
                 doHash(user, false);
             } else {
                 // copy hashed password from database
-                ESystemUser dbUser = repository.findOne(user.getId());
+                ESystemUser dbUser = repository.findById(user.getId()).orElseThrow(IllegalStateException::new);
                 user.setHashedPassword(dbUser.getHashedPassword());
             }
         }

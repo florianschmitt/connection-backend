@@ -28,12 +28,12 @@ public abstract class AbstractAdminService<ENTITY extends Serializable, REPOSITO
 
     @Override
     public Optional<ENTITY> findOne(long id) {
-        return Optional.ofNullable(repository.findOne(id));
+        return repository.findById(id);
     }
 
     @Override
     @Transactional
     public void deleteOne(long id) {
-        repository.delete(id);
+        repository.deleteById(id);
     }
 }

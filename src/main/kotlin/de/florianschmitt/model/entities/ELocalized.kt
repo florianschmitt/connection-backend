@@ -6,23 +6,17 @@ import org.hibernate.validator.constraints.NotBlank
 import javax.persistence.*
 
 @Entity
-class ELocalized : BaseEntity {
+class ELocalized(language: ELanguage, localeLanguage: ELocalizedLanguageEnum, value: String) : BaseEntity() {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    var language: ELanguage
+    var language: ELanguage= language
 
     @Column(nullable = false)
     @Convert(converter = LocalizedLanguageEnumConverter::class)
-    var localeLanguage: ELocalizedLanguageEnum
+    var localeLanguage: ELocalizedLanguageEnum = localeLanguage
 
     @Column(nullable = false)
     @NotBlank
-    var value: String
-
-    constructor(language: ELanguage, localeLanguage: ELocalizedLanguageEnum, value: String) {
-        this.language = language
-        this.localeLanguage = localeLanguage
-        this.value = value
-    }
+    var value: String = value
 }

@@ -46,7 +46,7 @@ class RequestService {
         checkCanceledFinishedStateOrFail(request)
 
         if (request.state == ERequestStateEnum.ACCEPTED) {
-            val acceptedByVolunteer = request.acceptedByVolunteer
+            // val acceptedByVolunteer = request.acceptedByVolunteer
             // TODO: inform volunteer
         }
 
@@ -125,8 +125,8 @@ class RequestService {
     }
 
     @Transactional
-    fun submitNewRequest(request: ERequest): String {
-        var request = request
+    fun submitNewRequest(givenRequest: ERequest): String {
+        var request = givenRequest
         if (!request.isNew) {
             throw RollbackException("only accepts new requests")
         }

@@ -6,13 +6,13 @@ import de.florianschmitt.repository.LanguageRepository;
 import lombok.NonNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -78,8 +78,10 @@ public class DTOMapper {
 
     private ERequest map(ERequestDTO source) {
         ERequest result = mapper.map(source, ERequest.class);
-        result.setLanguages(source.getLanguageIds().stream()//
-                .map(languageRepository::findOne)//
+        result.setLanguages(source.getLanguageIds().stream()
+                .map(languageRepository::findById)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toSet()));
         return result;
     }
@@ -98,7 +100,9 @@ public class DTOMapper {
     private EVolunteer map(EVolunteerDTO source) {
         EVolunteer result = mapper.map(source, EVolunteer.class);
         result.setLanguages(source.getLanguageIds().stream()//
-                .map(languageRepository::findOne)//
+                .map(languageRepository::findById)//
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toSet()));
         return result;
     }
@@ -147,12 +151,6 @@ public class DTOMapper {
     }
 
     public <D> Page<D> map(@NonNull Page<?> source, Class<D> destinationType) {
-        return source.map(new Converter<Object, D>() {
-
-            @Override
-            public D convert(Object source) {
-                return map(source, destinationType);
-            }
-        });
+        return source.map(x -> map((Object) x, destinationType));
     }
 }

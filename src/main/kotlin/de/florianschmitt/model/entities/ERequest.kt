@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 @Entity
-class ERequest : BaseEntity {
+class ERequest : BaseEntity() {
 
     @Column(nullable = false, unique = true)
     @NotBlank
@@ -63,24 +63,6 @@ class ERequest : BaseEntity {
 
     @OneToMany(mappedBy = "request", targetEntity = EPayment::class)
     var payments: MutableSet<EPayment>? = null
-
-    constructor(requestIdentifier: String, state: ERequestStateEnum, languages: MutableSet<ELanguage>, datetime: LocalDateTime, ocation: String, street: String, postalCode: String, city: String, email: String, phone: String, createdAt: LocalDateTime, acceptedByVolunteer: EVolunteer, payments: MutableSet<EPayment>) {
-        this.requestIdentifier = requestIdentifier
-        this.state = state
-        this.languages = languages
-        this.datetime = datetime
-        this.ocation = ocation
-        this.street = street
-        this.postalCode = postalCode
-        this.city = city
-        this.email = email
-        this.phone = phone
-        this.createdAt = createdAt
-        this.acceptedByVolunteer = acceptedByVolunteer
-        this.payments = payments
-    }
-
-    constructor() {}
 
     val dateString: String
         get() {

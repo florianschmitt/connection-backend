@@ -8,6 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.data.repository.query.Param
 
 import de.florianschmitt.model.entities.ELanguage
+import de.florianschmitt.model.entities.ESystemUser
 import de.florianschmitt.model.entities.EVolunteer
 
 interface VolunteerRepository : PagingAndSortingRepository<EVolunteer, Long> {
@@ -18,4 +19,6 @@ interface VolunteerRepository : PagingAndSortingRepository<EVolunteer, Long> {
     @Query("Select v From EVolunteer v Where v.id = :id")
     @EntityGraph(attributePaths = arrayOf("languages"))
     fun findOneWithLanguages(@Param("id") id: Long): Optional<EVolunteer>
+
+    fun findByEmail(email: String): Optional<EVolunteer>
 }

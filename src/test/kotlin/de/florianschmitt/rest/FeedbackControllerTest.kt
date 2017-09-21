@@ -34,8 +34,8 @@ class FeedbackControllerTest : BaseRestTest() {
             DatabaseSetup(value = DBUnitData.BASE),
             DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun testFeedbackPositive() {
-        val volunteer = volunteerRepository.findOne(1L)
-        val request = requestRepository.findOne(1L)
+        val volunteer = volunteerRepository.findById(1L).get()
+        val request = requestRepository.findById(1L).get()
         var feedback = feedbackRepository.findByVolunteerAndRequest(volunteer, request)
 
         assertFalse(feedback.isPresent)
@@ -56,8 +56,8 @@ class FeedbackControllerTest : BaseRestTest() {
             DatabaseSetup(value = DBUnitData.BASE),
             DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun testFeedbackNegative() {
-        val volunteer = volunteerRepository.findOne(1L)
-        val request = requestRepository.findOne(1L)
+        val volunteer = volunteerRepository.findById(1L).get()
+        val request = requestRepository.findById(1L).get()
         var feedback = feedbackRepository.findByVolunteerAndRequest(volunteer, request)
         Assert.assertFalse(feedback.isPresent)
         val comment = "Kommentar"
@@ -75,8 +75,8 @@ class FeedbackControllerTest : BaseRestTest() {
             DatabaseSetup(value = DBUnitData.BASE),
             DatabaseSetup(value = DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
     fun testFeedbackNotFinishedFails() {
-        val volunteer = volunteerRepository.findOne(1L)
-        val request = requestRepository.findOne(1L)
+        val volunteer = volunteerRepository.findById(1L).get()
+        val request = requestRepository.findById(1L).get()
         val feedback = feedbackRepository.findByVolunteerAndRequest(volunteer, request)
         Assert.assertFalse(feedback.isPresent)
         val dto = EFeedbackDTO(true, null)
@@ -84,9 +84,8 @@ class FeedbackControllerTest : BaseRestTest() {
         val response = restTemplate.postForEntity(buildUrl("feedback/ident1"), dto, Any::class.java)
         Assert.assertEquals(HttpStatus.OK, response.statusCode)
 
-        val body = response.body as Map<String, String>
+        val body = response.body as Map<*, *>
 
-        Assert.assertEquals(RequestNotYetFinishedException::class.java.name, body["exception"])
         Assert.assertEquals(RequestNotYetFinishedException.MSG, body["message"])
     }
 }

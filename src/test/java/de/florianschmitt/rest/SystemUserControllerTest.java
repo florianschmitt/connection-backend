@@ -1,7 +1,13 @@
 package de.florianschmitt.rest;
 
-import java.util.Map;
-
+import com.github.springtestdbunit.annotation.DatabaseOperation;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import de.florianschmitt.model.entities.ESystemUser;
+import de.florianschmitt.model.rest.ESystemUserDTO;
+import de.florianschmitt.repository.SystemUserRepository;
+import de.florianschmitt.rest.base.BaseRestTest;
+import de.florianschmitt.rest.base.DBUnitData;
+import de.florianschmitt.rest.exception.SystemMustHaveAtLeastASingleActiveAdmin;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,15 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.github.springtestdbunit.annotation.DatabaseOperation;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-
-import de.florianschmitt.model.entities.ESystemUser;
-import de.florianschmitt.model.rest.ESystemUserDTO;
-import de.florianschmitt.repository.SystemUserRepository;
-import de.florianschmitt.rest.base.BaseRestTest;
-import de.florianschmitt.rest.base.DBUnitData;
-import de.florianschmitt.rest.exception.SystemMustHaveAtLeastASingleActiveAdmin;
+import java.util.Map;
 
 @SuppressWarnings("unchecked")
 @DatabaseSetup(value = DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
@@ -65,7 +63,7 @@ public class SystemUserControllerTest extends BaseRestTest {
         ResponseEntity<?> response = restTemplate.postForEntity(buildUrl("admin/systemuser/save"), dto, Object.class);
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        ESystemUser newVolunteer = systemUserRepository.findOne(2L);
+        ESystemUser newVolunteer = systemUserRepository.findByEmail("new@mail.de").get();
 
         Assert.assertEquals("newfirstname", newVolunteer.getFirstname());
         Assert.assertEquals("newlastname", newVolunteer.getLastname());
@@ -87,7 +85,7 @@ public class SystemUserControllerTest extends BaseRestTest {
         ResponseEntity<?> response = restTemplate.postForEntity(buildUrl("admin/systemuser/save"), dto, Object.class);
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        ESystemUser saved = systemUserRepository.findOne(1L);
+        ESystemUser saved = systemUserRepository.findById(1L).get();
 
         Assert.assertEquals("newfirstname", saved.getFirstname());
         Assert.assertEquals("newlastname", saved.getLastname());
@@ -111,7 +109,7 @@ public class SystemUserControllerTest extends BaseRestTest {
         ResponseEntity<?> response = restTemplate.postForEntity(buildUrl("admin/systemuser/save"), dto, Object.class);
         Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 
-        ESystemUser saved = systemUserRepository.findOne(1L);
+        ESystemUser saved = systemUserRepository.findById(1L).get();
 
         Assert.assertEquals("newfirstname", saved.getFirstname());
         Assert.assertEquals("newlastname", saved.getLastname());
@@ -134,7 +132,7 @@ public class SystemUserControllerTest extends BaseRestTest {
         ResponseEntity<?> response = restTemplate.postForEntity(buildUrl("admin/systemuser/save"), dto, Object.class);
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        ESystemUser saved = systemUserRepository.findOne(1L);
+        ESystemUser saved = systemUserRepository.findById(1L).get();
 
         Assert.assertEquals("newfirstname", saved.getFirstname());
         Assert.assertEquals("newlastname", saved.getLastname());
@@ -160,11 +158,10 @@ public class SystemUserControllerTest extends BaseRestTest {
             Assert.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
 
             Map<String, String> body = fromJsonStringToMap(e.getResponseBodyAsString());
-            Assert.assertEquals(SystemMustHaveAtLeastASingleActiveAdmin.class.getName(), body.get("exception"));
             Assert.assertEquals(SystemMustHaveAtLeastASingleActiveAdmin.MSG, body.get("message"));
         }
 
-        ESystemUser saved = systemUserRepository.findOne(1L);
+        ESystemUser saved = systemUserRepository.findById(1L).get();
 
         Assert.assertEquals("admin", saved.getFirstname());
         Assert.assertEquals("user", saved.getLastname());

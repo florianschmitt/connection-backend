@@ -8,19 +8,14 @@ import javax.persistence.Entity
 import javax.persistence.OneToMany
 
 @Entity
-class ELanguage : BaseEntity {
-
-    constructor(identifier: String, viewOrder: Int) {
-        this.identifier = identifier
-        this.viewOrder = viewOrder
-    }
+class ELanguage(identifier: String, viewOrder: Int) : BaseEntity() {
 
     @Column(nullable = false, unique = true)
     @NotBlank
-    var identifier: String
+    var identifier: String = identifier
 
     @Column(nullable = false)
-    var viewOrder: Int = 0
+    var viewOrder: Int = viewOrder
 
     @OneToMany(mappedBy = "language", cascade = arrayOf(CascadeType.MERGE, CascadeType.PERSIST))
     var localized: Set<ELocalized>? = null

@@ -1,5 +1,6 @@
 package de.florianschmitt.rest.admin;
 
+import de.florianschmitt.model.entities.BaseEntity;
 import de.florianschmitt.service.BaseAdminService;
 import de.florianschmitt.service.BasePageableAdminService;
 import de.florianschmitt.service.util.DTOMapper;
@@ -20,7 +21,7 @@ import java.io.Serializable;
 import java.util.Optional;
 
 @RestController
-abstract class BaseAdminRestController<ENTITY extends AbstractPersistable<Long>, DTO extends Serializable, SERVICE extends BasePageableAdminService<ENTITY>> {
+abstract class BaseAdminRestController<ENTITY extends BaseEntity, DTO extends Serializable, SERVICE extends BasePageableAdminService<ENTITY>> {
 
     @Autowired
     private SERVICE service;

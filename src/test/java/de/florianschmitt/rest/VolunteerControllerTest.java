@@ -1,8 +1,14 @@
 package de.florianschmitt.rest;
 
-import java.util.Map;
-import java.util.Optional;
-
+import com.github.springtestdbunit.annotation.DatabaseOperation;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.google.common.collect.Sets;
+import de.florianschmitt.model.entities.EVolunteer;
+import de.florianschmitt.model.rest.EVolunteerDTO;
+import de.florianschmitt.repository.LanguageRepository;
+import de.florianschmitt.repository.VolunteerRepository;
+import de.florianschmitt.rest.base.BaseRestTest;
+import de.florianschmitt.rest.base.DBUnitData;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,16 +17,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.github.springtestdbunit.annotation.DatabaseOperation;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.google.common.collect.Sets;
-
-import de.florianschmitt.model.entities.EVolunteer;
-import de.florianschmitt.model.rest.EVolunteerDTO;
-import de.florianschmitt.repository.LanguageRepository;
-import de.florianschmitt.repository.VolunteerRepository;
-import de.florianschmitt.rest.base.BaseRestTest;
-import de.florianschmitt.rest.base.DBUnitData;
+import java.util.Map;
+import java.util.Optional;
 
 @SuppressWarnings("unchecked")
 @DatabaseSetup(value = DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
@@ -66,15 +64,17 @@ public class VolunteerControllerTest extends BaseRestTest {
         ResponseEntity<?> response = restTemplate.postForEntity(buildUrl("admin/volunteer/save"), dto, Object.class);
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        Optional<EVolunteer> newVolunteerO = volunteerRepository.findOneWithLanguages(3L);
+
+        Optional<EVolunteer> newVolunteerO = volunteerRepository.findByEmail("new@mail.de");
         Assert.assertTrue(newVolunteerO.isPresent());
-        EVolunteer newVolunteer = newVolunteerO.get();
+
+        EVolunteer newVolunteer = volunteerRepository.findOneWithLanguages(newVolunteerO.get().getId()).get();
 
         Assert.assertEquals("newfirstname", newVolunteer.getFirstname());
         Assert.assertEquals("newlastname", newVolunteer.getLastname());
         Assert.assertEquals("new@mail.de", newVolunteer.getEmail());
         Assert.assertEquals(true, newVolunteer.isActive());
-        Assert.assertThat(newVolunteer.getLanguages(), Matchers.hasItems(languageRepository.findOne(1L)));
+        Assert.assertThat(newVolunteer.getLanguages(), Matchers.hasItems(languageRepository.findById(1L).get()));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class VolunteerControllerTest extends BaseRestTest {
         Assert.assertEquals("newlastname", newVolunteer.getLastname());
         Assert.assertEquals("new@mail.de", newVolunteer.getEmail());
         Assert.assertEquals(true, newVolunteer.isActive());
-        Assert.assertThat(newVolunteer.getLanguages(), Matchers.hasItems(languageRepository.findOne(1L)));
+        Assert.assertThat(newVolunteer.getLanguages(), Matchers.hasItems(languageRepository.findById(1L).get()));
     }
 
     @Override
