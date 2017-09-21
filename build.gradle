@@ -88,6 +88,13 @@ dependencies {
     testCompile 'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
 }
 
+test {
+    testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
+}
+
 task buildDocker(type: Docker, dependsOn: build) {
     push = true
     applicationName = jar.baseName
