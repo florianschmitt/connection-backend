@@ -40,6 +40,8 @@ apply plugin: 'org.liquibase.gradle'
 apply plugin: 'jacoco'
 apply plugin: 'org.junit.platform.gradle.plugin'
 
+apply from: 'gradle/junit5jacoco.gradle'
+
 group = 'florianschmitt'
 version = '0.0.1-SNAPSHOT'
 jar.baseName = "connection"
@@ -57,7 +59,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     }
 }
 
-jacocoTestReport {
+tasks.withType(JacocoReport).all {
     reports {
         xml.enabled true
         html.enabled false
