@@ -50,7 +50,7 @@ internal class RequestController {
     }
 
     @GetMapping(path = arrayOf("/$answerRequest/{voucherIdentifier}/status"))
-    fun answerRequestGet(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String): ResponseEntity<*> {
+    fun answerRequestStatus(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String): ResponseEntity<*> {
         service.checkVoucherValid(voucherIdentifier)
         return ResponseEntity.noContent().build<Any>()
     }

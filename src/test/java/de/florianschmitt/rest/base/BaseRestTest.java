@@ -39,7 +39,6 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
-//@ExtendWith(SpringExtension.class)
 @RunWith(SpringRunner.class)
 @SpringJUnitConfig
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)

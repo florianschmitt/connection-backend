@@ -13,6 +13,7 @@ import de.florianschmitt.rest.base.DBUnitData;
 import de.florianschmitt.rest.exception.RequestWasCanceledException;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,18 +38,18 @@ public class RequestControllerTest extends BaseRestTest {
     public void testPlaceRequest() {
         Assert.assertEquals(0L, requestRepository.count());
 
-        ERequestDTO requesDto = new ERequestDTO();
+        ERequestDTO requestDto = new ERequestDTO();
 
-        requesDto.setLanguageIds(Sets.newHashSet(1L));
-        requesDto.setDatetime(LocalDateTime.now().plusDays(5L));
-        requesDto.setOcation("ocation");
-        requesDto.setCity("Cologne");
-        requesDto.setStreet("Street 123");
-        requesDto.setPostalCode("12345");
-        requesDto.setEmail("request@email.de");
-        requesDto.setPhone("0221 123123");
+        requestDto.setLanguageIds(Sets.newHashSet(1L));
+        requestDto.setDatetime(LocalDateTime.now().plusDays(5L));
+        requestDto.setOcation("ocation");
+        requestDto.setCity("Cologne");
+        requestDto.setStreet("Street 123");
+        requestDto.setPostalCode("12345");
+        requestDto.setEmail("request@email.de");
+        requestDto.setPhone("0221 123123");
 
-        ResponseEntity<PlaceRequestResult> response = restTemplate.postForEntity(buildUrl("placeRequest"), requesDto, PlaceRequestResult.class);
+        ResponseEntity<PlaceRequestResult> response = restTemplate.postForEntity(buildUrl("placeRequest"), requestDto, PlaceRequestResult.class);
 
         Assert.assertTrue(response.getStatusCode().is2xxSuccessful());
         String data = response.getBody().getRequestId();
@@ -69,18 +70,18 @@ public class RequestControllerTest extends BaseRestTest {
     public void testPlaceRequest2() {
         Assert.assertEquals(0L, requestRepository.count());
 
-        ERequestDTO requesDto = new ERequestDTO();
+        ERequestDTO requestDto = new ERequestDTO();
 
-        requesDto.setLanguageIds(Sets.newHashSet(1L, 2L, 3L));
-        requesDto.setDatetime(LocalDateTime.now().plusDays(5L));
-        requesDto.setOcation("ocation");
-        requesDto.setCity("Cologne");
-        requesDto.setStreet("Street 123");
-        requesDto.setPostalCode("12345");
-        requesDto.setEmail("request@email.de");
-        requesDto.setPhone("0221 123123");
+        requestDto.setLanguageIds(Sets.newHashSet(1L, 2L, 3L));
+        requestDto.setDatetime(LocalDateTime.now().plusDays(5L));
+        requestDto.setOcation("ocation");
+        requestDto.setCity("Cologne");
+        requestDto.setStreet("Street 123");
+        requestDto.setPostalCode("12345");
+        requestDto.setEmail("request@email.de");
+        requestDto.setPhone("0221 123123");
 
-        ResponseEntity<PlaceRequestResult> response = restTemplate.postForEntity(buildUrl("placeRequest"), requesDto, PlaceRequestResult.class);
+        ResponseEntity<PlaceRequestResult> response = restTemplate.postForEntity(buildUrl("placeRequest"), requestDto, PlaceRequestResult.class);
 
         Assert.assertTrue(response.getStatusCode().is2xxSuccessful());
         String data = response.getBody().getRequestId();
@@ -135,6 +136,36 @@ public class RequestControllerTest extends BaseRestTest {
 
         Assert.assertTrue(response.getStatusCode().is2xxSuccessful());
         Assert.assertEquals(true, voucherRepository.findByIdentifier("voucherId1").get().getAnswer());
+    }
+
+    @Test
+    @DatabaseSetup(value = DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(value = DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH)
+    public void testAnswerVoucherStatusIsOk() {
+        Assert.assertTrue(voucherRepository.findByIdentifier("voucherId1").isPresent());
+        Assert.assertEquals(null, voucherRepository.findByIdentifier("voucherId1").get().getAnswer());
+        ResponseEntity<?> response = restTemplate.getForEntity(buildUrl("answerRequest/voucherId1/status"), null, Object.class);
+
+        Assert.assertTrue(response.getStatusCode().is2xxSuccessful());
+        Assert.assertEquals(null, voucherRepository.findByIdentifier("voucherId1").get().getAnswer());
+    }
+
+    @Test
+    @DatabaseSetup(value = DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(value = DBUnitData.REQUEST_CANCELED, type = DatabaseOperation.REFRESH)
+    @Ignore("doesnt work yet") //TODO:
+    public void testAnswerVoucherStatusIsCanceled() {
+        Assert.assertTrue(voucherRepository.findByIdentifier("voucherId1").isPresent());
+        Assert.assertEquals(null, voucherRepository.findByIdentifier("voucherId1").get().getAnswer());
+        ResponseEntity<?> response = restTemplate.getForEntity(buildUrl("answerRequest/voucherId1/status"), null, Object.class);
+
+        Assert.assertTrue(response.getStatusCode().is2xxSuccessful());
+        Assert.assertEquals(null, voucherRepository.findByIdentifier("voucherId1").get().getAnswer());
+
+        @SuppressWarnings("unchecked")
+        Map<String, String> body = (Map<String, String>) response.getBody();
+
+        Assert.assertEquals(RequestWasCanceledException.MSG, body.get("msg"));
     }
 
     @Test

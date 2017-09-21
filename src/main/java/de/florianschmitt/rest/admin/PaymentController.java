@@ -36,7 +36,7 @@ class PaymentController {
     @Autowired
     private DTOMapper mapper;
 
-    @RequestMapping(path = "/placePayment", method = RequestMethod.POST)
+    @PostMapping(path = "/placePayment")
     public ResponseEntity<?> placePayment(@RequestBody @Valid EPaymentDTO data) {
         ESystemUser currentUser = getCurrentUser();
         ERequest request = requestService.findByRequestIdentifier(data.getRequestId());

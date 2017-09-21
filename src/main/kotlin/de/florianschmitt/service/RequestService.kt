@@ -113,14 +113,12 @@ class RequestService {
         when (request.state) {
             ERequestStateEnum.CANCELED -> throw RequestWasCanceledException()
             ERequestStateEnum.FINISHED -> throw RequestFinishedException()
-            else -> {
-            }
         }
     }
 
     private fun checkAcceptedStateOrFail(request: ERequest) {
-        if (ERequestStateEnum.ACCEPTED == request.state) {
-            throw RequestAlreadyAcceptedException()
+        when (request.state) {
+            ERequestStateEnum.ACCEPTED -> throw RequestAlreadyAcceptedException()
         }
     }
 

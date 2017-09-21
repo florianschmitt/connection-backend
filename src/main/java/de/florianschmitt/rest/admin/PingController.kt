@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/admin")
-internal class PingController {
+class PingController {
 
     @GetMapping(path = arrayOf("/ping"))
-    fun ping() = ResponseEntity.ok()
+    fun ping() = ResponseEntity.ok().build<Any>()
 }

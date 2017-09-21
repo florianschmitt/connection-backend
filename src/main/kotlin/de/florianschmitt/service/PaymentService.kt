@@ -18,6 +18,7 @@ class PaymentService {
 
     @Transactional
     fun processPayment(request: ERequest, value: BigDecimal, bookedBy: ESystemUser, comment: String?) {
+        // TODO: fail if not finished?
         repository.save(EPayment(request, value, bookedBy, comment))
     }
 

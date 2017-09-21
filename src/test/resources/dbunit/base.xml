@@ -27,5 +27,8 @@
     <ERequest/>
     <EFeedback/>
     <ESystem_User/>
+    <EREQUEST_LANGUAGES/>
+    <EVoucher/>
+    <EPayment/>
 </dataset>
 
