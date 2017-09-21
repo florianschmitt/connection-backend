@@ -1,8 +1,10 @@
 spring.jmx.enabled: false
 security.basic.enabled: false
 spring.datasource.data:
-server.port: 8543
+server.port: 12345
 server.publicPort: 81
+
+server.openRedirectionPublicPort: false
 
 server.ssl.key-store: keystore.p12
 server.ssl.key-store-password: keystore

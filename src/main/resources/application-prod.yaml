@@ -9,5 +9,5 @@ application:
   applicationUrl: https://connection-koeln.herokuapp.com/ui
   allowedOrigins: https://connection-koeln.herokuapp.com
   mail:
-    from: Connection Köln e.V. <info@connection.koeln>
-    sender: Connection Köln e.V.
+    from: 'Connection Köln e.V. <info@connection.koeln>'
+    sender: 'Connection Köln e.V.'

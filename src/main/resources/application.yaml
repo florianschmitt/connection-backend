@@ -15,6 +15,7 @@ application:
 liquibase.changeLog: 'classpath:/db/changelog/db.changelog-master.xml'
 
 ---
+
 spring.profiles: dev
 
 spring:
@@ -57,20 +58,20 @@ server.ssl:
 spring.profiles: current-schema
 
 spring:
-    datasource:
-        url: jdbc:postgresql://[::1]:5432/connection_current
-        driverClassName: org.postgresql.Driver
-        username: connection
-        password: connection
+  datasource:
+    url: jdbc:postgresql://[::1]:5432/connection_current
+    driverClassName: org.postgresql.Driver
+    username: connection
+    password: connection
 
-    jpa:
-      hibernate.ddl-auto: create
-      hibernate.show_sql: false
+  jpa:
+    hibernate.ddl-auto: create
+    hibernate.show_sql: false
 
-    autoconfigure.exclude:
-      - org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration
-      - org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration
-    main.web-environment: false
+  autoconfigure.exclude:
+    - org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration
+    - org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration
+  main.web-environment: false
 
 liquibase.enabled: false
 logging.level.org.hibernate.SQL: DEBUG

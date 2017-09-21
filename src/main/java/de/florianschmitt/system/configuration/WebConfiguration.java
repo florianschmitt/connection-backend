@@ -20,6 +20,7 @@ import java.util.Collections;
 @Configuration
 class WebConfiguration {
 
+
     @Value("${server.port}")
     private int serverPort;
 

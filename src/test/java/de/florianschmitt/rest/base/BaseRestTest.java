@@ -18,7 +18,7 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -44,7 +44,7 @@ import java.util.Map;
 public abstract class BaseRestTest {
     protected RestTemplate restTemplate;
 
-    @Value("${server.port:8543}")
+    @LocalServerPort
     private int port;
 
     @Before
