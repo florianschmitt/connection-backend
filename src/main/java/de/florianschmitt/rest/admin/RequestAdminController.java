@@ -48,7 +48,7 @@ class RequestAdminController {
 
     @RequestMapping(path = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<Page<ERequestDTO>> all() {
-        Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
         Page<ERequest> page = service.all(pageable);
         Page<ERequestDTO> result = mapper.map(page, ERequestDTO.class);
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -56,7 +56,7 @@ class RequestAdminController {
 
     @RequestMapping(path = "/notPayed", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<Page<ERequestDTO>> notPayed() {
-        Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
         Page<ERequest> page = service.findAllNotPayed(pageable);
         Page<ERequestDTO> result = mapper.map(page, ERequestDTO.class);
         return new ResponseEntity<>(result, HttpStatus.OK);

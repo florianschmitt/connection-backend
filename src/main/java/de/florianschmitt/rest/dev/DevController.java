@@ -35,7 +35,7 @@ class DevController {
 
     @RequestMapping(path = "/createRequests", method = RequestMethod.GET)
     ResponseEntity<?> createRequests(@RequestParam(defaultValue = "10", name = "count") int count) {
-        Page<ELanguage> findAll = languageService.findAll(new PageRequest(0, 10));
+        Page<ELanguage> findAll = languageService.findAll(PageRequest.of(0, 10));
         int numberOfElements = findAll.getNumberOfElements();
 
         IntStream.range(0, count).forEach(i -> {

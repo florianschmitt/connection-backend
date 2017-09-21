@@ -43,7 +43,7 @@ abstract class BaseAdminRestController<ENTITY extends BaseEntity, DTO extends Se
 
     @RequestMapping(path = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<Page<DTO>> all() {
-        Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, getDefaultSortForAll());
+        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE, getDefaultSortForAll());
         Page<ENTITY> entities = service.findAll(pageable);
         Page<DTO> result = mapper.map(entities, getDtoClass());
         return new ResponseEntity<>(result, HttpStatus.OK);

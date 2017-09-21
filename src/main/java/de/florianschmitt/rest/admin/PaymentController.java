@@ -46,7 +46,7 @@ class PaymentController {
 
     @RequestMapping(path = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<Page<EPaymentDTO>> all() {
-        Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, new Sort(Sort.Direction.DESC, "paymentBookedAt"));
+        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE, new Sort(Sort.Direction.DESC, "paymentBookedAt"));
         Page<EPayment> entities = service.findAll(pageable);
         Page<EPaymentDTO> result = mapper.map(entities, EPaymentDTO.class);
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -54,7 +54,7 @@ class PaymentController {
 
     @RequestMapping(path = "/forRequest", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<Page<EPaymentDTO>> forRequest(@RequestParam("requestIdentifier") String requestIdentifier) {
-        Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, new Sort(Sort.Direction.DESC, "paymentBookedAt"));
+        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE, new Sort(Sort.Direction.DESC, "paymentBookedAt"));
         Page<EPayment> entities = service.findForRequest(requestIdentifier, pageable);
         Page<EPaymentDTO> result = mapper.map(entities, EPaymentDTO.class);
         return new ResponseEntity<>(result, HttpStatus.OK);

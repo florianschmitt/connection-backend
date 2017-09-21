@@ -38,7 +38,7 @@ class WebConfiguration {
 
     @Bean
     WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
+        return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
@@ -50,7 +50,7 @@ class WebConfiguration {
 
     @Bean
     WebMvcConfigurer angularResourceConfigurer() {
-        return new WebMvcConfigurerAdapter() {
+        return new WebMvcConfigurer() {
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 registry.addResourceHandler("/ui/**")//

@@ -16,7 +16,7 @@ class LanguageAdminController extends BaseAdminRestController<ELanguage, ELangua
 
     @Override
     protected Sort getDefaultSortForAll() {
-        return new Sort(new Order(Direction.ASC, "viewOrder"));
+        return Sort.by(new Order(Direction.ASC, "viewOrder"));
     }
 
 }

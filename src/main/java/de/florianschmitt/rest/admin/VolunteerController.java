@@ -16,7 +16,7 @@ class VolunteerController extends BaseAdminRestController<EVolunteer, EVolunteer
 
     @Override
     protected Sort getDefaultSortForAll() {
-        return new Sort(new Order(Direction.ASC, "lastname"));
+        return Sort.by(new Order(Direction.ASC, "lastname"));
     }
 
 }
