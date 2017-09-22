@@ -8,8 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-import java.util.Optional
-
 @Service
 class SystemUserService : AbstractPageableAdminService<ESystemUser, SystemUserRepository>() {
 
@@ -35,7 +33,7 @@ class SystemUserService : AbstractPageableAdminService<ESystemUser, SystemUserRe
         if (user.isNew) {
             doHash(user, true)
         } else {
-            if (user.hasCleartextPassword()) {
+            if (user.hasClearTextPassword) {
                 doHash(user, false)
             } else {
                 // copy hashed password from database
@@ -65,7 +63,7 @@ class SystemUserService : AbstractPageableAdminService<ESystemUser, SystemUserRe
     }
 
     private fun doHash(user: ESystemUser, throwIfEmpty: Boolean) {
-        if (!user.hasCleartextPassword()) {
+        if (!user.hasClearTextPassword) {
             if (throwIfEmpty) {
                 throw RuntimeException("provided clear text password cannot be empty")
             } else {
@@ -73,6 +71,6 @@ class SystemUserService : AbstractPageableAdminService<ESystemUser, SystemUserRe
             }
         }
 
-        user.hashedPassword = encoder.encode(user.cleartextPassword)
+        user.hashedPassword = encoder.encode(user.clearTextPassword)
     }
 }

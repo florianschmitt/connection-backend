@@ -30,7 +30,7 @@ class AddProdAdminRunner : CommandLineRunner {
 
         val user = ESystemUser()
         user.email = DEFAULT_EMAIL
-        user.cleartextPassword = "admin123"
+        user.clearTextPassword = "admin123"
         user.firstname = "Admin"
         user.lastname = "User"
         user.hasAdminRight = true

@@ -4,10 +4,9 @@ import com.zaxxer.hikari.HikariDataSource
 import de.florianschmitt.system.util.ProductiveProfile
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-
-import javax.sql.DataSource
 import java.net.URI
 import java.net.URISyntaxException
+import javax.sql.DataSource
 
 @Configuration
 @ProductiveProfile
@@ -18,15 +17,14 @@ class ProductiveDataSourceConfiguration {
     fun dataSource(): DataSource {
         val dbUri = URI(System.getenv("DATABASE_URL"))
 
-        val username = dbUri.userInfo.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
-        val password = dbUri.userInfo.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
-        val dbUrl = "jdbc:postgresql://" + dbUri.host + ':' + dbUri.port + dbUri.path
+        val username = dbUri.userInfo.split(":")[0]
+        val password = dbUri.userInfo.split(":")[1]
 
-        val basicDataSource = HikariDataSource()
-        basicDataSource.jdbcUrl = dbUrl
-        basicDataSource.username = username
-        basicDataSource.password = password
+        val dataSource = HikariDataSource()
+        dataSource.jdbcUrl = "jdbc:postgresql://${dbUri.host}:${dbUri.port}${dbUri.path}"
+        dataSource.username = username
+        dataSource.password = password
 
-        return basicDataSource
+        return dataSource
     }
 }

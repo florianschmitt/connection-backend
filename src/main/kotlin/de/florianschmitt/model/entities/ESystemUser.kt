@@ -17,9 +17,9 @@ class ESystemUser : EAbstractUser(), UserDetails {
     @Size(min = 60, max = 60)
     var hashedPassword: String? = null
 
-    // only used, when adding new user for the first time
+    // only used, when setting or changing password
     @Transient
-    var cleartextPassword: String? = null
+    var clearTextPassword: String? = null
 
     @Column(nullable = false)
     var hasAdminRight = false
@@ -38,11 +38,13 @@ class ESystemUser : EAbstractUser(), UserDetails {
                 .toSet()
     }
 
+    val hasClearTextPassword
+        get() = clearTextPassword?.isNotBlank() ?: false
+
     override fun getUsername() = email
     override fun getPassword() = hashedPassword
+    override fun isEnabled() = isActive
     override fun isAccountNonExpired() = true
     override fun isAccountNonLocked() = true
     override fun isCredentialsNonExpired() = true
-    override fun isEnabled() = isActive
-    fun hasCleartextPassword() = cleartextPassword?.isNotBlank() ?: false
 }

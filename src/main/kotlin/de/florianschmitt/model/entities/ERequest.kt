@@ -1,5 +1,6 @@
 package de.florianschmitt.model.entities
 
+import de.florianschmitt.model.entities.util.DateConverter
 import org.hibernate.validator.constraints.Email
 import org.hibernate.validator.constraints.NotBlank
 import java.time.LocalDateTime
@@ -64,15 +65,11 @@ class ERequest : BaseEntity() {
     @OneToMany(mappedBy = "request", targetEntity = EPayment::class)
     var payments: MutableSet<EPayment>? = null
 
-    val dateString: String
-        get() {
-            val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy - hh:mm")
-            return datetime!!.format(formatter)
-        }
+    val dateString: String?
+        get() = DateConverter.convertStandard(datetime)
 
-    val languageString: String
-        get() {
-            return languages!!.map(ELanguage::valueInDefaultLanguage)
-                    .joinToString()
-        }
+    val languageString: String?
+        get() = languages
+                ?.map(ELanguage::valueInDefaultLanguage)
+                ?.joinToString()
 }

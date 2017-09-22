@@ -24,7 +24,7 @@ class AddDevUsersRunner : CommandLineRunner {
     private fun addAdminUser() {
         val user = ESystemUser()
         user.email = "admin@connection.de"
-        user.cleartextPassword = "admin123"
+        user.clearTextPassword = "admin123"
         user.firstname = "Admin"
         user.lastname = "User"
         user.hasAdminRight = true
@@ -34,7 +34,7 @@ class AddDevUsersRunner : CommandLineRunner {
     private fun addTeamUser() {
         val user = ESystemUser()
         user.email = "user@connection.de"
-        user.cleartextPassword = "user123"
+        user.clearTextPassword = "user123"
         user.firstname = "Team"
         user.lastname = "User"
         user.hasAdminRight = false
@@ -44,7 +44,7 @@ class AddDevUsersRunner : CommandLineRunner {
     private fun addFinanceTeamUser() {
         val user = ESystemUser()
         user.email = "financeUser@connection.de"
-        user.cleartextPassword = "financeuser123"
+        user.clearTextPassword = "financeuser123"
         user.firstname = "Team Finance"
         user.lastname = "User"
         user.hasAdminRight = false

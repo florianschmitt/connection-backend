@@ -82,11 +82,11 @@ configurations {
     compile.exclude module: "spring-boot-starter-tomcat"
 }
 
-bootJar  {
+bootJar {
     mainClass = 'de.florianschmitt.ConnectionBackendApplication'
 }
 
-if (project.hasProperty('includeFrontend')) {
+if (project.property('includeFrontend')) {
     apply from: 'gradle/frontenddependencies.gradle'
 }
 

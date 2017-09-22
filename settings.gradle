@@ -1,7 +1,9 @@
 rootProject.name = 'connection-backend'
 
-//TODO: does not work
-if (rootProject.hasProperty('includeFrontend')){
-	includeBuild '../connection-frontend-requestform'
-	includeBuild '../connection-frontend-admin'
+if (new File(rootDir, '../connection-frontend-requestform').exists()) {
+    includeBuild '../connection-frontend-requestform'
+}
+
+if (new File(rootDir, '../connection-frontend-admin').exists()) {
+    includeBuild '../connection-frontend-admin'
 }
