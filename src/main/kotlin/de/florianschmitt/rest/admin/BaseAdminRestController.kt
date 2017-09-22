@@ -24,33 +24,38 @@ internal abstract class BaseAdminRestController<ENTITY : BaseEntity, DTO : Seria
     @Autowired
     private lateinit var mapper: DTOMapper
 
-    @RequestMapping(path = arrayOf("/get/{id}"), method = arrayOf(RequestMethod.GET), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
-    operator fun get(@PathVariable("id") id: Long): ResponseEntity<DTO> {
+    @GetMapping(path = arrayOf("/get/{id}"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    fun get(@PathVariable("id") id: Long): ResponseEntity<DTO> {
         val element = service.findOne(id) ?: return ResponseEntity.notFound().build()
-        val dto = mapper.map(element, dtoClass)
+        val dto = mapToDto(element)
         return ResponseEntity.ok(dto)
     }
 
-    @RequestMapping(path = arrayOf("/all"), method = arrayOf(RequestMethod.GET), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = arrayOf("/all"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
     fun all(): ResponseEntity<Page<DTO>> {
         val pageable = PageRequest.of(0, Integer.MAX_VALUE, defaultSortForAll)
         val entities = service.findAll(pageable)
-        val result = mapper.map(entities, dtoClass)
+        val result = mapToDto(entities)
         return ResponseEntity(result, HttpStatus.OK)
     }
 
-    @RequestMapping(path = arrayOf("/save"), method = arrayOf(RequestMethod.POST))
+    @PostMapping(path = arrayOf("/save"))
     fun save(@RequestBody @Valid dto: DTO): ResponseEntity<*> {
-        val entity = mapper.map(dto, entityClass)
+        val entity = mapToEntity(dto)
         service.save(entity)
         return ResponseEntity<Any>(HttpStatus.OK)
     }
 
-    @RequestMapping(path = arrayOf("/delete/{id}"), method = arrayOf(RequestMethod.DELETE))
+    @DeleteMapping(path = arrayOf("/delete/{id}"))
     fun delete(@PathVariable("id") id: Long): ResponseEntity<*> {
         service.deleteOne(id)
         return ResponseEntity<Any>(HttpStatus.OK)
     }
+
+    protected fun mapToEntity(dto: DTO) = mapper.map(dto, entityClass)
+    protected fun mapToDto(element: ENTITY) = mapper.map(element, dtoClass)
+    final private fun mapToDto(elements: Collection<ENTITY>) = elements.map { mapToDto(it) }
+    final private fun mapToDto(elements: Page<ENTITY>) = elements.map { mapToDto(it) }
 
     protected val defaultSortForAll: Sort
         get() = Sort.unsorted()

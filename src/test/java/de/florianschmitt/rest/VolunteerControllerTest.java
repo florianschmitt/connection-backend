@@ -54,12 +54,8 @@ public class VolunteerControllerTest extends BaseRestTest {
 
     @Test
     public void testSaveNew() {
-        EVolunteerDTO dto = new EVolunteerDTO();
-        dto.setFirstname("newfirstname");
-        dto.setLastname("newlastname");
-        dto.setEmail("new@mail.de");
-        dto.setActive(true);
-        dto.setLanguageIds(Sets.newHashSet(1L));
+        EVolunteerDTO dto = new EVolunteerDTO(null, "newfirstname", "newlastname",
+                true, "new@mail.de", Sets.newHashSet(1L));
 
         ResponseEntity<?> response = restTemplate.postForEntity(buildUrl("admin/volunteer/save"), dto, Object.class);
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -79,13 +75,8 @@ public class VolunteerControllerTest extends BaseRestTest {
 
     @Test
     public void testSaveExisting() {
-        EVolunteerDTO dto = new EVolunteerDTO();
-        dto.setId(1L);
-        dto.setFirstname("newfirstname");
-        dto.setLastname("newlastname");
-        dto.setEmail("new@mail.de");
-        dto.setActive(true);
-        dto.setLanguageIds(Sets.newHashSet(1L));
+        EVolunteerDTO dto = new EVolunteerDTO(1L, "newfirstname", "newlastname",
+                true, "new@mail.de", Sets.newHashSet(1L));
 
         ResponseEntity<?> response = restTemplate.postForEntity(buildUrl("admin/volunteer/save"), dto, Object.class);
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());

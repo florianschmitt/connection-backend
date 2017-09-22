@@ -17,13 +17,6 @@ class DTOMapper {
     @Autowired
     private lateinit var languageRepository: LanguageRepository
 
-    private fun map(source: EVoucher): EVoucherDTO {
-        val result = mapper.map(source, EVoucherDTO::class.java)
-        result.volunteerString = source.volunteer.toDisplayString()
-        result.requestIdentifier = source.request.requestIdentifier
-        return result
-    }
-
     private fun map(source: EPayment): EPaymentDTO {
         val result = mapper.map(source, EPaymentDTO::class.java)
         result.paymentBookedBy = source.paymentBookedBy.toDisplayString()
@@ -35,7 +28,7 @@ class DTOMapper {
         val result = mapper.map(source, ELanguageAdminDTO::class.java)
 
         result.localized = source.localized
-                ?.map { this.map(it) }
+                ?.map { map(it) }
                 ?.sortedWith(CustomELocalizedDTOComparator.INSTANCE)
                 ?.toList()
 
@@ -46,7 +39,7 @@ class DTOMapper {
         val result = mapper.map(source, ELanguage::class.java)
 
         result.localized = source.localized
-                ?.map { this.map(it) }
+                ?.map { map(it) }
                 ?.onEach { it.language = result }
                 ?.toSet()
 
@@ -96,35 +89,18 @@ class DTOMapper {
         return result
     }
 
-    private fun map(source: EVolunteer): EVolunteerDTO {
-        val result = mapper.map(source, EVolunteerDTO::class.java)
-
-        result.languageIds = source.languages
-                ?.map { it.id }
-                ?.toSet()
-
-        return result
-    }
-
     fun <D> map(source: Any, destinationType: Class<D>): D {
-        if (EVolunteerDTO::class.java == destinationType) {
-            return map(source as EVolunteer) as D
-        } else if (EVolunteer::class.java == destinationType) {
-            return map(source as EVolunteerDTO) as D
-        } else if (ELanguageAdminDTO::class.java == destinationType) {
-            return map(source as ELanguage) as D
-        } else if (EVoucherDTO::class.java == destinationType) {
-            return map(source as EVoucher) as D
-        } else if (ELanguage::class.java == destinationType && ELanguageAdminDTO::class.java.isInstance(source)) {
-            return map(source as ELanguageAdminDTO) as D
-        } else if (ERequestDTO::class.java == destinationType) {
-            return map(source as ERequest) as D
-        } else if (ERequest::class.java == destinationType) {
-            return map(source as ERequestDTO) as D
-        } else if (EPaymentDTO::class.java == destinationType) {
-            return map(source as EPayment) as D
-        }
-        return mapper.map(source, destinationType)
+        return when (destinationType) {
+            EVolunteerDTO::class.java -> (source as EVolunteer).toDto()
+            EVolunteer::class.java -> map(source as EVolunteerDTO)
+            ELanguageAdminDTO::class.java -> map(source as ELanguage)
+            EVoucherDTO::class.java -> (source as EVoucher).toDto()
+            ELanguage::class.java -> if (source is ELanguageAdminDTO) map(source) else mapper.map(source, destinationType)
+            ERequestDTO::class.java -> map(source as ERequest)
+            ERequest::class.java -> map(source as ERequestDTO)
+            EPaymentDTO::class.java -> map(source as EPayment)
+            else -> mapper.map(source, destinationType)
+        } as D
     }
 
     fun <D> map(source: Collection<*>, destinationType: Class<D>) = source
@@ -132,10 +108,22 @@ class DTOMapper {
             .map { this.map(it, destinationType) }
             .toList()
 
-    fun <D> map(source: List<*>, destinationType: Class<D>) = source
-            .filterNotNull()
-            .map { this.map(it, destinationType) }
-            .toList()
+    fun <D> map(source: List<*>, destinationType: Class<D>) = map(source as Collection<*>, destinationType)
 
-    fun <D> map(source: Page<*>, destinationType: Class<D>) = source.map { x -> map(x as Any, destinationType) }
+    fun <D> map(source: Page<*>, destinationType: Class<D>) = source.map { map(it as Any, destinationType) }
 }
+
+fun EVoucher.toDto() = EVoucherDTO(
+        id = this.id,
+        identifier = this.identifier,
+        requestIdentifier = this.request.requestIdentifier,
+        volunteerString = this.volunteer.toDisplayString(),
+        answer = this.answer)
+
+fun EVolunteer.toDto() = EVolunteerDTO(
+        id = this.id,
+        firstname = this.firstname,
+        lastname = this.lastname,
+        isActive = this.isActive,
+        email = this.email,
+        languageIds = this.languages?.map { it.id }?.toSet())

@@ -62,7 +62,6 @@ class RequestService {
 
     fun listVouchers(requestIdentifier: String): Collection<EVoucher> {
         val request = findByRequestIdentifier(requestIdentifier)
-
         val vouchers = voucherRepository.findByRequest(request)
         return vouchers
     }

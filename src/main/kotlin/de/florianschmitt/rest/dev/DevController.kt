@@ -8,10 +8,7 @@ import de.florianschmitt.system.util.DevProfile
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
 import java.util.concurrent.ThreadLocalRandom
 
@@ -26,7 +23,7 @@ internal class DevController {
     @Autowired
     private lateinit var languageService: LanguageService
 
-    @RequestMapping(path = arrayOf("/createRequests"), method = arrayOf(RequestMethod.GET))
+    @GetMapping(path = arrayOf("/createRequests"))
     fun createRequests(@RequestParam(defaultValue = "10", name = "count") count: Int): ResponseEntity<*> {
         val languages = languageService.findAll(PageRequest.of(0, 10))
 

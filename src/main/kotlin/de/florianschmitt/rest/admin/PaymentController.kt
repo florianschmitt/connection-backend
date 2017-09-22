@@ -37,7 +37,7 @@ internal class PaymentController {
         return ResponseEntity.ok().build<Any>()
     }
 
-    @RequestMapping(path = arrayOf("/all"), method = arrayOf(RequestMethod.GET), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = arrayOf("/all"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
     fun all(): ResponseEntity<Page<EPaymentDTO>> {
         val pageable = PageRequest.of(0, Integer.MAX_VALUE, Sort(Sort.Direction.DESC, "paymentBookedAt"))
         val entities = service.findAll(pageable)
@@ -45,7 +45,7 @@ internal class PaymentController {
         return ResponseEntity.ok(result)
     }
 
-    @RequestMapping(path = arrayOf("/forRequest"), method = arrayOf(RequestMethod.GET), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = arrayOf("/forRequest"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
     fun forRequest(@RequestParam("requestIdentifier") requestIdentifier: String): ResponseEntity<Page<EPaymentDTO>> {
         val pageable = PageRequest.of(0, Integer.MAX_VALUE, Sort(Sort.Direction.DESC, "paymentBookedAt"))
         val entities = service.findForRequest(requestIdentifier, pageable)

@@ -2,28 +2,26 @@ package de.florianschmitt.model.rest
 
 import org.hibernate.validator.constraints.Email
 import org.hibernate.validator.constraints.NotBlank
-
+import java.io.Serializable
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
-import java.io.Serializable
 
-class EVolunteerDTO : Serializable {
+class EVolunteerDTO(
+        var id: Long?,
 
-    var id: Long? = null
+        @NotBlank
+        var firstname: String?,
 
-    @NotBlank
-    var firstname: String? = null
+        @NotBlank
+        var lastname: String?,
 
-    @NotBlank
-    var lastname: String? = null
+        var isActive: Boolean?,
 
-    var isActive: Boolean? = null
+        @Email
+        @NotBlank
+        var email: String?,
 
-    @Email
-    @NotBlank
-    var email: String? = null
-
-    @NotNull
-    @Size(min = 1)
-    var languageIds: Set<Long>? = null
-}
+        @NotNull
+        @Size(min = 1)
+        var languageIds: Set<Long>?
+) : Serializable
