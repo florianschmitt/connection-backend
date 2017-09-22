@@ -1,7 +1,5 @@
 package de.florianschmitt.rest.base;
 
-import java.sql.SQLException;
-
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.IDatabaseConnection;
@@ -10,12 +8,15 @@ import org.dbunit.database.statement.IStatementFactory;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
 
-import lombok.RequiredArgsConstructor;
+import java.sql.SQLException;
 
-@RequiredArgsConstructor
 class ChangeReferencialIntegrityOperation extends DatabaseOperation {
 
     private final boolean enable;
+
+    private ChangeReferencialIntegrityOperation(boolean enable) {
+        this.enable = enable;
+    }
 
     @Override
     public void execute(IDatabaseConnection connection, IDataSet dataSet) throws DatabaseUnitException, SQLException {

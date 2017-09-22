@@ -15,7 +15,7 @@ class SystemUserController extends BaseAdminRestController<ESystemUser, ESystemU
 
     @Override
     protected Sort getDefaultSortForAll() {
-        return new Sort(new Order(Direction.ASC, "lastname"));
+        return Sort.by(new Order(Direction.ASC, "lastname"));
     }
 
 }

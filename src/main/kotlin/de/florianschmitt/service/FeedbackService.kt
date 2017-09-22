@@ -6,7 +6,6 @@ import de.florianschmitt.repository.FeedbackRepository
 import de.florianschmitt.repository.RequestRepository
 import de.florianschmitt.rest.exception.RequestNotFoundException
 import de.florianschmitt.rest.exception.RequestNotYetFinishedException
-import lombok.NonNull
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -21,7 +20,7 @@ class FeedbackService {
     private lateinit var requestRepository: RequestRepository
 
     @Transactional
-    fun feedback(@NonNull requestIdentifier: String, positive: Boolean, comment: String?) {
+    fun feedback(requestIdentifier: String, positive: Boolean, comment: String?) {
         val request = requestRepository.findByRequestIdentifier(requestIdentifier)
                 .orElseThrow({ RequestNotFoundException() })
 

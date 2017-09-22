@@ -1,18 +1,9 @@
 package de.florianschmitt.model.rest;
 
-import java.io.Serializable;
-
 import org.hibernate.validator.constraints.NotBlank;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.io.Serializable;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ELocalizedDTO implements Serializable {
 
     private Long id;
@@ -22,4 +13,38 @@ public class ELocalizedDTO implements Serializable {
 
     @NotBlank
     private String locale;
+
+    @java.beans.ConstructorProperties({"id", "value", "locale"})
+    public ELocalizedDTO(Long id, String value, String locale) {
+        this.id = id;
+        this.value = value;
+        this.locale = locale;
+    }
+
+    public ELocalizedDTO() {
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getValue() {
+        return this.value;
+    }
+
+    public String getLocale() {
+        return this.locale;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
 }

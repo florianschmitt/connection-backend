@@ -3,7 +3,6 @@ package de.florianschmitt.service.util;
 import de.florianschmitt.model.entities.*;
 import de.florianschmitt.model.rest.*;
 import de.florianschmitt.repository.LanguageRepository;
-import lombok.NonNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -138,19 +137,19 @@ public class DTOMapper {
         return result;
     }
 
-    public <D> Collection<D> map(@NonNull Collection<?> source, Class<D> destinationType) {
+    public <D> Collection<D> map(Collection<?> source, Class<D> destinationType) {
         return source.stream()//
                 .map(x -> this.map(x, destinationType))//
                 .collect(Collectors.toList());
     }
 
-    public <D> List<D> map(@NonNull List<?> source, Class<D> destinationType) {
+    public <D> List<D> map(List<?> source, Class<D> destinationType) {
         return source.stream()//
                 .map(x -> this.map(x, destinationType))//
                 .collect(Collectors.toList());
     }
 
-    public <D> Page<D> map(@NonNull Page<?> source, Class<D> destinationType) {
+    public <D> Page<D> map(Page<?> source, Class<D> destinationType) {
         return source.map(x -> map((Object) x, destinationType));
     }
 }
