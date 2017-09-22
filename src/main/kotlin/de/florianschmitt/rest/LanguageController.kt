@@ -2,8 +2,8 @@ package de.florianschmitt.rest
 
 import de.florianschmitt.model.entities.ELocalizedLanguageEnum
 import de.florianschmitt.model.rest.ELanguageDTO
-import de.florianschmitt.rest.util.HasRequesterRole
 import de.florianschmitt.service.LanguageService
+import de.florianschmitt.system.util.HasRequesterRole
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity

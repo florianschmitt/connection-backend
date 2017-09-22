@@ -2,9 +2,9 @@ package de.florianschmitt.rest
 
 import de.florianschmitt.model.entities.ERequest
 import de.florianschmitt.model.rest.ERequestDTO
-import de.florianschmitt.rest.util.HasRequesterRole
 import de.florianschmitt.service.RequestService
 import de.florianschmitt.service.util.DTOMapper
+import de.florianschmitt.system.util.HasRequesterRole
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
