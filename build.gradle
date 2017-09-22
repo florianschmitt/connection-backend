@@ -137,6 +137,7 @@ task createCurrentSchema(type: org.springframework.boot.gradle.tasks.run.BootRun
     doFirst() {
         main = 'de.florianschmitt.system.util.schema_creator.CreateCurrentSchemaApplication'
         classpath = sourceSets.main.runtimeClasspath
+        jvmArgs '--add-modules', 'java.xml.bind'
     }
 }
 
