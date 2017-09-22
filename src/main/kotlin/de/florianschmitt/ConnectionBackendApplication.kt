@@ -10,7 +10,10 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters
 @SpringBootApplication
 class ConnectionBackendApplication {
 
-    fun main(args: Array<String>) {
-        SpringApplication.run(ConnectionBackendApplication::class.java, *args)
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            SpringApplication.run(ConnectionBackendApplication::class.java, *args)
+        }
     }
 }

@@ -10,8 +10,12 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters
 @SpringBootApplication
 @EntityScan(basePackageClasses = arrayOf(BaseEntity::class, Jsr310JpaConverters::class))
 class CreateCurrentSchemaApplication {
-    fun main(args: Array<String>) {
-        System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "current-schema")
-        SpringApplication.run(CreateCurrentSchemaApplication::class.java, *args)
+
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "current-schema")
+            SpringApplication.run(CreateCurrentSchemaApplication::class.java, *args)
+        }
     }
 }
