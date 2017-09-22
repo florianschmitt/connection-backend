@@ -3,9 +3,7 @@ package de.florianschmitt.model.rest
 import javax.validation.constraints.NotNull
 import java.io.Serializable
 
-class EFeedbackDTO(positive: Boolean, comment: String? = null) : Serializable {
-
-    constructor() : this(false, null)
+class EFeedbackDTO(positive: Boolean = false, comment: String? = null) : Serializable {
 
     @NotNull
     var positive: Boolean = positive

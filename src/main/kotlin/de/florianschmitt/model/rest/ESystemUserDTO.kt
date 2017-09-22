@@ -25,8 +25,5 @@ class ESystemUserDTO : Serializable {
     @NotBlank
     var email: String? = null
 
-    //    @Getter(onMethod = @__(@JsonIgnore))
-    //    @Setter(onMethod = @__(@JsonIgnore(false)))
-    //TODO:
     var cleartextPassword: String? = null
 }

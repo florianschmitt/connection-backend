@@ -10,5 +10,4 @@ class ELanguageDTO(id: Long, label: String) : Serializable {
 
     @NotBlank
     var label: String? = label
-
 }
