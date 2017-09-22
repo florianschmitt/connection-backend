@@ -7,8 +7,8 @@ import de.florianschmitt.model.rest.EFeedbackDTO
 import de.florianschmitt.repository.FeedbackRepository
 import de.florianschmitt.repository.RequestRepository
 import de.florianschmitt.repository.VolunteerRepository
-import de.florianschmitt.rest.base.BaseRestTest
-import de.florianschmitt.rest.base.DBUnitData
+import de.florianschmitt.base.BaseRestTest
+import de.florianschmitt.base.DBUnitData
 import de.florianschmitt.rest.exception.RequestNotYetFinishedException
 import org.junit.Assert
 import org.junit.Test

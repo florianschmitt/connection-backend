@@ -4,8 +4,8 @@ import com.github.springtestdbunit.annotation.DatabaseOperation
 import com.github.springtestdbunit.annotation.DatabaseSetup
 import com.github.springtestdbunit.annotation.DatabaseSetups
 import de.florianschmitt.model.rest.EDashboardDTO
-import de.florianschmitt.rest.base.BaseRestTest
-import de.florianschmitt.rest.base.DBUnitData
+import de.florianschmitt.base.BaseRestTest
+import de.florianschmitt.base.DBUnitData
 import org.junit.Test
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpStatus
@@ -54,7 +54,6 @@ class DashboardControllerTest : BaseRestTest() {
         assertEquals(1, response.body.canceledRequests)
         assertEquals(0, response.body.openRequests)
     }
-
 
     override fun customize(restBuilder: RestTemplateBuilder): RestTemplateBuilder {
         return restBuilder.basicAuthorization("admin@connection.de", "admin123")
