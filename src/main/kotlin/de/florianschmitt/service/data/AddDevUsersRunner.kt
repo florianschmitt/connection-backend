@@ -2,12 +2,14 @@ package de.florianschmitt.service.data
 
 import de.florianschmitt.model.entities.ESystemUser
 import de.florianschmitt.service.SystemUserService
+import de.florianschmitt.system.util.DevPostgresProfile
 import de.florianschmitt.system.util.DevProfile
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
 
 @DevProfile
+@DevPostgresProfile
 @Component
 class AddDevUsersRunner : CommandLineRunner {
 
@@ -16,14 +18,17 @@ class AddDevUsersRunner : CommandLineRunner {
 
     @Throws(Exception::class)
     override fun run(vararg args: String) {
-        addAdminUser()
-        addTeamUser()
-        addFinanceTeamUser()
+        addAdminUser("admin@connection.de")
+        addTeamUser("user@connection.de")
+        addFinanceTeamUser("financeUser@connection.de")
     }
 
-    private fun addAdminUser() {
+    private fun addAdminUser(email: String) {
+        if (userService.findByEmail(email).isPresent)
+            return
+
         val user = ESystemUser()
-        user.email = "admin@connection.de"
+        user.email = email
         user.clearTextPassword = "admin123"
         user.firstname = "Admin"
         user.lastname = "User"
@@ -31,9 +36,12 @@ class AddDevUsersRunner : CommandLineRunner {
         userService.save(user)
     }
 
-    private fun addTeamUser() {
+    private fun addTeamUser(email: String) {
+        if (userService.findByEmail(email).isPresent)
+            return
+
         val user = ESystemUser()
-        user.email = "user@connection.de"
+        user.email = email
         user.clearTextPassword = "user123"
         user.firstname = "Team"
         user.lastname = "User"
@@ -41,9 +49,12 @@ class AddDevUsersRunner : CommandLineRunner {
         userService.save(user)
     }
 
-    private fun addFinanceTeamUser() {
+    private fun addFinanceTeamUser(email: String) {
+        if (userService.findByEmail(email).isPresent)
+            return
+
         val user = ESystemUser()
-        user.email = "financeUser@connection.de"
+        user.email = email
         user.clearTextPassword = "financeuser123"
         user.firstname = "Team Finance"
         user.lastname = "User"

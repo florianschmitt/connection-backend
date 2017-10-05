@@ -32,6 +32,11 @@ class ERequestDTO : Serializable {
     var city: String? = null
 
     @NotBlank
+    var requesterName: String? = null
+
+    var requesterInstitution: String? = null
+
+    @NotBlank
     @Email
     var email: String? = null
 

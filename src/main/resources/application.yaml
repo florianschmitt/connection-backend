@@ -13,8 +13,6 @@ application:
   applicationUrl: http://localhost:3000
   allowedOrigins: http://localhost:3000, https://localhost:3000, http://localhost:4200
 
-
-
 ---
 
 spring.profiles: dev
@@ -36,14 +34,15 @@ server.ssl:
 ---
 spring.profiles: dev-postgres
 
-spring.datasource:
-  url: jdbc:postgresql://[::1]:5432/connection
-  driverClassName: org.postgresql.Driver
-  username: connection
-  password: connection
-  jpa:
-    showSql: true
-    hibernate.ddlAuto: validate
+spring:
+  datasource:
+    url: jdbc:postgresql://[::1]:5432/connection
+    driverClassName: org.postgresql.Driver
+    username: connection
+    password: connection
+    jpa:
+      showSql: true
+      hibernate.ddlAuto: validate
   mail.host: localhost
 
 security.basic.enabled: false

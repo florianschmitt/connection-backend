@@ -45,6 +45,13 @@ class ERequest : BaseEntity() {
     @NotBlank
     var city: String? = null
 
+    @Column(nullable = false)
+    @NotBlank
+    var requesterName: String? = null
+
+    @Column(nullable = true)
+    var requesterInstitution: String? = null
+
     @Email
     @Column(nullable = false)
     @NotBlank

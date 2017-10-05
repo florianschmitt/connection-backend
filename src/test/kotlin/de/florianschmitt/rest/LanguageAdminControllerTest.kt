@@ -7,28 +7,18 @@ import de.florianschmitt.base.BaseRestTest
 import de.florianschmitt.base.DBUnitData
 import de.florianschmitt.model.rest.ELanguageAdminDTO
 import de.florianschmitt.model.rest.ELocalizedDTO
-import de.florianschmitt.repository.LanguageRepository
-import de.florianschmitt.repository.VolunteerRepository
 import org.junit.Ignore
 import org.junit.Test
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.getForEntity
 import org.springframework.web.client.postForEntity
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 @DatabaseSetups(
         DatabaseSetup(value = DBUnitData.BASE),
         DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
 class LanguageAdminControllerTest : BaseRestTest() {
-
-    @Autowired
-    private lateinit var volunteerRepository: VolunteerRepository
-
-    @Autowired
-    private lateinit var languageRepository: LanguageRepository
 
     @Test
     fun testAll() {
@@ -44,9 +34,9 @@ class LanguageAdminControllerTest : BaseRestTest() {
         assertEquals(HttpStatus.OK, response.statusCode)
         val result = response.body
         assertEquals("ARABIC", result!!.identifier)
-        assertEquals("Arabisch", result.localized?.filter { it.locale == "de" }?.single()?.value)
-        assertEquals("العربية", result.localized?.filter { it.locale == "ar" }?.single()?.value)
-        assertEquals("Arabic", result.localized?.filter { it.locale == "en" }?.single()?.value)
+        assertEquals("Arabisch", result.localized?.single { it.locale == "de" }?.value)
+        assertEquals("العربية", result.localized?.single { it.locale == "ar" }?.value)
+        assertEquals("Arabic", result.localized?.single { it.locale == "en" }?.value)
     }
 
     @Test
@@ -73,8 +63,8 @@ class LanguageAdminControllerTest : BaseRestTest() {
         assertEquals(HttpStatus.OK, response.statusCode)
         val result = response.body
         assertEquals("SPANISH", result!!.identifier)
-        assertEquals("Spanisch", result.localized?.filter { it.locale == "de" }?.single()?.value)
-        assertEquals("Spanish", result.localized?.filter { it.locale == "en" }?.single()?.value)
+        assertEquals("Spanisch", result.localized?.single { it.locale == "de" }?.value)
+        assertEquals("Spanish", result.localized?.single { it.locale == "en" }?.value)
     }
 
 //    @Test

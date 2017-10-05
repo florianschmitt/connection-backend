@@ -4,6 +4,7 @@ import com.google.common.collect.Sets
 import de.florianschmitt.model.entities.ERequest
 import de.florianschmitt.service.LanguageService
 import de.florianschmitt.service.RequestService
+import de.florianschmitt.system.util.DevPostgresProfile
 import de.florianschmitt.system.util.DevProfile
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
@@ -16,6 +17,7 @@ import java.util.concurrent.ThreadLocalRandom
 @RestController
 @RequestMapping("/dev/")
 @DevProfile
+@DevPostgresProfile
 internal class DevController {
 
     @Autowired
@@ -32,6 +34,7 @@ internal class DevController {
         for (it in 0..count) {
             val randomInt = ThreadLocalRandom.current().nextInt(languages.numberOfElements)
             val request = ERequest()
+            request.requesterName = "Vor und Nachname"
             request.languages = Sets.newHashSet(languages.content[randomInt])
             request.datetime = LocalDateTime.now().plusDays(ThreadLocalRandom.current().nextInt(50).toLong())
             request.ocation = "Anlass"

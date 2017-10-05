@@ -38,6 +38,8 @@ class RequestControllerTest : BaseRestTest() {
 
         val requestDto = ERequestDTO()
 
+        requestDto.requesterName = "Requester"
+        requestDto.requesterInstitution = "Requester Institution"
         requestDto.languageIds = Sets.newHashSet(1L)
         requestDto.datetime = LocalDateTime.now().plusDays(5L)
         requestDto.ocation = "ocation"
@@ -69,7 +71,7 @@ class RequestControllerTest : BaseRestTest() {
         assertEquals(0L, requestRepository.count())
 
         val requestDto = ERequestDTO()
-
+        requestDto.requesterName = "Requester"
         requestDto.languageIds = Sets.newHashSet(1L, 2L, 3L)
         requestDto.datetime = LocalDateTime.now().plusDays(5L)
         requestDto.ocation = "ocation"

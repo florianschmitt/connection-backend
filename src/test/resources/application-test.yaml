@@ -1,6 +1,5 @@
 spring.jmx.enabled: false
 security.basic.enabled: false
-spring.datasource.data:
 server.port: 12345
 server.publicPort: 81
 

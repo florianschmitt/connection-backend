@@ -133,7 +133,7 @@ task buildDocker(type: Docker, dependsOn: build) {
     }
 }
 
-task createCurrentSchema(type: org.springframework.boot.gradle.tasks.run.BootRun) {
+task createCurrentSchema(type: org.springframework.boot.gradle.tasks.run.BootRun, dependsOn: compileKotlin) {
     doFirst() {
         main = 'de.florianschmitt.system.util.schema_creator.CreateCurrentSchemaApplication'
         classpath = sourceSets.main.runtimeClasspath

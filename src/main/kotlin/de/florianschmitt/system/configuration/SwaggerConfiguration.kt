@@ -1,5 +1,6 @@
 package de.florianschmitt.system.configuration
 
+import de.florianschmitt.system.util.DevPostgresProfile
 import de.florianschmitt.system.util.DevProfile
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -12,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 @Configuration
 @EnableSwagger2
 @DevProfile
+@DevPostgresProfile
 internal class SwaggerConfiguration {
 
     @Bean
