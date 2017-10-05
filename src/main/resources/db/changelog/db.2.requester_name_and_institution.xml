@@ -12,6 +12,7 @@
     </changeSet>
     <changeSet author="fschmitt" id="1507209660609-3">
         <addNotNullConstraint
+                columnDataType="varchar(255)"
                 columnName="requester_name"
                 defaultNullValue="unknown"
                 tableName="erequest"
