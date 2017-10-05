@@ -7,6 +7,7 @@ import de.florianschmitt.service.RequestService
 import de.florianschmitt.system.util.DevProfile
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
@@ -24,7 +25,8 @@ internal class DevController {
     private lateinit var languageService: LanguageService
 
     @GetMapping(path = arrayOf("/createRequests"))
-    fun createRequests(@RequestParam(defaultValue = "10", name = "count") count: Int): ResponseEntity<*> {
+    @ResponseStatus(HttpStatus.OK)
+    fun createRequests(@RequestParam(defaultValue = "10", name = "count") count: Int) {
         val languages = languageService.findAll(PageRequest.of(0, 10))
 
         for (it in 0..count) {
@@ -40,7 +42,5 @@ internal class DevController {
             request.phone = "0123456"
             requestService.submitNewRequest(request)
         }
-
-        return ResponseEntity.ok().build<Any>()
     }
 }

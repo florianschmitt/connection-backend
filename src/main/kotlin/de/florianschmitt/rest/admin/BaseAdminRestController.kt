@@ -36,20 +36,20 @@ internal abstract class BaseAdminRestController<ENTITY : BaseEntity, DTO : Seria
         val pageable = PageRequest.of(0, Integer.MAX_VALUE, defaultSortForAll)
         val entities = service.findAll(pageable)
         val result = mapToDto(entities)
-        return ResponseEntity(result, HttpStatus.OK)
+        return ResponseEntity.ok(result)
     }
 
     @PostMapping(path = arrayOf("/save"))
-    fun save(@RequestBody @Valid dto: DTO): ResponseEntity<*> {
+    @ResponseStatus(HttpStatus.OK)
+    fun save(@RequestBody @Valid dto: DTO) {
         val entity = mapToEntity(dto)
         service.save(entity)
-        return ResponseEntity<Any>(HttpStatus.OK)
     }
 
     @DeleteMapping(path = arrayOf("/delete/{id}"))
-    fun delete(@PathVariable("id") id: Long): ResponseEntity<*> {
+    @ResponseStatus(HttpStatus.OK)
+    fun delete(@PathVariable("id") id: Long) {
         service.deleteOne(id)
-        return ResponseEntity<Any>(HttpStatus.OK)
     }
 
     protected fun mapToEntity(dto: DTO) = mapper.map(dto, entityClass)

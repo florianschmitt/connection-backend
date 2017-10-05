@@ -1,8 +1,10 @@
 package de.florianschmitt.rest.admin
 
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -10,5 +12,6 @@ import org.springframework.web.bind.annotation.RestController
 class PingController {
 
     @GetMapping(path = arrayOf("/ping"))
-    fun ping() = ResponseEntity.ok().build<Any>()
+    @ResponseStatus(HttpStatus.OK)
+    fun ping() = {}
 }

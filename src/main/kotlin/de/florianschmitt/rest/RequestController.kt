@@ -6,6 +6,7 @@ import de.florianschmitt.service.RequestService
 import de.florianschmitt.service.util.DTOMapper
 import de.florianschmitt.system.util.HasRequesterRole
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -32,27 +33,27 @@ internal class RequestController {
     }
 
     @GetMapping(path = arrayOf("/$declineRequest/{requestIdentifier}"))
-    fun declineRequest(@PathVariable(name = "requestIdentifier") requestIdentifier: String): ResponseEntity<*> {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun declineRequest(@PathVariable(name = "requestIdentifier") requestIdentifier: String) {
         service.declineRequest(requestIdentifier)
-        return ResponseEntity.noContent().build<Any>()
     }
 
     @PostMapping(path = arrayOf("/$answerRequest/{voucherIdentifier}/yes"))
-    fun answerRequestYes(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String): ResponseEntity<*> {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun answerRequestYes(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String) {
         service.answerRequest(voucherIdentifier, true)
-        return ResponseEntity.noContent().build<Any>()
     }
 
     @PostMapping(path = arrayOf("/$answerRequest/{voucherIdentifier}/no"))
-    fun answerRequestNo(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String): ResponseEntity<*> {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun answerRequestNo(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String) {
         service.answerRequest(voucherIdentifier, false)
-        return ResponseEntity.noContent().build<Any>()
     }
 
     @GetMapping(path = arrayOf("/$answerRequest/{voucherIdentifier}/status"))
-    fun answerRequestStatus(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String): ResponseEntity<*> {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun answerRequestStatus(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String) {
         service.checkVoucherValid(voucherIdentifier)
-        return ResponseEntity.noContent().build<Any>()
     }
 }
 

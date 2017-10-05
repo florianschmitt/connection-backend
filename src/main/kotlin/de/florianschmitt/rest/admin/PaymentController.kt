@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AnonymousAuthenticationToken
@@ -31,10 +32,10 @@ internal class PaymentController {
     private lateinit var mapper: DTOMapper
 
     @PostMapping(path = arrayOf("/placePayment"))
-    fun placePayment(@RequestBody @Valid data: EPaymentDTO): ResponseEntity<*> {
+    @ResponseStatus(HttpStatus.OK)
+    fun placePayment(@RequestBody @Valid data: EPaymentDTO) {
         val request = requestService.findByRequestIdentifier(data.requestId!!)
         service.processPayment(request, data.paymentReceived!!, currentUser, data.comment)
-        return ResponseEntity.ok().build<Any>()
     }
 
     @GetMapping(path = arrayOf("/all"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
