@@ -10,7 +10,7 @@ class ELocalized(language: ELanguage, localeLanguage: ELocalizedLanguageEnum, va
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    var language: ELanguage= language
+    var language: ELanguage = language
 
     @Column(nullable = false)
     @Convert(converter = LocalizedLanguageEnumConverter::class)
