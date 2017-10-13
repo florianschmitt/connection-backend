@@ -1,9 +1,8 @@
-package de.florianschmitt.service
+package de.florianschmitt.service.base
 
 import java.io.Serializable
-import java.util.Optional
 
-interface BaseAdminService<ENTITY : Serializable> {
+internal interface BaseAdminService<ENTITY : Serializable> {
     fun save(entity: ENTITY): ENTITY
     fun findAll(): Iterable<ENTITY>
     fun findOne(id: Long): ENTITY?

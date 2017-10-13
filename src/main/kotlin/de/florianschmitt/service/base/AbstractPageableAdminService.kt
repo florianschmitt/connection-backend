@@ -1,4 +1,4 @@
-package de.florianschmitt.service
+package de.florianschmitt.service.base
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable

@@ -4,6 +4,7 @@ import de.florianschmitt.model.entities.ELanguage
 import de.florianschmitt.model.entities.ELocalizedLanguageEnum
 import de.florianschmitt.model.rest.ELanguageDTO
 import de.florianschmitt.repository.LanguageRepository
+import de.florianschmitt.service.base.AbstractPageableAdminService
 import org.springframework.stereotype.Service
 
 @Service

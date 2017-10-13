@@ -3,6 +3,7 @@ package de.florianschmitt.service
 import de.florianschmitt.model.entities.ESystemUser
 import de.florianschmitt.repository.SystemUserRepository
 import de.florianschmitt.rest.exception.SystemMustHaveAtLeastASingleActiveAdmin
+import de.florianschmitt.service.base.AbstractPageableAdminService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service

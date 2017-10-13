@@ -4,6 +4,7 @@ import com.google.common.io.Resources
 import de.florianschmitt.model.entities.ETemplate
 import de.florianschmitt.model.fixtures.TemplateFixtures
 import de.florianschmitt.repository.TemplateRepository
+import de.florianschmitt.service.base.AbstractAdminService
 import org.springframework.beans.FatalBeanException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cache.annotation.Cacheable

@@ -1,7 +1,7 @@
 package de.florianschmitt.rest.admin
 
 import de.florianschmitt.model.entities.BaseEntity
-import de.florianschmitt.service.BasePageableAdminService
+import de.florianschmitt.service.base.BasePageableAdminService
 import de.florianschmitt.service.util.DTOMapper
 import de.florianschmitt.system.util.ReflectionUtils
 import org.springframework.beans.factory.annotation.Autowired
