@@ -8,6 +8,7 @@ import de.florianschmitt.repository.VolunteerRepository
 import de.florianschmitt.repository.VoucherRepository
 import de.florianschmitt.rest.exception.*
 import de.florianschmitt.service.util.TransactionHook
+import de.florianschmitt.system.generators.IdentifierGenerator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -30,6 +31,9 @@ class RequestService {
 
     @Autowired
     private lateinit var mailService: MailService
+
+    @Autowired
+    private lateinit var identifierGenerator: IdentifierGenerator
 
     fun all(pageable: Pageable): Page<ERequest> {
         return repository.findAll(pageable)
@@ -129,7 +133,7 @@ class RequestService {
         }
 
         request.state = ERequestStateEnum.OPEN
-        request.requestIdentifier = generateIdentifier()
+        request.requestIdentifier = identifierGenerator.generate()
         request.createdAt = LocalDateTime.now()
 
         request = repository.save(request)
@@ -148,22 +152,9 @@ class RequestService {
 
     private fun createVouchers(request: ERequest): Collection<EVoucher> {
         val result = volunteerRepository.findActiveVolunteerWhoHasLanguage(request.languages!!)
-                .map { volunteer -> EVoucher(generateIdentifier(), volunteer, request) }
+                .map { volunteer -> EVoucher(identifierGenerator.generate(), volunteer, request) }
                 .map(voucherRepository::save)
                 .toHashSet()
         return result
-    }
-
-    private fun generateIdentifier(): String {
-        val alphabet = "abcdefghijklmnopqrstuvwxyz"
-        val sb = StringBuilder()
-        val random = Random()
-        val length = 10
-
-        for (i in 0 until length - 1) {
-            val c = alphabet[random.nextInt(26)]
-            sb.append(c)
-        }
-        return sb.toString()
     }
 }
