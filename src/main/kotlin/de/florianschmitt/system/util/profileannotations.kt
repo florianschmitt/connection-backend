@@ -21,3 +21,15 @@ annotation class ProductiveProfile
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 @Profile("testing")
 annotation class TestingProfile
+
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+@Profile("test")
+annotation class TestProfile
+
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+@Profile("!test")
+annotation class NotTestProfile
+
+

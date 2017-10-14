@@ -9,13 +9,14 @@ import de.florianschmitt.repository.VoucherRepository
 import de.florianschmitt.rest.exception.*
 import de.florianschmitt.service.util.TransactionHook
 import de.florianschmitt.system.generators.IdentifierGenerator
+import de.florianschmitt.system.util.log
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
-import java.util.*
 import javax.persistence.RollbackException
 
 @Service
@@ -98,6 +99,31 @@ class RequestService {
         repository.save(request)
     }
 
+    @Scheduled(cron = "0 0 0 * * *")
+    @Transactional
+    fun closeRequestsWhichAreFinished() {
+        val start = LocalDateTime.now()
+        val end = start.plusDays(1)
+
+        log.trace("closeRequestsWhichAreFinished")
+
+        val dueRequests = repository.findOpenRequestsWhichAreDue(start, end)
+        for (request in dueRequests) {
+            when (request.state) {
+                ERequestStateEnum.OPEN -> {
+                    request.state = ERequestStateEnum.EXPIRED
+                    repository.save(request)
+                }
+                ERequestStateEnum.ACCEPTED -> {
+                    request.state = ERequestStateEnum.FINISHED
+                    repository.save(request)
+                }
+                else -> {
+                }
+            }
+        }
+    }
+
     fun checkVoucherValid(voucherIdentifier: String) {
         val voucher = voucherRepository.findByIdentifier(voucherIdentifier)
                 .orElseThrow({ VoucherNotFoundException() })
@@ -116,12 +142,14 @@ class RequestService {
         when (request.state) {
             ERequestStateEnum.CANCELED -> throw RequestWasCanceledException()
             ERequestStateEnum.FINISHED -> throw RequestFinishedException()
+            else -> {
+            }
         }
     }
 
     private fun checkAcceptedStateOrFail(request: ERequest) {
-        when (request.state) {
-            ERequestStateEnum.ACCEPTED -> throw RequestAlreadyAcceptedException()
+        if (request.state == ERequestStateEnum.ACCEPTED) {
+            throw RequestAlreadyAcceptedException()
         }
     }
 

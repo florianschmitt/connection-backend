@@ -13,8 +13,6 @@ abstract class AbstractAdminService<ENTITY : Serializable, REPOSITORY : CrudRepo
     @Transactional
     override fun save(entity: ENTITY) = repository.save(entity)
 
-    override fun findAll() = repository.findAll()
-
     override fun findOne(id: Long) = repository.findById(id).orElse(null)
 
     @Transactional
