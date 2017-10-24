@@ -18,6 +18,7 @@ class DashboardService {
         val accepted = repository.countByState(ERequestStateEnum.ACCEPTED)
         val canceled = repository.countByState(ERequestStateEnum.CANCELED)
         val finished = repository.countByState(ERequestStateEnum.FINISHED)
-        return EDashboardDTO(open, accepted, canceled, finished)
+        val expired = repository.countByState(ERequestStateEnum.EXPIRED)
+        return EDashboardDTO(open, accepted, canceled, finished, expired)
     }
 }

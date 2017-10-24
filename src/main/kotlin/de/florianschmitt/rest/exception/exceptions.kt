@@ -18,6 +18,13 @@ class VoucherAlreadyAnsweredException : RuntimeException()
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "illegal voucher id")
 class VoucherNotFoundException : RuntimeException()
 
+@ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = FeedbackAlreadyGivenException.MSG)
+class FeedbackAlreadyGivenException : RuntimeException() {
+    companion object {
+        const val MSG = "feedback already given"
+    }
+}
+
 @ResponseStatus(value = HttpStatus.OK, reason = RequestNotYetFinishedException.MSG)
 class RequestNotYetFinishedException : RuntimeException() {
     companion object {

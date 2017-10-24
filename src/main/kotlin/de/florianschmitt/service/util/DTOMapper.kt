@@ -19,7 +19,7 @@ class DTOMapper {
 
     private fun map(source: EPayment): EPaymentDTO {
         val result = mapper.map(source, EPaymentDTO::class.java)
-        result.paymentBookedBy = source.paymentBookedBy.toDisplayString()
+        result.paymentBookedBy = source.paymentBookedBy.displayString
         result.requestId = source.request.requestIdentifier
         return result
     }
@@ -74,7 +74,7 @@ class DTOMapper {
                 ?.map { it.id }
                 ?.toSet()
 
-        result.acceptedByVolunteer = source.acceptedByVolunteer?.toDisplayString()
+        result.acceptedByVolunteer = source.acceptedByVolunteer?.displayString
 
         return result
     }
@@ -117,7 +117,7 @@ fun EVoucher.toDto() = EVoucherDTO(
         id = this.id,
         identifier = this.identifier,
         requestIdentifier = this.request.requestIdentifier,
-        volunteerString = this.volunteer.toDisplayString(),
+        volunteerString = this.volunteer.displayString,
         answer = this.answer)
 
 fun EVolunteer.toDto() = EVolunteerDTO(
@@ -127,3 +127,23 @@ fun EVolunteer.toDto() = EVolunteerDTO(
         isActive = this.isActive,
         email = this.email,
         languageIds = this.languages?.map { it.id }?.toSet())
+
+fun ESystemUser.toDto() = ESystemUserDTO(
+        id = this.id,
+        firstname = this.firstname,
+        lastname = this.lastname,
+        isActive = this.isActive,
+        email = this.email,
+        hasAdminRight = this.hasAdminRight,
+        hasFinanceRight = this.hasFinanceRight)
+
+fun ERequest.toSimpleDto(): ERequestSimpleDTO {
+    var result = ERequestSimpleDTO()
+    result.datetime = this.datetime;
+    result.languageIds = this.languages?.map { it.id }?.toSet()
+    result.city = this.city
+    result.ocation = this.ocation
+    result.postalCode = this.postalCode
+    result.street = this.street
+    return result
+}

@@ -9,6 +9,7 @@ import de.florianschmitt.service.util.toDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -42,7 +43,7 @@ internal class RequestAdminController {
 
     @GetMapping(path = arrayOf("/all"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
     fun all(): ResponseEntity<Page<ERequestDTO>> {
-        val pageable = PageRequest.of(0, Integer.MAX_VALUE)
+        val pageable = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(Sort.Direction.DESC, "createdAt"))
         val page = service.all(pageable)
         val result = mapper.map(page, ERequestDTO::class.java)
         return ResponseEntity.ok(result)

@@ -6,5 +6,6 @@ class EDashboardDTO(
         var openRequests: Long,
         var acceptedRequests: Long,
         var canceledRequests: Long,
-        var finishedRequests: Long
+        var finishedRequests: Long,
+        var expiredRequests: Long
 ) : Serializable

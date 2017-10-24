@@ -35,7 +35,7 @@ internal class PaymentController {
     @ResponseStatus(HttpStatus.OK)
     fun placePayment(@RequestBody @Valid data: EPaymentDTO) {
         val request = requestService.findByRequestIdentifier(data.requestId!!)
-        service.processPayment(request, data.paymentReceived!!, currentUser, data.comment)
+        service.processPayment(request, data.paymentReceived!!, Helper.currentUser, data.comment)
     }
 
     @GetMapping(path = arrayOf("/all"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
@@ -53,13 +53,4 @@ internal class PaymentController {
         val result = mapper.map(entities, EPaymentDTO::class.java)
         return ResponseEntity.ok(result)
     }
-
-    private val currentUser: ESystemUser
-        get() {
-            val authentication = SecurityContextHolder.getContext().authentication
-            if (authentication !is AnonymousAuthenticationToken) {
-                return authentication.principal as ESystemUser
-            }
-            throw AuthenticationCredentialsNotFoundException("could not get user")
-        }
 }

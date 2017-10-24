@@ -2,7 +2,6 @@ package de.florianschmitt.model.entities
 
 import org.hibernate.validator.constraints.Email
 import org.hibernate.validator.constraints.NotBlank
-
 import javax.persistence.*
 import javax.validation.constraints.Size
 
@@ -29,5 +28,9 @@ abstract class EAbstractUser : BaseEntity() {
     @NotBlank
     var email: String = ""
 
-    fun toDisplayString() = "$lastname, $firstname"
+    val displayString: String
+        get() = "$lastname, $firstname"
+
+    val germanDisplayString: String
+        get() = "$firstname $lastname"
 }

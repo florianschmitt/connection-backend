@@ -7,6 +7,7 @@ import de.florianschmitt.base.BaseRestTest
 import de.florianschmitt.base.DBUnitData
 import de.florianschmitt.model.rest.ESystemUserDTO
 import de.florianschmitt.repository.SystemUserRepository
+import de.florianschmitt.rest.admin.GetNameResult
 import de.florianschmitt.rest.exception.SystemMustHaveAtLeastASingleActiveAdmin
 import org.junit.Ignore
 import org.junit.Test
@@ -47,17 +48,19 @@ class SystemUserControllerTest : BaseRestTest() {
         val result = response.body
         assertEquals("admin", result!!.firstname)
         assertEquals("user", result.lastname)
-        assertEquals(true, result.active)
+        assertEquals(true, result.isActive)
     }
 
     @Test
     fun testSaveNew() {
-        val dto = ESystemUserDTO()
-        dto.firstname = "newfirstname"
-        dto.lastname = "newlastname"
-        dto.email = "new@mail.de"
-        dto.cleartextPassword = "password"
-        dto.active = true
+        val dto = ESystemUserDTO(
+                id = null,
+                firstname = "newfirstname",
+                lastname = "newlastname",
+                email = "new@mail.de",
+                cleartextPassword = "password",
+                isActive = true
+        )
 
         val response = restTemplate.postForEntity<Any>(buildUrl("admin/systemuser/save"), dto)
         assertEquals(HttpStatus.OK, response.statusCode)
@@ -73,13 +76,15 @@ class SystemUserControllerTest : BaseRestTest() {
 
     @Test
     fun testSaveExisting() {
-        val dto = ESystemUserDTO()
-        dto.id = 1L
-        dto.firstname = "newfirstname"
-        dto.lastname = "newlastname"
-        dto.email = "admin@connection.de"
-        dto.active = true
-        dto.hasAdminRight = true
+        val dto = ESystemUserDTO(
+                id = 1L,
+                firstname = "newfirstname",
+                lastname = "newlastname",
+                email = "admin@connection.de",
+                cleartextPassword = "admin123",
+                isActive = true,
+                hasAdminRight = true
+        )
 
         val response = restTemplate.postForEntity<Any>(buildUrl("admin/systemuser/save"), dto)
         assertEquals(HttpStatus.OK, response.statusCode)
@@ -97,13 +102,15 @@ class SystemUserControllerTest : BaseRestTest() {
     @Test
     @Ignore
     fun testSaveExisting2() {
-        val dto = ESystemUserDTO()
-        dto.id = 1L
-        dto.firstname = "newfirstname"
-        dto.lastname = "newlastname"
-        dto.email = "admin@connection.de"
-        dto.active = false
-        dto.hasAdminRight = true
+        val dto = ESystemUserDTO(
+                id = 1L,
+                firstname = "newfirstname",
+                lastname = "newlastname",
+                email = "new@mail.de",
+                cleartextPassword = "password",
+                isActive = false,
+                hasAdminRight = true
+        )
 
         val response = restTemplate.postForEntity<Any>(buildUrl("admin/systemuser/save"), dto)
         assertEquals(HttpStatus.BAD_REQUEST, response.statusCode)
@@ -119,14 +126,15 @@ class SystemUserControllerTest : BaseRestTest() {
 
     @Test
     fun testSaveExistingChangePassword() {
-        val dto = ESystemUserDTO()
-        dto.id = 1L
-        dto.firstname = "newfirstname"
-        dto.lastname = "newlastname"
-        dto.email = "admin@connection.de"
-        dto.cleartextPassword = "neuesPasswort123"
-        dto.active = true
-        dto.hasAdminRight = true
+        val dto = ESystemUserDTO(
+                id = 1L,
+                firstname = "newfirstname",
+                lastname = "newlastname",
+                email = "admin@connection.de",
+                cleartextPassword = "neuesPasswort123",
+                isActive = true,
+                hasAdminRight = true
+        )
 
         val response = restTemplate.postForEntity<Any>(buildUrl("admin/systemuser/save"), dto)
         assertEquals(HttpStatus.OK, response.statusCode)
@@ -143,13 +151,15 @@ class SystemUserControllerTest : BaseRestTest() {
 
     @Test
     fun testSaveExistingSetInactiveFails() {
-        val dto = ESystemUserDTO()
-        dto.id = 1L
-        dto.firstname = "newfirstname"
-        dto.lastname = "newlastname"
-        dto.email = "admin@connection.de"
-        dto.active = false
-        dto.hasAdminRight = true
+        val dto = ESystemUserDTO(
+                id = 1L,
+                firstname = "newfirstname",
+                lastname = "newlastname",
+                email = "admin@connection.de",
+                isActive = false,
+                hasAdminRight = true
+        )
+
         try {
             restTemplate.postForEntity<Any>(buildUrl("admin/systemuser/save"), dto)
             fail("save should fail")

@@ -65,6 +65,12 @@ class RequestService {
         return request
     }
 
+    fun findByVoucherIdentifier(voucherIdentifier: String): ERequest {
+        val voucher = voucherRepository.findByIdentifier(voucherIdentifier)
+                .orElseThrow({ VoucherNotFoundException() })
+        return voucher.request
+    }
+
     fun listVouchers(requestIdentifier: String): Collection<EVoucher> {
         val request = findByRequestIdentifier(requestIdentifier)
         val vouchers = voucherRepository.findByRequest(request)

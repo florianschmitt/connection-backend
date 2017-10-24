@@ -1,9 +1,11 @@
 package de.florianschmitt.rest
 
 import de.florianschmitt.model.entities.ERequest
+import de.florianschmitt.model.rest.ERequestSimpleDTO
 import de.florianschmitt.model.rest.ERequestDTO
 import de.florianschmitt.service.RequestService
 import de.florianschmitt.service.util.DTOMapper
+import de.florianschmitt.service.util.toSimpleDto
 import de.florianschmitt.system.util.HasRequesterRole
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -30,6 +32,12 @@ internal class RequestController {
         val request = mapper.map(data, ERequest::class.java)
         val requestId = service.submitNewRequest(request)
         return ResponseEntity.ok(PlaceRequestResult(requestId))
+    }
+
+    @GetMapping(path = arrayOf("/getRequest/{voucherIdentifier}"))
+    fun getRequest(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String): ERequestSimpleDTO {
+        val request = service.findByVoucherIdentifier(voucherIdentifier)
+        return request.toSimpleDto()
     }
 
     @GetMapping(path = arrayOf("/$declineRequest/{requestIdentifier}"))

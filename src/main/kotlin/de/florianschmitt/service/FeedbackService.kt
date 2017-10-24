@@ -4,6 +4,7 @@ import de.florianschmitt.model.entities.EFeedback
 import de.florianschmitt.model.entities.ERequestStateEnum
 import de.florianschmitt.repository.FeedbackRepository
 import de.florianschmitt.repository.RequestRepository
+import de.florianschmitt.rest.exception.FeedbackAlreadyGivenException
 import de.florianschmitt.rest.exception.RequestNotFoundException
 import de.florianschmitt.rest.exception.RequestNotYetFinishedException
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,8 +29,18 @@ class FeedbackService {
             throw RequestNotYetFinishedException()
         }
 
+        if (repository.findByRequest(request).isPresent) {
+            throw FeedbackAlreadyGivenException()
+        }
+
         val volunteer = request.acceptedByVolunteer!!
         val feedback = EFeedback(volunteer, request, positive, comment)
         repository.save(feedback)
+    }
+
+    fun findFeedback(requestIdentifier: String) : EFeedback? {
+        val request = requestRepository.findByRequestIdentifier(requestIdentifier)
+                .orElseThrow({ RequestNotFoundException() })
+        return repository.findByRequest(request).orElse(null)
     }
 }

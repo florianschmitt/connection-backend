@@ -10,7 +10,7 @@ class EFeedback(volunteer: EVolunteer, request: ERequest, positive: Boolean = fa
     @JoinColumn(nullable = false)
     var volunteer: EVolunteer = volunteer
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(nullable = false)
     var request: ERequest = request
 

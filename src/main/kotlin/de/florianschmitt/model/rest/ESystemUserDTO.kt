@@ -5,25 +5,21 @@ import org.hibernate.validator.constraints.NotBlank
 
 import java.io.Serializable
 
-class ESystemUserDTO : Serializable {
+class ESystemUserDTO(
+        var id: Long?,
 
-    var id: Long? = null
+        @NotBlank
+        var firstname: String?,
 
-    @NotBlank
-    var firstname: String? = null
+        @NotBlank
+        var lastname: String?,
 
-    @NotBlank
-    var lastname: String? = null
+        var isActive: Boolean = false,
+        var hasAdminRight: Boolean = false,
+        var hasFinanceRight: Boolean = false,
 
-    var active: Boolean? = null
-
-    var hasAdminRight: Boolean = false
-
-    var hasFinanceRight: Boolean = false
-
-    @Email
-    @NotBlank
-    var email: String? = null
-
-    var cleartextPassword: String? = null
-}
+        @Email
+        @NotBlank
+        var email: String?,
+        var cleartextPassword: String? = null
+) : Serializable

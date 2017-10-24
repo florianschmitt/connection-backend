@@ -5,6 +5,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup
 import com.github.springtestdbunit.annotation.DatabaseSetups
 import de.florianschmitt.base.BaseRestTest
 import de.florianschmitt.base.DBUnitData
+import de.florianschmitt.rest.admin.GetNameResult
 import org.junit.Test
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpStatus
@@ -21,6 +22,13 @@ class PingControllerAuthenticatedTest : BaseRestTest() {
     fun `ping should work with authentication`() {
         val response = restTemplate.getForEntity(buildUrl("/admin/ping"), Any::class.java)
         assertEquals(HttpStatus.OK, response.statusCode)
+    }
+
+    @Test
+    fun `test getLoggedInName returns name of logged in user`() {
+        val response = restTemplate.getForEntity(buildUrl("admin/getLoggedInName"), GetNameResult::class.java)
+        assertEquals(HttpStatus.OK, response.statusCode)
+        assertEquals("admin user", response.body.name)
     }
 
     override fun customize(restBuilder: RestTemplateBuilder): RestTemplateBuilder {
