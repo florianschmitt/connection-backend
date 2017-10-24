@@ -1,8 +1,8 @@
 package de.florianschmitt.model.entities
 
 import de.florianschmitt.model.entities.util.DateConverter
-import org.hibernate.validator.constraints.Email
-import org.hibernate.validator.constraints.NotBlank
+import javax.validation.constraints.Email
+import javax.validation.constraints.NotBlank
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.persistence.*

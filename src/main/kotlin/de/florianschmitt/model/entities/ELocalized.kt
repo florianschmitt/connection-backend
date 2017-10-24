@@ -1,7 +1,7 @@
 package de.florianschmitt.model.entities
 
 import de.florianschmitt.model.entities.util.LocalizedLanguageEnumConverter
-import org.hibernate.validator.constraints.NotBlank
+import javax.validation.constraints.NotBlank
 
 import javax.persistence.*
 

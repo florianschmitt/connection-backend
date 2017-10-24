@@ -1,6 +1,6 @@
 package de.florianschmitt.model.entities
 
-import org.hibernate.validator.constraints.NotBlank
+import javax.validation.constraints.NotBlank
 
 import javax.persistence.CascadeType
 import javax.persistence.Column
