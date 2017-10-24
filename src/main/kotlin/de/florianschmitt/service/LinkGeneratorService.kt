@@ -13,6 +13,6 @@ internal class LinkGeneratorService {
     private val baseUrl: String
         get() = if (!applicationUrl.endsWith("/")) "$applicationUrl/" else applicationUrl
 
-    fun requestAnswer(voucher: EVoucher) = "${baseUrl}answerrequest/${voucher.identifier}}"
+    fun requestAnswer(voucher: EVoucher) = "${baseUrl}answerrequest/${voucher.identifier}"
     fun requestAnswerDecline(voucher: EVoucher) = "${requestAnswer(voucher)}/decline"
 }

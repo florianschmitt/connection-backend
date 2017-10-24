@@ -1,4 +1,4 @@
-Hallo <to.firstname> <to.lastname>,
+Hallo <recipient>,
 
 willst du am <request.dateString> einen Termin für eine Sprachbegleitung in <request.languageString> übernehmen?
 

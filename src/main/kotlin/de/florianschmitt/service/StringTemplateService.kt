@@ -18,13 +18,26 @@ class StringTemplateService {
     private val sender: String? = null
 
     fun replace(template: String, voucher: EVoucher, to: EAbstractUser, request: ERequest): String {
-        val st = ST(template)
-        st.add("to", to)
-        st.add("request", request)
+        val st = replaceCommonVariables(template, to.germanDisplayString, request)
+
         st.add("voucher", voucher)
-        st.add("sender", sender)
         st.add("linkAnswerRequest", linkGeneratorService.requestAnswer(voucher))
         st.add("linkAnswerRequestDecline", linkGeneratorService.requestAnswerDecline(voucher))
+
         return st.render()
+    }
+
+    fun replace(template: String, to: String, request: ERequest): String {
+        val st = replaceCommonVariables(template, to, request)
+
+        return st.render()
+    }
+
+    private fun replaceCommonVariables(template: String, recipient: String, request: ERequest): ST {
+        val st = ST(template)
+        st.add("recipient", recipient)
+        st.add("request", request)
+        st.add("sender", sender)
+        return st
     }
 }

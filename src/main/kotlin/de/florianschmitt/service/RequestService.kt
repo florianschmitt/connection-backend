@@ -103,6 +103,14 @@ class RequestService {
         request.acceptedByVolunteer = voucher.volunteer
         request.state = ERequestStateEnum.ACCEPTED
         repository.save(request)
+
+        TransactionHook.afterCommitSuccess {
+            mailService.requestAcceptedConfirmationForVolunteer(request)
+        }
+
+        TransactionHook.afterCommitSuccess {
+            mailService.requestAcceptedConfirmationForRequester(request)
+        }
     }
 
     @Scheduled(cron = "0 0 0 * * *")

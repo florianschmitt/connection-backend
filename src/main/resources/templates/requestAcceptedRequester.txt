@@ -1,0 +1,8 @@
+Hallo <recipient>,
+
+deine Anfrage für eine Sprachbegleitung am <request.dateString> in <request.languageString> (<request.requestIdentifier>) wurde übernehmen.
+
+Ein_e Sprachbegleiter_in wird sich demnächst mit dir in Verbindung setzen.
+
+Viele Grüße,
+<sender>

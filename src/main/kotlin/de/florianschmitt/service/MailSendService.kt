@@ -21,8 +21,17 @@ internal class MailSendService {
 
     @Async
     fun send(user: EAbstractUser, subject: String, message: String) {
+        sendInternal(user.email, subject, message)
+    }
+
+    @Async
+    fun send(email: String, subject: String, message: String) {
+        sendInternal(email, subject, message)
+    }
+
+    private fun sendInternal(email: String, subject: String, message: String) {
         val mail = SimpleMailMessage()
-        mail.setTo(user.email)
+        mail.setTo(email)
         mail.from = from
         mail.subject = subject
         mail.text = message
@@ -32,6 +41,5 @@ internal class MailSendService {
             log.error("error while sending mail", e)
             throw e
         }
-
     }
 }

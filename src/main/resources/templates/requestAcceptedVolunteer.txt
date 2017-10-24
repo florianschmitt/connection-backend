@@ -1,0 +1,19 @@
+Hallo <recipient>,
+
+du hast zugesagt am <request.dateString> eine Sprachbegleitung zu übernehmen.
+
+Bitte setze dich demnächst mit dem Antragssteller in Verbindung, um die Einzelheiten zu klären.
+
+Kontaktdaten:
+Name: <request.requesterName>
+Telefonummer: <request.phone>
+E-Mail: <request.email>
+
+Vorgangsdaten:
+Datum: <request.dateString>
+Sprache(n): <request.languageString>
+Anlass: <request.ocation>
+Adresse: <request.street>, <request.postalCode> <request.city>
+
+Viele Grüße,
+<sender>
