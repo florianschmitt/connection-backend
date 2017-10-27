@@ -86,7 +86,7 @@ bootJar {
     mainClass = 'de.florianschmitt.ConnectionBackendApplication'
 }
 
-if (project.property('includeFrontend') == true) {
+if (project.property('includeFrontend') == "true") {
     apply from: 'gradle/frontenddependencies.gradle'
 }
 

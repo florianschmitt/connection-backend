@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import java.time.Duration
+import javax.servlet.http.HttpServletRequest
 
 @Configuration
 internal class WebConfiguration {
@@ -72,16 +73,18 @@ internal class WebConfiguration {
 
     @Bean
     fun redirectDeepPathsOfAngularToIndex(): ErrorViewResolver {
-        return ErrorViewResolver { _, status, model ->
-            if (status == HttpStatus.NOT_FOUND) {
-                val path = model["path"] as String
-                if (path.startsWith("/ui")) {
-                    ModelAndView("/ui/index.html", emptyMap<String, Any>(), HttpStatus.OK)
-                } else if (path.startsWith("/adminui")) {
-                    ModelAndView("/adminui/index.html", emptyMap<String, Any>(), HttpStatus.OK)
+        return object : ErrorViewResolver {
+            override fun resolveErrorView(request: HttpServletRequest?, status: HttpStatus?, model: MutableMap<String, Any>?): ModelAndView? {
+                if (status == HttpStatus.NOT_FOUND) {
+                    val path = model!!["path"] as String
+                    if (path.startsWith("/ui")) {
+                        return ModelAndView("/ui/index.html", emptyMap<String, Any>(), HttpStatus.OK)
+                    } else if (path.startsWith("/adminui")) {
+                        return ModelAndView("/adminui/index.html", emptyMap<String, Any>(), HttpStatus.OK)
+                    }
                 }
+                return null
             }
-            null
         }
     }
 

@@ -1,4 +1,4 @@
-rootProject.name = 'connection-backend'
+rootProject.name = 'connection'
 
 if (new File(rootDir, '../connection-frontend-requestform').exists()) {
     includeBuild '../connection-frontend-requestform'
