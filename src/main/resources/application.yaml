@@ -7,7 +7,19 @@ security.basic.enabled: true
 
 server:
   port: 8443
-  compression.enabled: true
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types:
+      - application/json
+      - application/xml
+      - application/xhtml+xml
+      - application/javascript
+      - application/x-javascript
+      - text/html
+      - text/xml
+      - text/plain
+      - text/css
 
 application:
   applicationUrl: http://localhost:3000
