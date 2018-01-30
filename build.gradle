@@ -157,3 +157,7 @@ liquibase {
 task deployHeroku(type: Exec, dependsOn: build) {
     commandLine 'cmd', '/c', "heroku deploy:jar ${jar.archivePath} --app $herokuApplicationName"
 }
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '4.5'
+}
