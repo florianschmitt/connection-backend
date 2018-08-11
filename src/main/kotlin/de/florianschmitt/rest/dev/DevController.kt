@@ -1,6 +1,7 @@
 package de.florianschmitt.rest.dev
 
 import com.google.common.collect.Sets
+import de.florianschmitt.model.entities.EOccationEnum
 import de.florianschmitt.model.entities.ERequest
 import de.florianschmitt.service.LanguageService
 import de.florianschmitt.service.RequestService
@@ -37,7 +38,8 @@ internal class DevController {
             request.requesterName = "Vor und Nachname"
             request.languages = Sets.newHashSet(languages.content[randomInt])
             request.datetime = LocalDateTime.now().plusDays(ThreadLocalRandom.current().nextInt(50).toLong())
-            request.ocation = "Anlass"
+            request.occationEnum = EOccationEnum.OTHER
+            request.occationString = "ein besonderer Anlass"
             request.city = "Koeln"
             request.postalCode = "12345"
             request.street = "Straßenname"

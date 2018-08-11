@@ -1,11 +1,10 @@
 package de.florianschmitt.model.entities
 
 import de.florianschmitt.model.entities.util.DateConverter
+import java.time.LocalDateTime
+import javax.persistence.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import javax.persistence.*
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
@@ -30,8 +29,12 @@ class ERequest : BaseEntity() {
     var datetime: LocalDateTime? = null
 
     @Column(nullable = false)
-    @NotBlank
-    var ocation: String? = null
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    var occationEnum: EOccationEnum? = EOccationEnum.DOCTOR
+
+    @Column(nullable = true)
+    var occationString: String? = null
 
     @Column(nullable = false)
     @NotBlank
@@ -79,4 +82,10 @@ class ERequest : BaseEntity() {
         get() = languages
                 ?.map(ELanguage::valueInDefaultLanguage)
                 ?.joinToString()
+
+    val occation: String?
+        get() = when (occationEnum) {
+            EOccationEnum.OTHER -> occationString
+            else -> occationEnum.toString()
+        }
 }
