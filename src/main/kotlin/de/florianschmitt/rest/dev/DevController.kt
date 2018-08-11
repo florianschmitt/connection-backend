@@ -1,7 +1,7 @@
 package de.florianschmitt.rest.dev
 
 import com.google.common.collect.Sets
-import de.florianschmitt.model.entities.EOccationEnum
+import de.florianschmitt.model.entities.EOccasionEnum
 import de.florianschmitt.model.entities.ERequest
 import de.florianschmitt.service.LanguageService
 import de.florianschmitt.service.RequestService
@@ -10,7 +10,6 @@ import de.florianschmitt.system.util.DevProfile
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
 import java.util.concurrent.ThreadLocalRandom
@@ -38,8 +37,8 @@ internal class DevController {
             request.requesterName = "Vor und Nachname"
             request.languages = Sets.newHashSet(languages.content[randomInt])
             request.datetime = LocalDateTime.now().plusDays(ThreadLocalRandom.current().nextInt(50).toLong())
-            request.occationEnum = EOccationEnum.OTHER
-            request.occationString = "ein besonderer Anlass"
+            request.occasionEnum = EOccasionEnum.OTHER
+            request.occasionString = "ein besonderer Anlass"
             request.city = "Koeln"
             request.postalCode = "12345"
             request.street = "Straßenname"

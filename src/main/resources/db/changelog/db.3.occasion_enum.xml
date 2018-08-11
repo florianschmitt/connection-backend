@@ -2,23 +2,23 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet author="Florian Schmitt (generated)" id="1533987553811-1">
         <addColumn tableName="erequest">
-            <column name="occation_enum" type="VARCHAR(255)"/>
+            <column name="occasion_enum" type="VARCHAR(255)"/>
         </addColumn>
     </changeSet>
     <changeSet author="Florian Schmitt (generated)" id="1533987553811-2">
         <addNotNullConstraint
                 columnDataType="VARCHAR(255)"
-                columnName="occation_enum"
+                columnName="occasion_enum"
                 defaultNullValue="OTHER"
                 tableName="erequest"/>
     </changeSet>
     <changeSet author="Florian Schmitt (generated)" id="1533987553811-3">
-        <renameColumn oldColumnName="ocation" newColumnName="occation_string" tableName="erequest"/>
+        <renameColumn oldColumnName="ocation" newColumnName="occasion_string" tableName="erequest"/>
     </changeSet>
     <changeSet author="Florian Schmitt (generated)" id="1533987553811-4">
         <dropNotNullConstraint
                 columnDataType="VARCHAR(255)"
-                columnName="occation_string"
+                columnName="occasion_string"
                 tableName="erequest"/>
     </changeSet>
 </databaseChangeLog>

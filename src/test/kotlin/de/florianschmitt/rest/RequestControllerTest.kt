@@ -42,8 +42,8 @@ class RequestControllerTest : BaseRestTest() {
         requestDto.requesterInstitution = "Requester Institution"
         requestDto.languageIds = Sets.newHashSet(1L)
         requestDto.datetime = LocalDateTime.now().plusDays(5L)
-        requestDto.occationEnum = "OTHER"
-        requestDto.occationString = "ocation"
+        requestDto.occasionEnum = "OTHER"
+        requestDto.occasionString = "ocation"
         requestDto.city = "Cologne"
         requestDto.street = "Street 123"
         requestDto.postalCode = "12345"
@@ -64,7 +64,7 @@ class RequestControllerTest : BaseRestTest() {
         assertTrue(request.languages?.filter { it.id == 1L }?.any() ?: false)
         assertEquals(ERequestStateEnum.OPEN, request.state)
         assertEquals("request@email.de", request.email)
-        assertEquals("ocation", request.occation)
+        assertEquals("ocation", request.occasion)
     }
 
     @Test
@@ -76,7 +76,7 @@ class RequestControllerTest : BaseRestTest() {
         requestDto.requesterName = "Requester"
         requestDto.languageIds = Sets.newHashSet(1L, 2L, 3L)
         requestDto.datetime = LocalDateTime.now().plusDays(5L)
-        requestDto.occationEnum = "DOCTOR"
+        requestDto.occasionEnum = "DOCTOR"
         requestDto.city = "Cologne"
         requestDto.street = "Street 123"
         requestDto.postalCode = "12345"
@@ -97,7 +97,7 @@ class RequestControllerTest : BaseRestTest() {
         assertTrue(request.languages?.filter { it.id == 1L }?.any() ?: false)
         assertEquals(ERequestStateEnum.OPEN, request.state)
         assertEquals("request@email.de", request.email)
-        assertEquals("Arzt", request.occation)
+        assertEquals("Arzt", request.occasion)
     }
 
     @Test

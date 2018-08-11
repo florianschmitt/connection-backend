@@ -1,6 +1,6 @@
 package de.florianschmitt.model.entities
 
-enum class EOccationEnum(private val label: String)
+enum class EOccasionEnum(private val label: String)
 {
     DOCTOR("Arzt"),
     GOVERNMENT("Amt"),

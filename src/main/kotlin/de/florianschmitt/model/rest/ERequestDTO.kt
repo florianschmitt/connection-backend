@@ -20,9 +20,9 @@ class ERequestDTO : Serializable {
     var datetime: LocalDateTime? = null
 
     @NotBlank
-    var occationEnum: String? = null
+    var occasionEnum: String? = null
 
-    var occationString: String? = null
+    var occasionString: String? = null
 
     @NotBlank
     var street: String? = null

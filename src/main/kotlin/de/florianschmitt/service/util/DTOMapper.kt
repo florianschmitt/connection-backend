@@ -75,8 +75,8 @@ class DTOMapper {
                 ?.toSet()
 
         result.acceptedByVolunteer = source.acceptedByVolunteer?.displayString
-        result.occationString = source.occation
-        result.occationEnum = null;
+        result.occasionString = source.occasion
+        result.occasionEnum = null;
 
         return result
     }
@@ -144,7 +144,7 @@ fun ERequest.toSimpleDto(): ERequestSimpleDTO {
     result.datetime = this.datetime;
     result.languageIds = this.languages?.map { it.id }?.toSet()
     result.city = this.city
-    result.ocation = this.occation
+    result.ocation = this.occasion
     result.postalCode = this.postalCode
     result.street = this.street
     return result

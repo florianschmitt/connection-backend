@@ -31,10 +31,10 @@ class ERequest : BaseEntity() {
     @Column(nullable = false)
     @NotNull
     @Enumerated(EnumType.STRING)
-    var occationEnum: EOccationEnum? = EOccationEnum.DOCTOR
+    var occasionEnum: EOccasionEnum? = EOccasionEnum.DOCTOR
 
     @Column(nullable = true)
-    var occationString: String? = null
+    var occasionString: String? = null
 
     @Column(nullable = false)
     @NotBlank
@@ -83,9 +83,9 @@ class ERequest : BaseEntity() {
                 ?.map(ELanguage::valueInDefaultLanguage)
                 ?.joinToString()
 
-    val occation: String?
-        get() = when (occationEnum) {
-            EOccationEnum.OTHER -> occationString
-            else -> occationEnum.toString()
+    val occasion: String?
+        get() = when (occasionEnum) {
+            EOccasionEnum.OTHER -> occasionString
+            else -> occasionEnum.toString()
         }
 }
