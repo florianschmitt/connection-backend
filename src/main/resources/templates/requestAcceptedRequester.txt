@@ -1,8 +1,10 @@
 Hallo <recipient>,
 
-deine Anfrage für eine Sprachbegleitung am <request.dateString> in <request.languageString> (<request.requestIdentifier>) wurde übernehmen.
+ihre Anfrage für die Sprachbegleitung für den Termin <request.ocation> auf <request.languageString> am <request.dateString> wurde übernommen.
 
-Ein_e Sprachbegleiter_in wird sich demnächst mit dir in Verbindung setzen.
+Der_die Sprachbegleiter_in wird sich mit Ihnen in Verbindung setzen, um alle Einzelheiten abzuklären.
+
+Vielen Dank für Ihre Anfrage.
 
 Viele Grüße,
 <sender>

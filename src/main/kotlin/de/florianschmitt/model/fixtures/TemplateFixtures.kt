@@ -7,7 +7,7 @@ enum class TemplateFixtures(
         val description: String,
         val filenameOrContent: String
 ) {
-    REQUEST_ASK_VOLUNTEER_SUBJECT(Type.STRING, "Kopfzeile für Anfragemail an Freiwillige", "Anfrage für Sprachunterstützung"),
+    REQUEST_ASK_VOLUNTEER_SUBJECT(Type.STRING, "Kopfzeile für Anfragemail an Freiwillige", "Anfrage für Sprachbegleitung"),
     REQUEST_ASK_VOLUNTEER_CONTENT(Type.FILE, "Vorlage für Anfragemail an Freiwillige", "requestAskVolunteer.txt"),
 
     REQUEST_ACCEPTED_VOLUNTEER_SUBJECT(Type.STRING, "Kopfzeile für Bestätigungsmail an Freiwillige", "Bestätigung für die Übernahme einer Sprachbegleitung"),
