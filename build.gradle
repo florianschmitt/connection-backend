@@ -134,11 +134,10 @@ task buildDocker(type: Docker, dependsOn: build) {
 }
 
 task createCurrentSchema(type: org.springframework.boot.gradle.tasks.run.BootRun, dependsOn: compileKotlin) {
-    doFirst() {
-        main = 'de.florianschmitt.system.util.schema_creator.CreateCurrentSchemaApplication'
-        classpath = sourceSets.main.runtimeClasspath
-        jvmArgs '--add-modules', 'java.xml.bind'
-    }
+    main = 'de.florianschmitt.system.util.schema_creator.CreateCurrentSchemaApplication'
+    classpath sourceSets.main.runtimeClasspath
+    // include for Java 9 support
+    //jvmArgs = ['--add-modules', 'java.xml.bind']
 }
 
 liquibase {
@@ -159,5 +158,5 @@ task deployHeroku(type: Exec, dependsOn: build) {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '4.5'
+    gradleVersion = '4.5'
 }
