@@ -23,8 +23,8 @@ import kotlin.test.assertTrue
 import kotlin.test.fail
 
 @DatabaseSetups(
-        DatabaseSetup(value = DBUnitData.BASE),
-        DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
+        DatabaseSetup(DBUnitData.BASE),
+        DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
 class SystemUserControllerTest : BaseRestTest() {
 
     @Autowired

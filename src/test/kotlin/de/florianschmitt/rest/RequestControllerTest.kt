@@ -32,7 +32,7 @@ class RequestControllerTest : BaseRestTest() {
     private lateinit var voucherRepository: VoucherRepository
 
     @Test
-    @DatabaseSetup(value = DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
     fun testPlaceRequest() {
         assertEquals(0L, requestRepository.count())
 
@@ -68,7 +68,7 @@ class RequestControllerTest : BaseRestTest() {
     }
 
     @Test
-    @DatabaseSetup(value = DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
     fun testPlaceRequest2() {
         assertEquals(0L, requestRepository.count())
 
@@ -101,7 +101,7 @@ class RequestControllerTest : BaseRestTest() {
     }
 
     @Test
-    @DatabaseSetup(value = DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
     fun testPlaceRequestFail() {
         val emptyRequest = ERequestDTO()
 
@@ -117,8 +117,8 @@ class RequestControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
     fun testDeclineRequest() {
         assertTrue(requestRepository.findByRequestIdentifier("ident1").isPresent)
         assertEquals(ERequestStateEnum.OPEN,
@@ -132,8 +132,8 @@ class RequestControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
     fun testAnswerVoucherYes() {
         assertTrue(voucherRepository.findByIdentifier("voucherId1").isPresent)
         assertEquals(null, voucherRepository.findByIdentifier("voucherId1").get().answer)
@@ -145,8 +145,8 @@ class RequestControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
     fun testAnswerVoucherStatusIsOk() {
         assertTrue(voucherRepository.findByIdentifier("voucherId1").isPresent)
         assertEquals(null, voucherRepository.findByIdentifier("voucherId1").get().answer)
@@ -158,8 +158,8 @@ class RequestControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.REQUEST_CANCELED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.REQUEST_CANCELED, type = DatabaseOperation.REFRESH))
     @Ignore("doesnt work yet") //TODO:
     fun testAnswerVoucherStatusIsCanceled() {
         assertTrue(voucherRepository.findByIdentifier("voucherId1").isPresent)
@@ -176,8 +176,8 @@ class RequestControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
     fun testAnswerVoucherNo() {
         assertTrue(voucherRepository.findByIdentifier("voucherId1").isPresent)
         assertEquals(null, voucherRepository.findByIdentifier("voucherId1").get().answer)
@@ -189,8 +189,8 @@ class RequestControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.REQUEST_CANCELED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.REQUEST_CANCELED, type = DatabaseOperation.REFRESH))
     fun testCanceledRequestAnswerVoucherYesFails() {
         assertTrue(voucherRepository.findByIdentifier("voucherId1").isPresent)
         assertEquals(null, voucherRepository.findByIdentifier("voucherId1").get().answer)
@@ -202,8 +202,8 @@ class RequestControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.REQUEST_CANCELED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.REQUEST_CANCELED, type = DatabaseOperation.REFRESH))
             /**
              * if the request was canceled, the volunteer can still answer no. check
              * requirements

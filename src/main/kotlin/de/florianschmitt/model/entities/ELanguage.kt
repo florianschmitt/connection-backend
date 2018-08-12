@@ -17,7 +17,7 @@ class ELanguage(identifier: String, viewOrder: Int) : BaseEntity() {
     @Column(nullable = false)
     var viewOrder: Int = viewOrder
 
-    @OneToMany(mappedBy = "language", cascade = arrayOf(CascadeType.MERGE, CascadeType.PERSIST))
+    @OneToMany(mappedBy = "language", cascade = [CascadeType.MERGE, CascadeType.PERSIST])
     var localized: Set<ELocalized>? = null
 
     val valueInDefaultLanguage: String

@@ -15,9 +15,9 @@ class DashboardControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
-            DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
+            DatabaseSetup(DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun `dashboard info with 1 finished request`() {
         val response = restTemplate.getForEntity(buildUrl("/admin/dashboard/info"), EDashboardDTO::class.java)
         assertEquals(HttpStatus.OK, response.statusCode)
@@ -29,9 +29,9 @@ class DashboardControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
-            DatabaseSetup(value = DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
+            DatabaseSetup(DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
     fun `dashboard info with 1 open request`() {
         val response = restTemplate.getForEntity(buildUrl("/admin/dashboard/info"), EDashboardDTO::class.java)
         assertEquals(HttpStatus.OK, response.statusCode)
@@ -43,9 +43,9 @@ class DashboardControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
-            DatabaseSetup(value = DBUnitData.REQUEST_CANCELED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
+            DatabaseSetup(DBUnitData.REQUEST_CANCELED, type = DatabaseOperation.REFRESH))
     fun `dashboard info with 1 canceled request`() {
         val response = restTemplate.getForEntity(buildUrl("/admin/dashboard/info"), EDashboardDTO::class.java)
         assertEquals(HttpStatus.OK, response.statusCode)

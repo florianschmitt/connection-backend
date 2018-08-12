@@ -18,7 +18,7 @@ internal class LanguageController {
     @Autowired
     private lateinit var service: LanguageService
 
-    @GetMapping(path = arrayOf("/getLanguages"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/getLanguages"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun getLanguages(@RequestParam(name = "locale", defaultValue = "de") locale: String): ResponseEntity<List<ELanguageDTO>> {
         val language = ELocalizedLanguageEnum.create(locale)
         val result = service.findByLanguage(language)

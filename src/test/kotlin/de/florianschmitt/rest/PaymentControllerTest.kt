@@ -18,9 +18,9 @@ class PaymentControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
-            DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
+            DatabaseSetup(DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun `get all should be empty`() {
         val response = restTemplate.getForEntity<Any>(buildUrl("/admin/payment/all"))
 
@@ -31,9 +31,9 @@ class PaymentControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
-            DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
+            DatabaseSetup(DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun `place payment should work`() {
         val dto = EPaymentDTO()
         dto.paymentReceived = BigDecimal(20)
@@ -45,9 +45,9 @@ class PaymentControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
-            DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
+            DatabaseSetup(DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun `payment for request should be empty`() {
         val response = restTemplate.getForEntity<Any>(buildUrl("/admin/payment/forRequest?requestIdentifier=" + "ident3"))
         val map = response.body as Map<*, *>
@@ -57,9 +57,9 @@ class PaymentControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
-            DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
+            DatabaseSetup(DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun `place payment, afterward forRequest should return payment`() {
         val dto = EPaymentDTO()
         dto.paymentReceived = BigDecimal(20)

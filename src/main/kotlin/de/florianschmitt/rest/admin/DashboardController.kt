@@ -16,6 +16,6 @@ internal class DashboardController {
     @Autowired
     private lateinit var service: DashboardService
 
-    @GetMapping(path = arrayOf("/info"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/info"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun get(): ResponseEntity<EDashboardDTO> = ResponseEntity.ok(service.info())
 }

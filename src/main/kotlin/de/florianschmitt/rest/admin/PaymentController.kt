@@ -31,14 +31,14 @@ internal class PaymentController {
     @Autowired
     private lateinit var mapper: DTOMapper
 
-    @PostMapping(path = arrayOf("/placePayment"))
+    @PostMapping(path = ["/placePayment"])
     @ResponseStatus(HttpStatus.OK)
     fun placePayment(@RequestBody @Valid data: EPaymentDTO) {
         val request = requestService.findByRequestIdentifier(data.requestId!!)
         service.processPayment(request, data.paymentReceived!!, Helper.currentUser, data.comment)
     }
 
-    @GetMapping(path = arrayOf("/all"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/all"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun all(): ResponseEntity<Page<EPaymentDTO>> {
         val pageable = PageRequest.of(0, Integer.MAX_VALUE, Sort(Sort.Direction.DESC, "paymentBookedAt"))
         val entities = service.findAll(pageable)
@@ -46,7 +46,7 @@ internal class PaymentController {
         return ResponseEntity.ok(result)
     }
 
-    @GetMapping(path = arrayOf("/forRequest"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/forRequest"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun forRequest(@RequestParam("requestIdentifier") requestIdentifier: String): ResponseEntity<Page<EPaymentDTO>> {
         val pageable = PageRequest.of(0, Integer.MAX_VALUE, Sort(Sort.Direction.DESC, "paymentBookedAt"))
         val entities = service.findForRequest(requestIdentifier, pageable)

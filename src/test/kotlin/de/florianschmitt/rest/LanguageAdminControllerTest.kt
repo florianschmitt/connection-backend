@@ -16,8 +16,8 @@ import org.springframework.web.client.postForEntity
 import kotlin.test.assertEquals
 
 @DatabaseSetups(
-        DatabaseSetup(value = DBUnitData.BASE),
-        DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
+        DatabaseSetup(DBUnitData.BASE),
+        DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
 class LanguageAdminControllerTest : BaseRestTest() {
 
     @Test

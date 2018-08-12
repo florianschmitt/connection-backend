@@ -12,7 +12,7 @@ import kotlin.test.assertEquals
 class LanguageControllerTest : BaseRestTest() {
 
     @Test
-    @DatabaseSetup(value = DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
     fun testGetLanguageGerman() {
         val languageResult = restTemplate.getForObject<List<LinkedHashMap<*, *>>>(buildUrl("getLanguages"))
         assertEquals(3, languageResult?.size)
@@ -20,7 +20,7 @@ class LanguageControllerTest : BaseRestTest() {
     }
 
     @Test
-    @DatabaseSetup(value = DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(DBUnitData.BASE, type = DatabaseOperation.CLEAN_INSERT)
     fun testGetLanguageArabic() {
         val languageResult = restTemplate.getForObject<List<LinkedHashMap<*, *>>>(buildUrl("/getLanguages?locale={locale}"), "ar")
         assertEquals(3, languageResult?.size)

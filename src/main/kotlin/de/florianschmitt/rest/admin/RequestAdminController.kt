@@ -27,21 +27,21 @@ internal class RequestAdminController {
     @Autowired
     private lateinit var mapper: DTOMapper
 
-    @GetMapping(path = arrayOf("/get/{requestIdentifier}"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/get/{requestIdentifier}"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun get(@PathVariable(name = "requestIdentifier") requestIdentifier: String): ResponseEntity<ERequestDTO> {
         val request = service.findByRequestIdentifier(requestIdentifier)
         val result = mapper.map(request, ERequestDTO::class.java)
         return ResponseEntity.ok(result)
     }
 
-    @GetMapping(path = arrayOf("/getAnswers/{requestIdentifier}"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/getAnswers/{requestIdentifier}"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun getAnswers(@PathVariable(name = "requestIdentifier") requestIdentifier: String): ResponseEntity<Collection<EVoucherDTO>> {
         val vouchers = service.listVouchers(requestIdentifier)
         val result = vouchers.map(EVoucher::toDto)
         return ResponseEntity.ok(result)
     }
 
-    @GetMapping(path = arrayOf("/all"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/all"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun all(): ResponseEntity<Page<ERequestDTO>> {
         val pageable = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(Sort.Direction.DESC, "createdAt"))
         val page = service.all(pageable)
@@ -49,7 +49,7 @@ internal class RequestAdminController {
         return ResponseEntity.ok(result)
     }
 
-    @GetMapping(path = arrayOf("/notPayed"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/notPayed"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun notPayed(): ResponseEntity<Page<ERequestDTO>> {
         val pageable = PageRequest.of(0, Integer.MAX_VALUE)
         val page = service.findAllNotPayed(pageable)

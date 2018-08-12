@@ -31,8 +31,8 @@ class FeedbackControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun testFeedbackPositive() {
         val volunteer = volunteerRepository.findById(1L).get()
         val request = requestRepository.findById(1L).get()
@@ -53,8 +53,8 @@ class FeedbackControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun testFeedbackNegative() {
         val volunteer = volunteerRepository.findById(1L).get()
         val request = requestRepository.findById(1L).get()
@@ -72,8 +72,8 @@ class FeedbackControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.REQUEST_OPEN, type = DatabaseOperation.REFRESH))
     fun testFeedbackNotFinishedFails() {
         val volunteer = volunteerRepository.findById(1L).get()
         val request = requestRepository.findById(1L).get()

@@ -6,22 +6,33 @@ import java.io.Serializable
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
-class EVolunteerDTO(
-        var id: Long?,
+class EVolunteerDTO : Serializable {
+    constructor()
 
-        @NotBlank
-        var firstname: String?,
+    constructor(id: Long?, firstname: String?, lastname: String?, email: String?, cleartextPassword: String? = null, isActive: Boolean = false, languageIds: Set<Long>? = null) {
+        this.id = id
+        this.firstname = firstname
+        this.lastname = lastname
+        this.email = email
+        this.isActive = isActive
+        this.languageIds = languageIds
+    }
 
-        @NotBlank
-        var lastname: String?,
+    var id: Long? = null
 
-        var isActive: Boolean?,
+    @NotBlank
+    var firstname: String? = null
 
-        @Email
-        @NotBlank
-        var email: String?,
+    @NotBlank
+    var lastname: String? = null
 
-        @NotNull
-        @Size(min = 1)
-        var languageIds: Set<Long>?
-) : Serializable
+    var isActive: Boolean? = null
+
+    @Email
+    @NotBlank
+    var email: String? = null
+
+    @NotNull
+    @Size(min = 1)
+    var languageIds: Set<Long>? = null
+}

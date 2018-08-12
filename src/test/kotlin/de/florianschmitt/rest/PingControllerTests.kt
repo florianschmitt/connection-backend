@@ -17,8 +17,8 @@ class PingControllerAuthenticatedTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
     fun `ping should work with authentication`() {
         val response = restTemplate.getForEntity(buildUrl("/admin/ping"), Any::class.java)
         assertEquals(HttpStatus.OK, response.statusCode)
@@ -40,8 +40,8 @@ class PingControllerNotAuthenticatedTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
     fun `ping should not work without authentication`() {
         try {
             restTemplate.getForEntity(buildUrl("/admin/ping"), Any::class.java)
@@ -56,8 +56,8 @@ class PingControllerWrongAuthenticationTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
     fun `ping should not work with wrong authentication`() {
         try {
             restTemplate.getForEntity(buildUrl("/admin/ping"), Any::class.java)

@@ -16,7 +16,7 @@ internal class FeedbackAdminController {
     @Autowired
     private lateinit var service: FeedbackService
 
-    @GetMapping(path = arrayOf("/get/{requestIdentifier}"))
+    @GetMapping(path = ["/get/{requestIdentifier}"])
     fun getFeedback(@PathVariable(name = "requestIdentifier") requestIdentifier: String): ResponseEntity<EFeedbackDTO> {
         val feedback = service.findFeedback(requestIdentifier) ?: return ResponseEntity.noContent().build()
 

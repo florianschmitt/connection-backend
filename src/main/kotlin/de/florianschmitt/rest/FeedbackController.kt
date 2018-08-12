@@ -15,7 +15,7 @@ internal class FeedbackController {
     @Autowired
     private lateinit var service: FeedbackService
 
-    @PostMapping(path = arrayOf("/feedback/{requestIdentifier}"))
+    @PostMapping(path = ["/feedback/{requestIdentifier}"])
     @ResponseStatus(HttpStatus.OK)
     fun feedback(@PathVariable(name = "requestIdentifier") requestIdentifier: String,
                  @RequestBody @Valid data: EFeedbackDTO) {

@@ -17,7 +17,7 @@ interface RequestRepository : PagingAndSortingRepository<ERequest, Long> {
 
     fun findByRequestIdentifier(requestIdentifier: String): Optional<ERequest>
 
-    @EntityGraph(attributePaths = arrayOf("languages"))
+    @EntityGraph(attributePaths = ["languages"])
     fun findByRequestIdentifier_(requestIdentifier: String): Optional<ERequest>
 
     @Query(value = "Select r From ERequest r Where r.payments Is Empty",

@@ -26,7 +26,7 @@ internal class DevController {
     @Autowired
     private lateinit var languageService: LanguageService
 
-    @GetMapping(path = arrayOf("/createRequests"))
+    @GetMapping(path = ["/createRequests"])
     @ResponseStatus(HttpStatus.OK)
     fun createRequests(@RequestParam(defaultValue = "10", name = "count") count: Int) {
         val languages = languageService.findAll(PageRequest.of(0, 10))

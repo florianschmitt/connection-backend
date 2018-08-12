@@ -62,7 +62,7 @@ abstract class BaseRestTest {
 
         val requestFactory = HttpComponentsClientHttpRequestFactory(httpClient)
 
-        var restBuilder = RestTemplateBuilder().requestFactory(requestFactory)
+        var restBuilder = RestTemplateBuilder().requestFactory { requestFactory }
         restBuilder = customize(restBuilder)
         restTemplate = restBuilder.build()
     }

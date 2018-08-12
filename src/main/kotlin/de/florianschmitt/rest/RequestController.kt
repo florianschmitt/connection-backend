@@ -27,38 +27,38 @@ internal class RequestController {
     @Autowired
     private lateinit var service: RequestService
 
-    @PostMapping(path = arrayOf("/$placeRequest"))
+    @PostMapping(path = ["/$placeRequest"])
     fun placeRequest(@RequestBody @Valid data: ERequestDTO): ResponseEntity<PlaceRequestResult> {
         val request = mapper.map(data, ERequest::class.java)
         val requestId = service.submitNewRequest(request)
         return ResponseEntity.ok(PlaceRequestResult(requestId))
     }
 
-    @GetMapping(path = arrayOf("/getRequest/{voucherIdentifier}"))
+    @GetMapping(path = ["/getRequest/{voucherIdentifier}"])
     fun getRequest(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String): ERequestSimpleDTO {
         val request = service.findByVoucherIdentifier(voucherIdentifier)
         return request.toSimpleDto()
     }
 
-    @GetMapping(path = arrayOf("/$declineRequest/{requestIdentifier}"))
+    @GetMapping(path = ["/$declineRequest/{requestIdentifier}"])
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun declineRequest(@PathVariable(name = "requestIdentifier") requestIdentifier: String) {
         service.declineRequest(requestIdentifier)
     }
 
-    @PostMapping(path = arrayOf("/$answerRequest/{voucherIdentifier}/yes"))
+    @PostMapping(path = ["/$answerRequest/{voucherIdentifier}/yes"])
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun answerRequestYes(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String) {
         service.answerRequest(voucherIdentifier, true)
     }
 
-    @PostMapping(path = arrayOf("/$answerRequest/{voucherIdentifier}/no"))
+    @PostMapping(path = ["/$answerRequest/{voucherIdentifier}/no"])
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun answerRequestNo(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String) {
         service.answerRequest(voucherIdentifier, false)
     }
 
-    @GetMapping(path = arrayOf("/$answerRequest/{voucherIdentifier}/status"))
+    @GetMapping(path = ["/$answerRequest/{voucherIdentifier}/status"])
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun answerRequestStatus(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String) {
         service.checkVoucherValid(voucherIdentifier)

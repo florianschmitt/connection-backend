@@ -8,7 +8,7 @@ import org.springframework.core.env.AbstractEnvironment
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters
 
 @SpringBootApplication
-@EntityScan(basePackageClasses = arrayOf(BaseEntity::class, Jsr310JpaConverters::class))
+@EntityScan(basePackageClasses = [BaseEntity::class, Jsr310JpaConverters::class])
 class CreateCurrentSchemaApplication {
 
     companion object {

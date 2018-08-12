@@ -3,6 +3,9 @@ spring:
   datasource.driverClassName: org.h2.Driver
   liquibase.changeLog: 'classpath:/db/changelog/db.changelog-master.xml'
 
+# TODO: use default and change frontend to use ISO-string
+spring.jackson.serialization.writeDatesAsTimestamps: true
+
 security.basic.enabled: true
 
 server:

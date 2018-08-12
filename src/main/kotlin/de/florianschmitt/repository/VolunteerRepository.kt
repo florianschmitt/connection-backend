@@ -17,7 +17,7 @@ interface VolunteerRepository : PagingAndSortingRepository<EVolunteer, Long> {
     fun findActiveVolunteerWhoHasLanguage(@Param(value = "languages") languages: Set<ELanguage>): Collection<EVolunteer>
 
     @Query("Select v From EVolunteer v Where v.id = :id")
-    @EntityGraph(attributePaths = arrayOf("languages"))
+    @EntityGraph(attributePaths = ["languages"])
     fun findOneWithLanguages(@Param("id") id: Long): Optional<EVolunteer>
 
     fun findByEmail(email: String): Optional<EVolunteer>

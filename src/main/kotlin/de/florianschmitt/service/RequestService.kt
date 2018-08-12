@@ -9,11 +9,9 @@ import de.florianschmitt.repository.VoucherRepository
 import de.florianschmitt.rest.exception.*
 import de.florianschmitt.service.util.TransactionHook
 import de.florianschmitt.system.generators.IdentifierGenerator
-import de.florianschmitt.system.util.log
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -110,31 +108,6 @@ class RequestService {
 
         TransactionHook.afterCommitSuccess {
             mailService.requestAcceptedConfirmationForRequester(request)
-        }
-    }
-
-    @Scheduled(cron = "0 0 0 * * *")
-    @Transactional
-    fun closeRequestsWhichAreFinished() {
-        val start = LocalDateTime.now()
-        val end = start.plusDays(1)
-
-        log.trace("closeRequestsWhichAreFinished")
-
-        val dueRequests = repository.findOpenRequestsWhichAreDue(start, end)
-        for (request in dueRequests) {
-            when (request.state) {
-                ERequestStateEnum.OPEN -> {
-                    request.state = ERequestStateEnum.EXPIRED
-                    repository.save(request)
-                }
-                ERequestStateEnum.ACCEPTED -> {
-                    request.state = ERequestStateEnum.FINISHED
-                    repository.save(request)
-                }
-                else -> {
-                }
-            }
         }
     }
 

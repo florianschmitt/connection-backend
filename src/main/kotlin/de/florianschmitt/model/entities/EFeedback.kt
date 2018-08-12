@@ -3,7 +3,7 @@ package de.florianschmitt.model.entities
 import javax.persistence.*
 
 @Entity
-@Table(uniqueConstraints = arrayOf(UniqueConstraint(columnNames = arrayOf("VOLUNTEER_ID", "REQUEST_ID"))))
+@Table(uniqueConstraints = [(UniqueConstraint(columnNames = ["VOLUNTEER_ID", "REQUEST_ID"]))])
 class EFeedback(volunteer: EVolunteer, request: ERequest, positive: Boolean = false, comment: String?)  : BaseEntity() {
 
     @ManyToOne

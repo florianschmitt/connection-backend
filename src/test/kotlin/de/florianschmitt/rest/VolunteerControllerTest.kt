@@ -19,8 +19,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @DatabaseSetups(
-        DatabaseSetup(value = DBUnitData.BASE),
-        DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
+        DatabaseSetup(DBUnitData.BASE),
+        DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH))
 class VolunteerControllerTest : BaseRestTest() {
 
     @Autowired
@@ -50,8 +50,13 @@ class VolunteerControllerTest : BaseRestTest() {
 
     @Test
     fun testSaveNew() {
-        val dto = EVolunteerDTO(null, "newfirstname", "newlastname",
-                true, "new@mail.de", Sets.newHashSet(1L))
+        val dto = EVolunteerDTO(id = null,
+                firstname = "newfirstname",
+                lastname = "newlastname",
+                isActive = true,
+                email = "new@mail.de",
+                languageIds = Sets.newHashSet(1L)
+        )
 
         val response = restTemplate.postForEntity<Any>(buildUrl("admin/volunteer/save"), dto)
         assertEquals(HttpStatus.OK, response.statusCode)
@@ -71,8 +76,13 @@ class VolunteerControllerTest : BaseRestTest() {
 
     @Test
     fun testSaveExisting() {
-        val dto = EVolunteerDTO(1L, "newfirstname", "newlastname",
-                true, "new@mail.de", Sets.newHashSet(1L))
+        val dto = EVolunteerDTO(id = 1L,
+                firstname = "newfirstname",
+                lastname = "newlastname",
+                isActive = true,
+                email = "new@mail.de",
+                languageIds = Sets.newHashSet(1L)
+        )
 
         val response = restTemplate.postForEntity<Any>(buildUrl("admin/volunteer/save"), dto)
         assertEquals(HttpStatus.OK, response.statusCode)

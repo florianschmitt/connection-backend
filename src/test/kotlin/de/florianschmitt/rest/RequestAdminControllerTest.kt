@@ -16,9 +16,9 @@ class RequestAdminControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
-            DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
+            DatabaseSetup(DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun `get single request should return request`() {
         val response = restTemplate.getForEntity<ERequestDTO>(buildUrl("/admin/request/get/ident3"))
         assertTrue(response.statusCode.is2xxSuccessful)
@@ -28,9 +28,9 @@ class RequestAdminControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
-            DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
+            DatabaseSetup(DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun `get answers should return voucher answers`() {
         val response = restTemplate.getForEntity<Any>(buildUrl("/admin/request/getAnswers/ident3"))
         assertTrue(response.statusCode.is2xxSuccessful)
@@ -45,9 +45,9 @@ class RequestAdminControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
-            DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
+            DatabaseSetup(DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun `all should return all`() {
         val response = restTemplate.getForEntity<Any>(buildUrl("/admin/request/all"))
         assertTrue(response.statusCode.is2xxSuccessful)
@@ -64,9 +64,9 @@ class RequestAdminControllerTest : BaseRestTest() {
 
     @Test
     @DatabaseSetups(
-            DatabaseSetup(value = DBUnitData.BASE),
-            DatabaseSetup(value = DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
-            DatabaseSetup(value = DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
+            DatabaseSetup(DBUnitData.BASE),
+            DatabaseSetup(DBUnitData.ADMIN_USER, type = DatabaseOperation.REFRESH),
+            DatabaseSetup(DBUnitData.REQUEST_FINISHED, type = DatabaseOperation.REFRESH))
     fun `not payed`() {
         val response = restTemplate.getForEntity<Any>(buildUrl("/admin/request/notPayed"))
         assertTrue(response.statusCode.is2xxSuccessful)

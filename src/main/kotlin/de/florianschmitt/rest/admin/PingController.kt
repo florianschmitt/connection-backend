@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/admin")
 class PingController {
 
-    @GetMapping(path = arrayOf("/ping"))
+    @GetMapping(path = ["/ping"])
     @ResponseStatus(HttpStatus.OK)
     fun ping() = {
     }
 
-    @GetMapping(path = arrayOf("/getLoggedInName"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/getLoggedInName"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun getName() = GetNameResult(Helper.currentUser.germanDisplayString)
 
-    @GetMapping(path = arrayOf("/getLoggedInRoles"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/getLoggedInRoles"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun getRoles(): GetRolesResult {
         val user = Helper.currentUser
         return GetRolesResult(user.hasFinanceRight, user.hasAdminRight)

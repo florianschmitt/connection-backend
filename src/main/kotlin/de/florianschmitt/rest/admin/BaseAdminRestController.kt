@@ -24,14 +24,14 @@ internal abstract class BaseAdminRestController<ENTITY : BaseEntity, DTO : Seria
     @Autowired
     private lateinit var mapper: DTOMapper
 
-    @GetMapping(path = arrayOf("/get/{id}"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/get/{id}"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun get(@PathVariable("id") id: Long): ResponseEntity<DTO> {
         val element = service.findOne(id) ?: return ResponseEntity.notFound().build()
         val dto = mapToDto(element)
         return ResponseEntity.ok(dto)
     }
 
-    @GetMapping(path = arrayOf("/all"), produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    @GetMapping(path = ["/all"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun all(): ResponseEntity<Page<DTO>> {
         val pageable = PageRequest.of(0, Integer.MAX_VALUE, defaultSortForAll)
         val entities = service.findAll(pageable)
@@ -39,14 +39,14 @@ internal abstract class BaseAdminRestController<ENTITY : BaseEntity, DTO : Seria
         return ResponseEntity.ok(result)
     }
 
-    @PostMapping(path = arrayOf("/save"))
+    @PostMapping(path = ["/save"])
     @ResponseStatus(HttpStatus.OK)
     fun save(@RequestBody @Valid dto: DTO) {
         val entity = mapToEntity(dto)
         service.save(entity)
     }
 
-    @DeleteMapping(path = arrayOf("/delete/{id}"))
+    @DeleteMapping(path = ["/delete/{id}"])
     @ResponseStatus(HttpStatus.OK)
     fun delete(@PathVariable("id") id: Long) {
         service.deleteOne(id)
