@@ -67,8 +67,10 @@ tasks.withType(JacocoReport).all {
 }
 
 project.afterEvaluate {
-    def junitPlatformTestTask = project.tasks.getByName('junitPlatformTest')
-    //junitPlatformTestTask.jvmArgs '--add-modules', 'java.xml.bind'
+    if (JavaVersion.current().isJava9Compatible()) {
+        def junitPlatformTestTask = project.tasks.getByName('junitPlatformTest')
+        junitPlatformTestTask.jvmArgs '--add-modules', 'java.xml.bind'
+    }
 }
 
 repositories {
