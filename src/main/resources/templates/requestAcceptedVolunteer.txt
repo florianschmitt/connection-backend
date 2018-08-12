@@ -1,6 +1,6 @@
 Hallo <recipient>,
 
-du übernimmst die Sprachbegleitung für den Termin <request.ocation> auf <request.languageString> am <request.dateString>
+du übernimmst die Sprachbegleitung für den Termin <request.occasion> auf <request.languageString> am <request.dateString>.
 
 Setz dich bitte so bald wie möglich mit dem_der Antragssteller_in in Verbindung, um alle Einzelheiten abzuklären. Vielen Dank für dein Engagement!
 

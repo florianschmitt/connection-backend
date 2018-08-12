@@ -59,13 +59,13 @@ class RequestService {
 
     fun findByRequestIdentifier(requestIdentifier: String): ERequest {
         val request = repository.findByRequestIdentifier(requestIdentifier)
-                .orElseThrow({ RequestNotFoundException() })
+                .orElseThrow { RequestNotFoundException() }
         return request
     }
 
     fun findByVoucherIdentifier(voucherIdentifier: String): ERequest {
         val voucher = voucherRepository.findByIdentifier(voucherIdentifier)
-                .orElseThrow({ VoucherNotFoundException() })
+                .orElseThrow { VoucherNotFoundException() }
         return voucher.request
     }
 
@@ -78,7 +78,7 @@ class RequestService {
     @Transactional
     fun answerRequest(voucherIdentifier: String, answer: Boolean) {
         val voucher = voucherRepository.findByIdentifier(voucherIdentifier)
-                .orElseThrow({ VoucherNotFoundException() })
+                .orElseThrow { VoucherNotFoundException() }
 
         if (voucher.answer != null) {
             throw VoucherAlreadyAnsweredException()
@@ -113,7 +113,7 @@ class RequestService {
 
     fun checkVoucherValid(voucherIdentifier: String) {
         val voucher = voucherRepository.findByIdentifier(voucherIdentifier)
-                .orElseThrow({ VoucherNotFoundException() })
+                .orElseThrow { VoucherNotFoundException() }
 
         if (voucher.answer != null) {
             throw VoucherAlreadyAnsweredException()
@@ -157,6 +157,8 @@ class RequestService {
         val result = request.requestIdentifier ?: throw RuntimeException("requestIdentifier cannot be null")
 
         TransactionHook.afterCommitSuccess {
+            mailService.requestConfirmation(request)
+
             vouchers.forEach {
                 mailService.requestAskVolunteer(request, it)
             }

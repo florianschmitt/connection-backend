@@ -17,6 +17,16 @@ class MailService {
     @Autowired
     private lateinit var stringTemplateService: StringTemplateService
 
+    fun requestConfirmation(request: ERequest) {
+        val subjectTemplate = templateService.getTemplate(TemplateFixtures.REQUEST_CONFIRMATION_SUBJECT)
+        val contentTemplate = templateService.getTemplate(TemplateFixtures.REQUEST_CONFIRMATION_CONTENT)
+
+        val subject = stringTemplateService.replace(subjectTemplate, request.requesterName!!, request)
+        val content = stringTemplateService.replace(contentTemplate, request.requesterName!!, request)
+
+        mailSendService.send(request.email!!, subject, content)
+    }
+
     fun requestAskVolunteer(request: ERequest, voucher: EVoucher) {
         val subjectTemplate = templateService.getTemplate(TemplateFixtures.REQUEST_ASK_VOLUNTEER_SUBJECT)
         val contentTemplate = templateService.getTemplate(TemplateFixtures.REQUEST_ASK_VOLUNTEER_CONTENT)

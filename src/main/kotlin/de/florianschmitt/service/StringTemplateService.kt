@@ -17,8 +17,8 @@ class StringTemplateService {
     @Value("\${application.mail.sender:Organisation}")
     private val sender: String? = null
 
-    fun replace(template: String, voucher: EVoucher, to: EAbstractUser, request: ERequest): String {
-        val st = replaceCommonVariables(template, to.germanDisplayString, request)
+    fun replace(template: String, voucher: EVoucher, recipient: EAbstractUser, request: ERequest): String {
+        val st = replaceCommonVariables(template, recipient.germanDisplayString, request)
 
         st.add("voucher", voucher)
         st.add("linkAnswerRequest", linkGeneratorService.requestAnswer(voucher))
@@ -27,8 +27,8 @@ class StringTemplateService {
         return st.render()
     }
 
-    fun replace(template: String, to: String, request: ERequest): String {
-        val st = replaceCommonVariables(template, to, request)
+    fun replace(template: String, recipient: String, request: ERequest): String {
+        val st = replaceCommonVariables(template, recipient, request)
 
         return st.render()
     }
@@ -38,6 +38,7 @@ class StringTemplateService {
         st.add("recipient", recipient)
         st.add("request", request)
         st.add("sender", sender)
+        st.add("linkCancelRequest", linkGeneratorService.requestCancel(request))
         return st
     }
 }

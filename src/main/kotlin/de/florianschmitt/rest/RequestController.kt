@@ -34,9 +34,15 @@ internal class RequestController {
         return ResponseEntity.ok(PlaceRequestResult(requestId))
     }
 
-    @GetMapping(path = ["/getRequest/{voucherIdentifier}"])
-    fun getRequest(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String): ERequestSimpleDTO {
+    @GetMapping("/getRequest/voucher/{voucherIdentifier}")
+    fun getRequestByVoucher(@PathVariable(name = "voucherIdentifier") voucherIdentifier: String): ERequestSimpleDTO {
         val request = service.findByVoucherIdentifier(voucherIdentifier)
+        return request.toSimpleDto()
+    }
+
+    @GetMapping(path = ["/getRequest/request/{requestIdentifier}"])
+    fun getRequest(@PathVariable(name = "requestIdentifier") requestIdentifier: String): ERequestSimpleDTO {
+        val request = service.findByRequestIdentifier(requestIdentifier)
         return request.toSimpleDto()
     }
 

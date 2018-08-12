@@ -144,7 +144,7 @@ fun ERequest.toSimpleDto(): ERequestSimpleDTO {
     result.datetime = this.datetime;
     result.languageIds = this.languages?.map { it.id }?.toSet()
     result.city = this.city
-    result.ocation = this.occasion
+    result.occasion = this.occasion
     result.postalCode = this.postalCode
     result.street = this.street
     return result

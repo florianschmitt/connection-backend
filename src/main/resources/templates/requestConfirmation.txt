@@ -1,0 +1,21 @@
+Hallo <recipient>,
+
+Sie haben eine Anfrage für den Termin <request.occasion> auf <request.languageString> am <request.dateString> gestellt.
+
+Folgende Daten wurden übermittelt:
+Name: <request.requesterName>
+Institution: <request.requesterInstitution>
+Telefonummer: <request.phone>
+E-Mail: <request.email>
+
+Vorgangsdaten:
+Vorgangsnummer: <request.requestIdentifier>
+Datum: <request.dateString>
+Sprache(n): <request.languageString>
+Anlass: <request.occasion>
+Adresse: <request.street>, <request.postalCode> <request.city>
+
+Falls Sie die Anfrage Stornieren möchten, klicken Sie bitte auf folgenden Link: <linkCancelRequest>
+
+Viele Grüße,
+<sender>
