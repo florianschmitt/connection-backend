@@ -5,6 +5,9 @@ buildscript {
         // plugins must be literals
     }
     repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
         mavenCentral()
         jcenter()
         maven {
