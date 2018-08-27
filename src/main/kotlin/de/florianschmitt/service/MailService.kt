@@ -27,6 +27,16 @@ class MailService {
         mailSendService.send(request.email!!, subject, content)
     }
 
+    fun requestExpired(request: ERequest) {
+        val subjectTemplate = templateService.getTemplate(TemplateFixtures.REQUEST_EXPIRED_REQUESTER_SUBJECT)
+        val contentTemplate = templateService.getTemplate(TemplateFixtures.REQUEST_EXPIRED_REQUESTER_CONTENT)
+
+        val subject = stringTemplateService.replace(subjectTemplate, request.requesterName!!, request)
+        val content = stringTemplateService.replace(contentTemplate, request.requesterName!!, request)
+
+        mailSendService.send(request.email!!, subject, content)
+    }
+
     fun requestAskVolunteer(request: ERequest, voucher: EVoucher) {
         val subjectTemplate = templateService.getTemplate(TemplateFixtures.REQUEST_ASK_VOLUNTEER_SUBJECT)
         val contentTemplate = templateService.getTemplate(TemplateFixtures.REQUEST_ASK_VOLUNTEER_CONTENT)

@@ -1,0 +1,13 @@
+Hallo <recipient>,
+
+eine Sprachbegleitung für den Termin <request.occasion> auf <request.languageString> am <request.dateString> konnte leider nicht gefunden werden.
+
+Vorgangsdaten:
+Vorgangsnummer: <request.requestIdentifier>
+Datum: <request.dateString>
+Sprache(n): <request.languageString>
+Anlass: <request.occasion>
+Adresse: <request.street>, <request.postalCode> <request.city>
+
+Viele Grüße,
+<sender>

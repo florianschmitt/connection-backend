@@ -5,6 +5,7 @@ import de.florianschmitt.model.entities.ETemplate
 import de.florianschmitt.model.fixtures.TemplateFixtures
 import de.florianschmitt.repository.TemplateRepository
 import de.florianschmitt.service.base.AbstractAdminService
+import de.florianschmitt.service.base.AbstractPageableAdminService
 import org.springframework.beans.FatalBeanException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cache.annotation.Cacheable
@@ -15,8 +16,7 @@ import java.nio.charset.StandardCharsets
 import javax.annotation.PostConstruct
 
 @Service
-class TemplateService : AbstractAdminService<ETemplate, TemplateRepository>() {
-
+class TemplateService : AbstractPageableAdminService<ETemplate, TemplateRepository>() {
     @Autowired
     private lateinit var resourceLoader: ResourceLoader
 

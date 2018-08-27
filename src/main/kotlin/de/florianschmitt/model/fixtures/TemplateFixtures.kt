@@ -18,6 +18,10 @@ enum class TemplateFixtures(
 
     REQUEST_ACCEPTED_REQUESTER_SUBJECT(Type.STRING, "Kopfzeile für Bestätigung der Übernahme an Anfragende", "Bestätigung für die Übernahme einer Sprachbegleitung"),
     REQUEST_ACCEPTED_REQUESTER_CONTENT(Type.FILE, "Vorlage für Bestätigung der Übernahme an Anfragende", "requestAcceptedRequester.txt"),
+
+    REQUEST_EXPIRED_REQUESTER_SUBJECT(Type.STRING, "Kopfzeile für Nachricht über nicht erfolgreiche Übernahme an Anfragende", "Es konnte kein Sprachbegleiter vermittelt werden"),
+    REQUEST_EXPIRED_REQUESTER_CONTENT(Type.FILE, "Vorlage für Nachricht über nicht erfolgreiche Übernahme an Anfragende", "requestExpiredRequester.txt"),
+
     ;
 
     val identifier = this.name

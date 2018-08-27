@@ -7,9 +7,15 @@ import de.florianschmitt.repository.RequestRepository
 import de.florianschmitt.repository.VolunteerRepository
 import de.florianschmitt.repository.VoucherRepository
 import de.florianschmitt.rest.exception.*
+import de.florianschmitt.service.events.RequestIsExpiredEvent
+import de.florianschmitt.service.events.RequestWasAcceptedEvent
+import de.florianschmitt.service.events.RequestWasCanceledEvent
+import de.florianschmitt.service.events.RequestWasSubmittedEvent
 import de.florianschmitt.service.util.TransactionHook
 import de.florianschmitt.system.generators.IdentifierGenerator
+import de.florianschmitt.system.util.log
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.ApplicationContext
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -29,10 +35,10 @@ class RequestService {
     private lateinit var volunteerRepository: VolunteerRepository
 
     @Autowired
-    private lateinit var mailService: MailService
+    private lateinit var identifierGenerator: IdentifierGenerator
 
     @Autowired
-    private lateinit var identifierGenerator: IdentifierGenerator
+    private lateinit var context: ApplicationContext
 
     fun all(pageable: Pageable): Page<ERequest> {
         return repository.findAll(pageable)
@@ -43,18 +49,38 @@ class RequestService {
     }
 
     @Transactional
+    fun expireRequest(request: ERequest) {
+        request.state = ERequestStateEnum.EXPIRED
+        repository.save(request)
+
+        log.info("$request was expired")
+
+        TransactionHook.afterCommitSuccess {
+            context.publishEvent(RequestIsExpiredEvent(this@RequestService, request))
+        }
+    }
+
+    @Transactional
+    fun finishRequest(request: ERequest) {
+        request.state = ERequestStateEnum.FINISHED
+        repository.save(request)
+
+        log.info("$request was finished")
+    }
+
+    @Transactional
     fun declineRequest(requestIdentifier: String) {
         val request = findByRequestIdentifier(requestIdentifier)
 
         checkCanceledFinishedStateOrFail(request)
 
-        if (request.state == ERequestStateEnum.ACCEPTED) {
-            // val acceptedByVolunteer = request.acceptedByVolunteer
-            // TODO: inform volunteer
-        }
-
+        val previousState = request.state!!
         request.state = ERequestStateEnum.CANCELED
         repository.save(request)
+
+        TransactionHook.afterCommitSuccess {
+            context.publishEvent(RequestWasCanceledEvent(this@RequestService, request, previousState))
+        }
     }
 
     fun findByRequestIdentifier(requestIdentifier: String): ERequest {
@@ -103,11 +129,7 @@ class RequestService {
         repository.save(request)
 
         TransactionHook.afterCommitSuccess {
-            mailService.requestAcceptedConfirmationForVolunteer(request)
-        }
-
-        TransactionHook.afterCommitSuccess {
-            mailService.requestAcceptedConfirmationForRequester(request)
+            context.publishEvent(RequestWasAcceptedEvent(this@RequestService, request))
         }
     }
 
@@ -157,11 +179,7 @@ class RequestService {
         val result = request.requestIdentifier ?: throw RuntimeException("requestIdentifier cannot be null")
 
         TransactionHook.afterCommitSuccess {
-            mailService.requestConfirmation(request)
-
-            vouchers.forEach {
-                mailService.requestAskVolunteer(request, it)
-            }
+            context.publishEvent(RequestWasSubmittedEvent(this@RequestService, request, vouchers))
         }
 
         return result
