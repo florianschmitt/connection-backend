@@ -2,6 +2,7 @@ package de.florianschmitt.service.events
 
 import de.florianschmitt.model.entities.ERequestStateEnum
 import de.florianschmitt.service.MailService
+import de.florianschmitt.system.util.log
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Service
@@ -14,27 +15,34 @@ class EventProcessor {
 
     @EventListener
     fun handleRequestWasSubmittedEvent(event: RequestWasSubmittedEvent) {
-        val request = event.request
-        mailService.requestConfirmation(request)
+        log.info("request id='${event.request.requestIdentifier}' was submitted")
+
+        mailService.requestConfirmation(event.request)
 
         event.vouchers.forEach {
-            mailService.requestAskVolunteer(request, it)
+            mailService.requestAskVolunteer(event.request, it)
         }
     }
 
     @EventListener
     fun handleWasAcceptedEvent(event: RequestWasAcceptedEvent) {
+        log.info("request id='${event.request.requestIdentifier}' was accepted")
+
         mailService.requestAcceptedConfirmationForVolunteer(event.request)
         mailService.requestAcceptedConfirmationForRequester(event.request)
     }
 
     @EventListener
     fun handleIsExpiredEvent(event: RequestIsExpiredEvent) {
+        log.info("request id='${event.request.requestIdentifier}' is expired")
+
         mailService.requestExpired(event.request)
     }
 
     @EventListener
     fun handleIsCanceledEvent(event: RequestWasCanceledEvent) {
+        log.info("request id='${event.request.requestIdentifier}' was canceled")
+
         if (event.previousState == ERequestStateEnum.ACCEPTED) {
             // val acceptedByVolunteer = request.acceptedByVolunteer
             // TODO: inform volunteer

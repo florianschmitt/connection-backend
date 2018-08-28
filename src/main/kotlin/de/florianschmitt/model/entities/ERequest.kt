@@ -24,9 +24,11 @@ class ERequest : BaseEntity() {
     @Size(min = 1)
     var languages: MutableSet<ELanguage>? = null
 
-    @Column(nullable = false)
-    @NotNull
+    @Column(nullable = true)
     var datetime: LocalDateTime? = null
+
+    @Column(nullable = true)
+    var dateDescription: String? = null
 
     @Column(nullable = false)
     @NotNull
@@ -76,7 +78,7 @@ class ERequest : BaseEntity() {
     var payments: MutableSet<EPayment>? = null
 
     val dateString: String?
-        get() = DateConverter.convertStandard(datetime)
+        get() = if (datetime != null) DateConverter.convertStandard(datetime) else dateDescription
 
     val languageString: String?
         get() = languages

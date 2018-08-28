@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <include file="db.1.initial_schema.xml" relativeToChangelogFile="true"/>
-    <include file="db.2.requester_name_and_institution.xml" relativeToChangelogFile="true"/>
-    <include file="db.3.occasion_enum.xml" relativeToChangelogFile="true"/>
-    <include file="db.4.date_description.xml" relativeToChangelogFile="true"/>
+    <changeSet author="Florian Schmitt (generated)" id="1535476344288-1">
+        <addColumn tableName="erequest">
+            <column name="date_description" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Florian Schmitt (generated)" id="1535476344288-2">
+        <dropNotNullConstraint columnDataType="timestamp(29,6)" columnName="datetime" tableName="erequest"/>
+    </changeSet>
 </databaseChangeLog>

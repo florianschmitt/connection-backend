@@ -142,6 +142,7 @@ fun ESystemUser.toDto() = ESystemUserDTO(
 fun ERequest.toSimpleDto(): ERequestSimpleDTO {
     var result = ERequestSimpleDTO()
     result.datetime = this.datetime;
+    result.dateDescription = this.dateDescription
     result.languageIds = this.languages?.map { it.id }?.toSet()
     result.city = this.city
     result.occasion = this.occasion

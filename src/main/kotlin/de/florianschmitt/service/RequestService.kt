@@ -169,6 +169,10 @@ class RequestService {
             throw RollbackException("only accepts new requests")
         }
 
+        if (request.datetime == null && request.dateDescription == null) {
+            throw RollbackException("either datetime or dateDescription must be set")
+        }
+
         request.state = ERequestStateEnum.OPEN
         request.requestIdentifier = identifierGenerator.generate()
         request.createdAt = LocalDateTime.now()

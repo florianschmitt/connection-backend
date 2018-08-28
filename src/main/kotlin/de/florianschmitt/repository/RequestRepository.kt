@@ -24,9 +24,9 @@ interface RequestRepository : PagingAndSortingRepository<ERequest, Long> {
             countQuery = "Select Count(r) From ERequest r Where r.payments Is Empty")
     fun findAllNotPayed(pageable: Pageable): Page<ERequest>
 
-    @Query(value = "Select r From ERequest r Where r.state = 'OPEN' and ((r.datetime between :startDate and :endDate) or r.datetime < :startDate)")
+    @Query(value = "Select r From ERequest r Where r.state = 'OPEN' And r.datetime Is Not Null And ((r.datetime between :startDate and :endDate) or r.datetime < :startDate)")
     fun findOpenRequestsWhichAreDue(@Param("startDate") startDate: LocalDateTime, @Param("endDate") endDate: LocalDateTime): Collection<ERequest>
 
-    @Query(value = "Select r From ERequest r Where r.state = 'ACCEPTED' and ((r.datetime between :startDate and :endDate) or r.datetime < :startDate)")
+    @Query(value = "Select r From ERequest r Where r.state = 'ACCEPTED' And r.datetime Is Not Null And ((r.datetime Between :startDate And :endDate) or r.datetime < :startDate)")
     fun findAcceptedRequestsWhichAreDue(@Param("startDate") startDate: LocalDateTime, @Param("endDate") endDate: LocalDateTime): Collection<ERequest>
 }

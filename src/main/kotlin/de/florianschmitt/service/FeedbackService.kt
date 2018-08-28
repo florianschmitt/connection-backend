@@ -23,7 +23,7 @@ class FeedbackService {
     @Transactional
     fun feedback(requestIdentifier: String, positive: Boolean, comment: String?) {
         val request = requestRepository.findByRequestIdentifier(requestIdentifier)
-                .orElseThrow({ RequestNotFoundException() })
+                .orElseThrow { RequestNotFoundException() }
 
         if (request.state != ERequestStateEnum.FINISHED) {
             throw RequestNotYetFinishedException()
@@ -40,7 +40,7 @@ class FeedbackService {
 
     fun findFeedback(requestIdentifier: String) : EFeedback? {
         val request = requestRepository.findByRequestIdentifier(requestIdentifier)
-                .orElseThrow({ RequestNotFoundException() })
+                .orElseThrow { RequestNotFoundException() }
         return repository.findByRequest(request).orElse(null)
     }
 }

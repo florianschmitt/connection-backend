@@ -12,8 +12,9 @@ class ERequestSimpleDTO : Serializable {
     @Size(min = 1)
     var languageIds: Set<Long>? = null
 
-    @NotNull
     var datetime: LocalDateTime? = null
+
+    var dateDescription: String? = null
 
     @NotBlank
     var occasion: String? = null

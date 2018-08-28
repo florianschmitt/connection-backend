@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 import java.io.Serializable
 import java.time.LocalDateTime
+import javax.persistence.Column
 
 class ERequestDTO : Serializable {
 
@@ -16,8 +17,9 @@ class ERequestDTO : Serializable {
     @Size(min = 1)
     var languageIds: Set<Long>? = null
 
-    @NotNull
     var datetime: LocalDateTime? = null
+
+    var dateDescription: String? = null
 
     @NotBlank
     var occasionEnum: String? = null
