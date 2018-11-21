@@ -39,6 +39,13 @@ class StringTemplateService {
         st.add("request", request)
         st.add("sender", sender)
         st.add("linkCancelRequest", linkGeneratorService.requestCancel(request))
+        st.add("linkFeedbackRequester", linkGeneratorService.feedbackRequester(request))
+        st.add("linkFeedbackVolunteer", linkGeneratorService.feedbackVolunteer(request))
         return st
     }
 }
+
+
+
+
+

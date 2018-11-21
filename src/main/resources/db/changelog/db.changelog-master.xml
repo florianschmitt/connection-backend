@@ -4,4 +4,5 @@
     <include file="db.2.requester_name_and_institution.xml" relativeToChangelogFile="true"/>
     <include file="db.3.occasion_enum.xml" relativeToChangelogFile="true"/>
     <include file="db.4.date_description.xml" relativeToChangelogFile="true"/>
+    <include file="db.5.feedback_requester.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -7,10 +7,7 @@ import de.florianschmitt.repository.RequestRepository
 import de.florianschmitt.repository.VolunteerRepository
 import de.florianschmitt.repository.VoucherRepository
 import de.florianschmitt.rest.exception.*
-import de.florianschmitt.service.events.RequestIsExpiredEvent
-import de.florianschmitt.service.events.RequestWasAcceptedEvent
-import de.florianschmitt.service.events.RequestWasCanceledEvent
-import de.florianschmitt.service.events.RequestWasSubmittedEvent
+import de.florianschmitt.service.events.*
 import de.florianschmitt.service.util.TransactionHook
 import de.florianschmitt.system.generators.IdentifierGenerator
 import de.florianschmitt.system.util.log
@@ -66,6 +63,10 @@ class RequestService {
         repository.save(request)
 
         log.info("$request was finished")
+
+        TransactionHook.afterCommitSuccess {
+            context.publishEvent(RequestIsFinishedEvent(this@RequestService, request))
+        }
     }
 
     @Transactional

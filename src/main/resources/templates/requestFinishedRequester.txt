@@ -1,0 +1,7 @@
+Hallo <recipient>,
+
+ihnen wurde eine Sprachbegleitung über Connection Köln vermittelt, waren Sie zufrieden?
+Bitte klicken Sie auf folgenden Link, um eine kurze Rückmeldung zu geben: <linkFeedbackRequester>
+
+Viele Grüße,
+<sender>

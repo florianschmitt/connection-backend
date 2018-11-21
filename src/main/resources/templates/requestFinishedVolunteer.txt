@@ -1,0 +1,8 @@
+Hallo <recipient>,
+
+du hast eine Sprachbegleitung übernommen.
+
+Bitte klicke auf folgenden Link, um eine kurze Rückmeldung zu geben: <linkFeedbackVolunteer>
+
+Viele Grüße,
+<sender>

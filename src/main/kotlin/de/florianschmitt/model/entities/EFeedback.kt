@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table(uniqueConstraints = [(UniqueConstraint(columnNames = ["VOLUNTEER_ID", "REQUEST_ID"]))])
-class EFeedback(volunteer: EVolunteer, request: ERequest, positive: Boolean = false, comment: String?)  : BaseEntity() {
+class EFeedback(volunteer: EVolunteer, request: ERequest, positive: Boolean = false, comment: String?) : BaseEntity() {
 
     @ManyToOne
     @JoinColumn(nullable = false)

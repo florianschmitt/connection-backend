@@ -44,7 +44,14 @@ class EventProcessor {
         log.info("request id='${event.request.requestIdentifier}' was canceled")
 
         if (event.previousState == ERequestStateEnum.ACCEPTED) {
-            mailService.requestCanceledInformRequester(event.request)
+            mailService.requestCanceledInformVolunteer(event.request)
         }
+    }
+
+    @EventListener
+    fun handleIsFinishedEvent(event: RequestIsFinishedEvent) {
+        log.info("request id='${event.request.requestIdentifier}' is finished")
+        mailService.requestFinishedInformVolunteer(event.request)
+        mailService.requestFinishedInformRequester(event.request)
     }
 }

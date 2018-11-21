@@ -12,3 +12,5 @@ class RequestWasAcceptedEvent(source: Any, var request: ERequest) : ApplicationE
 class RequestWasCanceledEvent(source: Any, var request: ERequest, var previousState: ERequestStateEnum) : ApplicationEvent(source)
 
 class RequestIsExpiredEvent(source: Any, var request: ERequest) : ApplicationEvent(source)
+
+class RequestIsFinishedEvent(source: Any, var request: ERequest) : ApplicationEvent(source)

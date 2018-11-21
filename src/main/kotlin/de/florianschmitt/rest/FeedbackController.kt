@@ -1,6 +1,8 @@
 package de.florianschmitt.rest
 
 import de.florianschmitt.model.rest.EFeedbackDTO
+import de.florianschmitt.model.rest.EFeedbackRequesterDTO
+import de.florianschmitt.service.FeedbackRequesterService
 import de.florianschmitt.service.FeedbackService
 import de.florianschmitt.system.util.HasRequesterRole
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,12 +15,24 @@ import javax.validation.Valid
 internal class FeedbackController {
 
     @Autowired
-    private lateinit var service: FeedbackService
+    private lateinit var feedbackService: FeedbackService
 
-    @PostMapping(path = ["/feedback/{requestIdentifier}"])
+    @Autowired
+    private lateinit var feedbackRequesterService: FeedbackRequesterService
+
+
+    @PostMapping(path = ["/feedbackvolunteer/{requestIdentifier}"])
     @ResponseStatus(HttpStatus.OK)
-    fun feedback(@PathVariable(name = "requestIdentifier") requestIdentifier: String,
-                 @RequestBody @Valid data: EFeedbackDTO) {
-        service.feedback(requestIdentifier, data.positive, data.comment)
+    fun feedbackVolunteer(@PathVariable(name = "requestIdentifier") requestIdentifier: String,
+                          @RequestBody @Valid data: EFeedbackDTO) {
+        feedbackService.feedback(requestIdentifier, data.positive, data.comment)
+    }
+
+    @PostMapping(path = ["/feedbackrequester/{requestIdentifier}"])
+    @ResponseStatus(HttpStatus.OK)
+    fun feedbackRequester(@PathVariable(name = "requestIdentifier") requestIdentifier: String,
+                          @RequestBody @Valid data: EFeedbackRequesterDTO) {
+        feedbackRequesterService.feedback(requestIdentifier, data.hasOccurred,
+                data.wasPositive, data.wasCanceled, data.comment)
     }
 }

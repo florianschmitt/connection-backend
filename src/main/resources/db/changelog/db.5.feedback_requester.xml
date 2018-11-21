@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Florian Schmitt (generated)" id="1542825947576-1">
+        <createTable tableName="efeedback_requester">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="VARCHAR(1024)"/>
+            <column name="has_occurred" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="was_canceled" type="BOOL"/>
+            <column name="was_positive" type="BOOL"/>
+            <column name="request_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Florian Schmitt (generated)" id="1542825947576-2">
+        <addPrimaryKey columnNames="id" constraintName="efeedback_requester_pkey" tableName="efeedback_requester"/>
+    </changeSet>
+    <changeSet author="Florian Schmitt (generated)" id="1542825947576-3">
+        <addUniqueConstraint columnNames="request_id" constraintName="uk_qpdqbmxud1o1847fcrruhrhbw" tableName="efeedback_requester"/>
+    </changeSet>
+    <changeSet author="Florian Schmitt (generated)" id="1542825947576-4">
+        <addForeignKeyConstraint baseColumnNames="request_id" baseTableName="efeedback_requester" constraintName="fk7vt61d52oovj8dc74b4x0av5l" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="erequest"/>
+    </changeSet>
+</databaseChangeLog>

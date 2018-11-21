@@ -17,5 +17,7 @@ internal class LinkGeneratorService {
     fun requestAnswer(voucher: EVoucher) = "${baseUrl}answerrequest/${voucher.identifier}"
     fun requestAnswerDecline(voucher: EVoucher) = "${requestAnswer(voucher)}/decline"
     fun requestCancel(request: ERequest) = "${baseUrl}cancelrequest/${request.requestIdentifier}"
+    fun feedbackVolunteer(request: ERequest) = "${baseUrl}feedbackvolunteer/${request.requestIdentifier}"
+    fun feedbackRequester(request: ERequest) = "${baseUrl}feedbackrequester/${request.requestIdentifier}"
 
 }

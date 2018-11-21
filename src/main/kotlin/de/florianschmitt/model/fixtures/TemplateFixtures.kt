@@ -25,6 +25,12 @@ enum class TemplateFixtures(
     REQUEST_CANCELED_INFORM_VOLUNTEER_SUBJECT(Type.STRING, "Kopfzeile für Nachricht an Freiwillige, wenn Anfrage storniert wird", "Sprachbegleitung wurde abgesagt"),
     REQUEST_CANCELED_INFORM_VOLUNTEER_CONTENT(Type.FILE, "Vorlage für Nachricht an Freiwillige, wenn Anfrage storniert wird", "requestCanceledVolunteer.txt"),
 
+    REQUEST_FINISHED_ASK_FEEDBACK_VOLUNTEER_SUBJECT(Type.STRING, "Kopfzeile für Nachricht an Freiwillige, wenn Sprachbegleitung abgeschlossen ist", "Sprachbegleitung hat stattgefunden"),
+    REQUEST_FINISHED_ASK_FEEDBACK_VOLUNTEER_CONTENT(Type.FILE, "Vorlage für Nachricht an Freiwillige, wenn Sprachbegleitung abgeschlossen ist", "requestFinishedVolunteer.txt"),
+
+    REQUEST_FINISHED_ASK_FEEDBACK_REQUESTER_SUBJECT(Type.STRING, "Kopfzeile für Nachricht an Anfragende, wenn Sprachbegleitung abgeschlossen ist", "Sprachbegleitung hat stattgefunden"),
+    REQUEST_FINISHED_ASK_FEEDBACK_REQUESTER_CONTENT(Type.FILE, "Vorlage für Nachricht an Anfragende, wenn Sprachbegleitung abgeschlossen ist", "requestFinishedRequester.txt"),
+
     ;
 
     val identifier = this.name
