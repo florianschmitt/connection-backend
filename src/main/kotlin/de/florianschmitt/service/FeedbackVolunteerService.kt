@@ -1,10 +1,8 @@
 package de.florianschmitt.service
 
-import de.florianschmitt.model.entities.EFeedback
-import de.florianschmitt.model.entities.EFeedbackRequester
+import de.florianschmitt.model.entities.EFeedbackVolunteer
 import de.florianschmitt.model.entities.ERequestStateEnum
-import de.florianschmitt.repository.FeedbackRepository
-import de.florianschmitt.repository.FeedbackRequesterRepository
+import de.florianschmitt.repository.FeedbackVolunteerRepository
 import de.florianschmitt.repository.RequestRepository
 import de.florianschmitt.rest.exception.FeedbackAlreadyGivenException
 import de.florianschmitt.rest.exception.RequestNotFoundException
@@ -14,10 +12,10 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class FeedbackRequesterService {
+class FeedbackVolunteerService {
 
     @Autowired
-    private lateinit var repository: FeedbackRequesterRepository
+    private lateinit var repository: FeedbackVolunteerRepository
 
     @Autowired
     private lateinit var requestRepository: RequestRepository
@@ -36,11 +34,11 @@ class FeedbackRequesterService {
             throw FeedbackAlreadyGivenException()
         }
 
-        val feedback = EFeedbackRequester(request, hasOccured, wasPositive, wasCanceled, comment)
+        val feedback = EFeedbackVolunteer(request, hasOccured, wasPositive, wasCanceled, comment)
         repository.save(feedback)
     }
 
-    fun findFeedback(requestIdentifier: String) : EFeedbackRequester? {
+    fun findFeedback(requestIdentifier: String) : EFeedbackVolunteer? {
         val request = requestRepository.findByRequestIdentifier(requestIdentifier)
                 .orElseThrow { RequestNotFoundException() }
         return repository.findByRequest(request).orElse(null)

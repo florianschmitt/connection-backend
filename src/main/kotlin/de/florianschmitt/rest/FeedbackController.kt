@@ -1,8 +1,8 @@
 package de.florianschmitt.rest
 
 import de.florianschmitt.model.rest.EFeedbackDTO
-import de.florianschmitt.model.rest.EFeedbackRequesterDTO
-import de.florianschmitt.service.FeedbackRequesterService
+import de.florianschmitt.model.rest.EFeedbackVolunteerDTO
+import de.florianschmitt.service.FeedbackVolunteerService
 import de.florianschmitt.service.FeedbackService
 import de.florianschmitt.system.util.HasRequesterRole
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,21 +18,20 @@ internal class FeedbackController {
     private lateinit var feedbackService: FeedbackService
 
     @Autowired
-    private lateinit var feedbackRequesterService: FeedbackRequesterService
-
-
-    @PostMapping(path = ["/feedbackvolunteer/{requestIdentifier}"])
-    @ResponseStatus(HttpStatus.OK)
-    fun feedbackVolunteer(@PathVariable(name = "requestIdentifier") requestIdentifier: String,
-                          @RequestBody @Valid data: EFeedbackDTO) {
-        feedbackService.feedback(requestIdentifier, data.positive, data.comment)
-    }
+    private lateinit var feedbackVolunteerService: FeedbackVolunteerService
 
     @PostMapping(path = ["/feedbackrequester/{requestIdentifier}"])
     @ResponseStatus(HttpStatus.OK)
     fun feedbackRequester(@PathVariable(name = "requestIdentifier") requestIdentifier: String,
-                          @RequestBody @Valid data: EFeedbackRequesterDTO) {
-        feedbackRequesterService.feedback(requestIdentifier, data.hasOccurred,
+                          @RequestBody @Valid data: EFeedbackDTO) {
+        feedbackService.feedback(requestIdentifier, data.positive, data.comment)
+    }
+
+    @PostMapping(path = ["/feedbackvolunteer/{requestIdentifier}"])
+    @ResponseStatus(HttpStatus.OK)
+    fun feedbackVolunteer(@PathVariable(name = "requestIdentifier") requestIdentifier: String,
+                          @RequestBody @Valid data: EFeedbackVolunteerDTO) {
+        feedbackVolunteerService.feedback(requestIdentifier, data.hasOccurred,
                 data.wasPositive, data.wasCanceled, data.comment)
     }
 }

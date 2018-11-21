@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table
-class EFeedbackRequester(request: ERequest,
+class EFeedbackVolunteer(request: ERequest,
                          hasOccurred: Boolean = false,
                          wasPositive: Boolean?,
                          wasCanceled: Boolean?,

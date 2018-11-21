@@ -1,8 +1,8 @@
 package de.florianschmitt.rest.admin
 
 import de.florianschmitt.model.rest.EFeedbackDTO
-import de.florianschmitt.model.rest.EFeedbackRequesterDTO
-import de.florianschmitt.service.FeedbackRequesterService
+import de.florianschmitt.model.rest.EFeedbackVolunteerDTO
+import de.florianschmitt.service.FeedbackVolunteerService
 import de.florianschmitt.service.FeedbackService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -19,10 +19,10 @@ internal class FeedbackAdminController {
     private lateinit var service: FeedbackService
 
     @Autowired
-    private lateinit var feedbackRequesterService: FeedbackRequesterService
+    private lateinit var feedbackVolunteerService: FeedbackVolunteerService
 
-    @GetMapping(path = ["/volunteer/{requestIdentifier}"])
-    fun getFeedback(@PathVariable(name = "requestIdentifier") requestIdentifier: String): ResponseEntity<EFeedbackDTO> {
+    @GetMapping(path = ["/requester/{requestIdentifier}"])
+    fun getFeedbackRequester(@PathVariable(name = "requestIdentifier") requestIdentifier: String): ResponseEntity<EFeedbackDTO> {
         val feedback = service.findFeedback(requestIdentifier) ?: return ResponseEntity.noContent().build()
 
         return ResponseEntity.ok(EFeedbackDTO(
@@ -30,11 +30,11 @@ internal class FeedbackAdminController {
                 comment = feedback.comment))
     }
 
-    @GetMapping(path = ["/requester/{requestIdentifier}"])
-    fun getFeedbackRequester(@PathVariable(name = "requestIdentifier") requestIdentifier: String): ResponseEntity<EFeedbackRequesterDTO> {
-        val feedback = feedbackRequesterService.findFeedback(requestIdentifier) ?: return ResponseEntity.noContent().build()
+    @GetMapping(path = ["/volunteer/{requestIdentifier}"])
+    fun getFeedbackVolunteer(@PathVariable(name = "requestIdentifier") requestIdentifier: String): ResponseEntity<EFeedbackVolunteerDTO> {
+        val feedback = feedbackVolunteerService.findFeedback(requestIdentifier) ?: return ResponseEntity.noContent().build()
 
-        return ResponseEntity.ok(EFeedbackRequesterDTO(
+        return ResponseEntity.ok(EFeedbackVolunteerDTO(
                 hasOccurred = feedback.hasOccurred,
                 wasPositive = feedback.wasPositive,
                 wasCanceled = feedback.wasCanceled,

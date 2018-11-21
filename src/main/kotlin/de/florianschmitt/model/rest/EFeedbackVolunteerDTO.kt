@@ -3,7 +3,7 @@ package de.florianschmitt.model.rest
 import java.io.Serializable
 import javax.validation.constraints.NotNull
 
-class EFeedbackRequesterDTO(hasOccurred: Boolean,
+class EFeedbackVolunteerDTO(hasOccurred: Boolean,
                             wasCanceled: Boolean? = null,
                             wasPositive: Boolean? = null,
                             comment: String? = null) : Serializable {

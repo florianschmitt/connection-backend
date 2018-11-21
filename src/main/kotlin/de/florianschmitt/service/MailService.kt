@@ -102,6 +102,6 @@ class MailService {
         val subject = stringTemplateService.replace(subjectTemplate, request.requesterName!!, request)
         val content = stringTemplateService.replace(contentTemplate, request.requesterName!!, request)
 
-        mailSendService.send(request.requesterName!!, subject, content)
+        mailSendService.send(request.email!!, subject, content)
     }
 }

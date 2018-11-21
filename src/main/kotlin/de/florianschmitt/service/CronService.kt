@@ -19,8 +19,8 @@ class CronService {
     @Autowired
     private lateinit var requestService: RequestService
 
-//    @Scheduled(cron = "0/15 * * * * *") // jede Minute
-    @Scheduled(cron = "0 0 20 * * *") // jeden Tag um 20 Uhr
+    @Scheduled(cron = "0/15 * * * * *") // jede Minute
+//    @Scheduled(cron = "0 0 20 * * *") // jeden Tag um 20 Uhr
     fun closeRequestsWhichAreFinished() {
         checkForFinished()
         checkForExpired()
