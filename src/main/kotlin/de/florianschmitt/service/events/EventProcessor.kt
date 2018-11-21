@@ -44,8 +44,7 @@ class EventProcessor {
         log.info("request id='${event.request.requestIdentifier}' was canceled")
 
         if (event.previousState == ERequestStateEnum.ACCEPTED) {
-            // val acceptedByVolunteer = request.acceptedByVolunteer
-            // TODO: inform volunteer
+            mailService.requestCanceledInformRequester(event.request)
         }
     }
 }

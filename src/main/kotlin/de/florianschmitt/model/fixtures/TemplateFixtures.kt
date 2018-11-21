@@ -22,6 +22,9 @@ enum class TemplateFixtures(
     REQUEST_EXPIRED_REQUESTER_SUBJECT(Type.STRING, "Kopfzeile für Nachricht über nicht erfolgreiche Übernahme an Anfragende", "Es konnte kein Sprachbegleiter vermittelt werden"),
     REQUEST_EXPIRED_REQUESTER_CONTENT(Type.FILE, "Vorlage für Nachricht über nicht erfolgreiche Übernahme an Anfragende", "requestExpiredRequester.txt"),
 
+    REQUEST_CANCELED_INFORM_VOLUNTEER_SUBJECT(Type.STRING, "Kopfzeile für Nachricht an Freiwillige, wenn Anfrage storniert wird", "Sprachbegleitung wurde abgesagt"),
+    REQUEST_CANCELED_INFORM_VOLUNTEER_CONTENT(Type.FILE, "Vorlage für Nachricht an Freiwillige, wenn Anfrage storniert wird", "requestCanceledVolunteer.txt"),
+
     ;
 
     val identifier = this.name

@@ -70,4 +70,16 @@ class MailService {
 
         mailSendService.send(request.email!!, subject, content)
     }
+
+    fun requestCanceledInformRequester(request: ERequest) {
+        request.acceptedByVolunteer ?: throw NullPointerException("request.acceptedByVolunteer cannot be null")
+
+        val subjectTemplate = templateService.getTemplate(TemplateFixtures.REQUEST_CANCELED_INFORM_VOLUNTEER_SUBJECT)
+        val contentTemplate = templateService.getTemplate(TemplateFixtures.REQUEST_CANCELED_INFORM_VOLUNTEER_CONTENT)
+
+        val subject = stringTemplateService.replace(subjectTemplate, request.acceptedByVolunteer!!.germanDisplayString, request)
+        val content = stringTemplateService.replace(contentTemplate, request.acceptedByVolunteer!!.germanDisplayString, request)
+
+        mailSendService.send(request.acceptedByVolunteer!!, subject, content)
+    }
 }

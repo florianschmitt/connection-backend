@@ -1,0 +1,6 @@
+Hallo <recipient>,
+
+die Sprachbegleitung auf <request.languageString> am <request.dateString> wurde abgesagt und wird nicht stattfinden. Vielen Dank trotzdem für dein Engagement.
+
+Viele Grüße,
+<sender>
