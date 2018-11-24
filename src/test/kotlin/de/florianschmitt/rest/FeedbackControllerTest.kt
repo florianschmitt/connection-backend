@@ -41,7 +41,7 @@ class FeedbackControllerTest : BaseRestTest() {
         assertFalse(feedback.isPresent)
 
         val dto = EFeedbackDTO(true, null)
-        val response = restTemplate.postForEntity(buildUrl("feedback/ident3"), dto, Any::class.java)
+        val response = restTemplate.postForEntity(buildUrl("feedbackrequester/ident3"), dto, Any::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
 
@@ -62,7 +62,7 @@ class FeedbackControllerTest : BaseRestTest() {
         Assert.assertFalse(feedback.isPresent)
         val comment = "Kommentar"
         val dto = EFeedbackDTO(false, comment)
-        val response = restTemplate.postForEntity(buildUrl("feedback/ident3"), dto, Any::class.java)
+        val response = restTemplate.postForEntity(buildUrl("feedbackrequester/ident3"), dto, Any::class.java)
         Assert.assertEquals(HttpStatus.OK, response.statusCode)
         feedback = feedbackRepository.findByVolunteerAndRequest(volunteer, request)
         Assert.assertTrue(feedback.isPresent)
@@ -81,7 +81,7 @@ class FeedbackControllerTest : BaseRestTest() {
         Assert.assertFalse(feedback.isPresent)
         val dto = EFeedbackDTO(true, null)
 
-        val response = restTemplate.postForEntity(buildUrl("feedback/ident1"), dto, Any::class.java)
+        val response = restTemplate.postForEntity(buildUrl("feedbackrequester/ident1"), dto, Any::class.java)
         Assert.assertEquals(HttpStatus.OK, response.statusCode)
 
         val body = response.body as Map<*, *>
