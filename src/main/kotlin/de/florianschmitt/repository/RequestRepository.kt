@@ -25,8 +25,10 @@ interface RequestRepository : PagingAndSortingRepository<ERequest, Long> {
     fun findAllNotPayed(pageable: Pageable): Page<ERequest>
 
     @Query(value = "Select r From ERequest r Where r.state = 'OPEN' And r.datetime Is Not Null And ((r.datetime between :startDate and :endDate) or r.datetime < :startDate)")
+    @EntityGraph(attributePaths = ["languages"])
     fun findOpenRequestsWhichAreDue(@Param("startDate") startDate: LocalDateTime, @Param("endDate") endDate: LocalDateTime): Collection<ERequest>
 
     @Query(value = "Select r From ERequest r Where r.state = 'ACCEPTED' And r.datetime Is Not Null And ((r.datetime Between :startDate And :endDate) or r.datetime < :startDate)")
+    @EntityGraph(attributePaths = ["languages"])
     fun findAcceptedRequestsWhichAreDue(@Param("startDate") startDate: LocalDateTime, @Param("endDate") endDate: LocalDateTime): Collection<ERequest>
 }

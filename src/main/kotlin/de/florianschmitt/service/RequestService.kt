@@ -48,24 +48,24 @@ class RequestService {
     @Transactional
     fun expireRequest(request: ERequest) {
         request.state = ERequestStateEnum.EXPIRED
-        repository.save(request)
+        val requestSaved = repository.save(request)
 
-        log.info("$request was expired")
+        log.info("$requestSaved was expired")
 
         TransactionHook.afterCommitSuccess {
-            context.publishEvent(RequestIsExpiredEvent(this@RequestService, request))
+            context.publishEvent(RequestIsExpiredEvent(this@RequestService, requestSaved))
         }
     }
 
     @Transactional
     fun finishRequest(request: ERequest) {
         request.state = ERequestStateEnum.FINISHED
-        repository.save(request)
+        val requestSaved = repository.save(request)
 
-        log.info("$request was finished")
+        log.info("$requestSaved was finished")
 
         TransactionHook.afterCommitSuccess {
-            context.publishEvent(RequestIsFinishedEvent(this@RequestService, request))
+            context.publishEvent(RequestIsFinishedEvent(this@RequestService, requestSaved))
         }
     }
 
@@ -77,10 +77,10 @@ class RequestService {
 
         val previousState = request.state!!
         request.state = ERequestStateEnum.CANCELED
-        repository.save(request)
+        val requestSaved = repository.save(request)
 
         TransactionHook.afterCommitSuccess {
-            context.publishEvent(RequestWasCanceledEvent(this@RequestService, request, previousState))
+            context.publishEvent(RequestWasCanceledEvent(this@RequestService, requestSaved, previousState))
         }
     }
 
@@ -127,10 +127,10 @@ class RequestService {
 
         request.acceptedByVolunteer = voucher.volunteer
         request.state = ERequestStateEnum.ACCEPTED
-        repository.save(request)
+        val requestSaved = repository.save(request)
 
         TransactionHook.afterCommitSuccess {
-            context.publishEvent(RequestWasAcceptedEvent(this@RequestService, request))
+            context.publishEvent(RequestWasAcceptedEvent(this@RequestService, requestSaved))
         }
     }
 
@@ -178,13 +178,13 @@ class RequestService {
         request.requestIdentifier = identifierGenerator.generate()
         request.createdAt = LocalDateTime.now()
 
-        request = repository.save(request)
-        val vouchers = createVouchers(request)
+        val requestSaved = repository.save(request)
+        val vouchers = createVouchers(requestSaved)
 //        if (vouchers.isEmpty()) throw RuntimeException("what to do if no vouchers were created?")
-        val result = request.requestIdentifier ?: throw RuntimeException("requestIdentifier cannot be null")
+        val result = requestSaved.requestIdentifier ?: throw RuntimeException("requestIdentifier cannot be null")
 
         TransactionHook.afterCommitSuccess {
-            context.publishEvent(RequestWasSubmittedEvent(this@RequestService, request, vouchers))
+            context.publishEvent(RequestWasSubmittedEvent(this@RequestService, requestSaved, vouchers))
         }
 
         return result

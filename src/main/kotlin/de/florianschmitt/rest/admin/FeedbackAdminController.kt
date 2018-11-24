@@ -34,10 +34,18 @@ internal class FeedbackAdminController {
     fun getFeedbackVolunteer(@PathVariable(name = "requestIdentifier") requestIdentifier: String): ResponseEntity<EFeedbackVolunteerDTO> {
         val feedback = feedbackVolunteerService.findFeedback(requestIdentifier) ?: return ResponseEntity.noContent().build()
 
-        return ResponseEntity.ok(EFeedbackVolunteerDTO(
-                hasOccurred = feedback.hasOccurred,
-                wasPositive = feedback.wasPositive,
-                wasCanceled = feedback.wasCanceled,
-                comment = feedback.comment))
+        return if (feedback.hasOccurred) {
+            ResponseEntity.ok(EFeedbackVolunteerDTO(
+                    hasOccurred = feedback.hasOccurred,
+                    wasPositive = feedback.wasPositive,
+                    wasCanceled = null,
+                    comment = feedback.comment))
+        } else {
+            ResponseEntity.ok(EFeedbackVolunteerDTO(
+                    hasOccurred = feedback.hasOccurred,
+                    wasPositive = null,
+                    wasCanceled = feedback.wasCanceled,
+                    comment = feedback.comment))
+        }
     }
 }

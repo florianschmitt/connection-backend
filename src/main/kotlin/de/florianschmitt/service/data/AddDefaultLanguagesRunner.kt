@@ -34,6 +34,7 @@ class AddDefaultLanguagesRunner : CommandLineRunner {
         addArabic()
         addTurkish()
         addSerboCroatic()
+        addEnglish()
     }
 
     private fun addArabic() {
@@ -68,4 +69,16 @@ class AddDefaultLanguagesRunner : CommandLineRunner {
         l.localized = setOf(l1, l2, l3)
         languageService.save(l)
     }
+
+    private fun addEnglish() {
+        val l = ELanguage("ENGLISH", 5)
+
+        val l1 = ELocalized(l, ELocalizedLanguageEnum.DE, "Englisch")
+        val l2 = ELocalized(l, ELocalizedLanguageEnum.AR, "العربية")
+        val l3 = ELocalized(l, ELocalizedLanguageEnum.EN, "English")
+
+        l.localized = setOf(l1, l2, l3)
+        languageService.save(l)
+    }
+
 }
